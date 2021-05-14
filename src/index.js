@@ -1,9 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Dashboard from './components/pokemonHome';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import PokemonContainer from './components/pokemonContainer'
 
 ReactDOM.render(
-    <Dashboard />,
-  document.getElementById('root')
-);
+    <PokemonContainer />,
+    document.getElementById('root')
+)
 
+// https://www.youtube.com/watch?v=XehSJF85F38

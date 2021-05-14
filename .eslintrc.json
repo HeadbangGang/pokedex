@@ -1,0 +1,57 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "indent": 1,
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "never"
+        ],
+        "no-dupe-args": 2,
+        "no-dupe-keys": 2,
+        "no-duplicate-case": 2,
+        "eqeqeq": [2, "smart"],
+        "no-nested-ternary": 2,
+        "react/jsx-equals-spacing": [2, "never"],
+        "react/boolean-prop-naming": 2,
+        "react/prop-types": [2, { "ignore": ["children"]}],
+        "react/no-multi-comp": [2, { "ignoreStateless": true }],
+        "react/prefer-es6-class": [2, "always"],
+        "react/sort-prop-types": [2, { "ignoreCase": true }],
+        "react/react-in-jsx-scope": 2,
+        "jsx-a11y/href-no-hash": 0,
+        "jsx-a11y/img-has-alt": 0,
+        "react/jsx-closing-bracket-location": [1, "line-aligned"],
+        "react/jsx-tag-spacing": 2,
+        "react/jsx-no-duplicate-props": [2, { "ignoreCase": false}],
+        "react/no-typos": 2,
+        "max-len": [2, { "code": 180, "tabWidth": 4, "ignoreTemplateLiterals": true, "ignoreUrls": true, "ignoreComments": true }],
+        "no-debugger": 1,
+        "no-console": 1,
+        "no-unused-vars": 1
+    }
+}
