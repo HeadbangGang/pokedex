@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {useState, useEffect} from 'react'
 import { Card, Col } from 'react-bootstrap'
+import {Bug, Dark, Dragon, Electric, Fairy, Fighting, Fire, Flying, Ghost, Grass, Ground, Ice, Normal, Poison, Psychic, Rock, Steel, Water } from '../media/types/index'
 
 type PokemonProps = {
     pokemon: any,
@@ -42,20 +43,22 @@ export default function PokemonCard({pokemon}: PokemonProps): any {
         }).join('/')
         return (
             <Col>
-                <Card style={{ width: '13rem' }}>
+                <Card border="secondary">
                     <Card.Body>
-                        <Card.Title className="pokemon-name">
-                            {/* <div>{pokedexIndex}</div> */}
-                            {pokemon.name}
-                            { hasExtendedData && <img src={pokemonData.img} alt={pokemon.name} style={{height: '50px', width: '50px'}} /> }
+                        <Card.Title style={{textAlign: 'center'}}>
+                            { hasExtendedData && <img src={pokemonData.img} alt={pokemon.name} style={{height: '150px', width: '150px'}} draggable={ false } />}
                         </Card.Title>
-                        { hasExtendedData &&
-                        <div>
-                            <div>PokeDex ID #{pokemonData.id}</div>
-                            <div>Height: {pokemonData.height}</div>
-                            <div>Base Experience: {pokemonData.baseExperience}</div>
-                            <div style={{textTransform: 'capitalize'}}>{types.includes('/') ? 'types' : 'type'}: {types}</div>
-                        </div>
+                        <Card.Subtitle className="pokemon-name">
+                            {pokemon.name}
+                        </Card.Subtitle>
+                        { hasExtendedData
+                            ? <div style={{fontSize: '12px', fontWeight: 100}}>
+                                <div>#{pokemonData.id}</div>
+                                <div>Height: {pokemonData.height}</div>
+                                <div>Base XP: {pokemonData.baseExperience}</div>
+                                <div style={{textTransform: 'capitalize'}}>{types.includes('/') ? 'types' : 'type'}: {types}</div>
+                            </div>
+                            : <div>Loading...</div>
                         }
                     </Card.Body>
                 </Card>
