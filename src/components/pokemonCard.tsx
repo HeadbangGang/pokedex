@@ -1,86 +1,65 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, {useState} from 'react'
-import { Card, Container, Row, Button } from 'react-bootstrap'
+import React, {useState, useEffect} from 'react'
+import { Card, Col } from 'react-bootstrap'
 
 type PokemonProps = {
-    pokemon: any
+    pokemon: any,
     }
 
 export default function PokemonCard({pokemon}: PokemonProps): any {
-    const [pokemonData, setPokemonData] = useState<any>({})
-    const [shouldShowExtendedData, setShouldShowExtendedData] = useState<any>({})
+    const [hasExtendedData, setHasExtendedData] = useState<any>(false)
+    const [pokemonData, setPokemonData] = useState<any>()
+
+    useEffect(() => {
+        const name = pokemon.name
+        const getPokemonData = async () => {
+            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+            if (res.status === 200){
+                res.json().then(function (data) {
+                    setPokemonData({
+                        baseExperience: data.base_experience,
+                        height: data.height,
+                        id: data.id,
+                        img: data.sprites.front_default,
+                        name: name,
+                        types: data.types
+                    })
+                    setHasExtendedData(true)
+                })
+            } else {
+                console.log('Whoops, shits broke')
+            }
+        }
+        getPokemonData()
+    }, [])
 
     // const pokedexIndex = pokemonList.index
     const pokemonName = pokemon.name
     if (pokemonName) {
+        const types = pokemonData && pokemonData.types.map((type: any) => {
+            return type.type.name
+        }).join('/')
         return (
-            <>
-                <Container fluid>
-                    <Row>
-                        <Card style={{ width: '18rem' }}>
-                            <Card.Body>
-                                <Card.Title className="pokemon-name">
-                                    {/* <div>{pokedexIndex}</div> */}
-                                    {pokemon.name}
-                                </Card.Title>
-                                {/* <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
-                                            <Card.Text>
-                                            Some quick example text to build on the card title and make up the bulk of the cardʼs content.
-                                            </Card.Text> */}
-                                { shouldShowExtendedData[pokemonName] && showExtendedData(pokemonName) }
-                                {shouldShowExtendedData[pokemonName] ?
-                                    <Button onClick={ () => setShouldShowExtendedData({ [pokemonName]: false }) }>Hide Extended Data</Button>
-                                    : <Button onClick={ () => fetchExtendedData(pokemonName) }>Show Extended Data</Button>
-                                }
-                            </Card.Body>
-                        </Card>
-                    </Row>
-                </Container>
-            </>
+            <Col>
+                <Card style={{ width: '13rem' }}>
+                    <Card.Body>
+                        <Card.Title className="pokemon-name">
+                            {/* <div>{pokedexIndex}</div> */}
+                            {pokemon.name}
+                            { hasExtendedData && <img src={pokemonData.img} alt={pokemon.name} style={{height: '50px', width: '50px'}} /> }
+                        </Card.Title>
+                        { hasExtendedData &&
+                        <div>
+                            <div>PokeDex ID #{pokemonData.id}</div>
+                            <div>Height: {pokemonData.height}</div>
+                            <div>Base Experience: {pokemonData.baseExperience}</div>
+                            <div style={{textTransform: 'capitalize'}}>{types.includes('/') ? 'types' : 'type'}: {types}</div>
+                        </div>
+                        }
+                    </Card.Body>
+                </Card>
+            </Col>
         )
-    }
-
-    function showExtendedData(pokemonName: any) {
-        try {
-            if (Object.keys(pokemonData).includes(pokemonName)) {
-                const types = pokemonData[pokemonName].types.map((type: any) => {
-                    return Object(type.type.name)
-                })
-                return (
-                    <ul>
-                        <dl>Height: {pokemonData[pokemonName].height}</dl>
-                        <dl>Base Experience: {pokemonData[pokemonName].baseExperience}</dl>
-                        <dl>Types: {types}</dl>
-                    </ul>
-                )
-            }
-        } catch (e){
-            console.log(e)
-        }
-    }
-
-    async function fetchExtendedData(name: string) {
-        try {
-            await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
-                .then(
-                    function (res) {
-                        res.json().then(function (data) {
-                            const updatedPokemonData = { ...pokemonData,
-                                [name]:{
-                                    baseExperience: data.base_experience,
-                                    height: data.height,
-                                    name: name,
-                                    types: data.types
-                                } }
-                            setPokemonData(updatedPokemonData)
-                        })
-                    }
-                )
-            setShouldShowExtendedData({ ...shouldShowExtendedData, [name]: true })
-        }
-        catch (e) {
-            console.log(e)
-        }
     }
 }

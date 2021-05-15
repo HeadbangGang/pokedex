@@ -1,3 +1,7 @@
 .card-title {
     text-transform: capitalize;
 }
+
+.col {
+    padding: 15px 15px;
+}
