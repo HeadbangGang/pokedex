@@ -1,20 +1,18 @@
 /* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
-import { Navbar, Nav, NavDropdown, Button, Form, FormControl } from 'react-bootstrap'
+import { Navbar, Nav, Button, Form, FormControl } from 'react-bootstrap'
 import pokeball from '../media/pokeball.png'
 
 export default class PokeNavbar extends React.Component {
-    
+
     state = {
         searchData: ''
     }
 
-    render():any{
-        
+    render() {
         return (
             <Navbar style={{backgroundColor: 'red'}} expand="lg">
-                <Navbar.Brand href="#home" style={{ color: 'white' }}>
+                <Navbar.Brand href={'/pokedex'} style={{ color: 'white' }}>
                     <img src={pokeball} style={{ height: '50px', width: '50px', margin: '0 10px 0 0' }} draggable={ false } />
                     Pokédex
                 </Navbar.Brand>
@@ -22,14 +20,6 @@ export default class PokeNavbar extends React.Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="/pokedex">Home</Nav.Link>
-                        <Nav.Link href="#link">Link</Nav.Link>
-                        <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                        </NavDropdown>
                     </Nav>
                     <Form inline onSubmit={ (event) => fetchPokemon(event, this.state.searchData) }>
                         <FormControl
@@ -52,7 +42,7 @@ export default class PokeNavbar extends React.Component {
     }
 }
 
-async function fetchPokemon(e: any, pokemon: string) {
+async function fetchPokemon(e, pokemon) {
     e.preventDefault()
     if (pokemon !== '') {
         const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)

@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 import { Navbar } from 'react-bootstrap'
 import pokeball from '../media/pokeball.png'
 
 export default class PokeFooter extends React.Component {
-    render():any{
+    render(){
         const date = new Date
 
         return (

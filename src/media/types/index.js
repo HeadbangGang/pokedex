@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import Bug from './bug.png'
 import Dark from './dark.png'
 import Dragon from './dragon.png'
@@ -18,23 +17,23 @@ import Rock from './rock.png'
 import Steel from './steel.png'
 import Water from './water.png'
 
-export {
-    Bug,
-    Dark,
-    Dragon,
-    Electric,
-    Fairy,
-    Fighting,
-    Fire,
-    Flying,
-    Ghost,
-    Grass,
-    Ground,
-    Ice,
-    Normal,
-    Poison,
-    Psychic,
-    Rock,
-    Steel,
-    Water
+export const typeImages = {
+    bug: Bug,
+    dark: Dark,
+    dragon: Dragon,
+    electric: Electric,
+    fairy: Fairy,
+    fighting: Fighting,
+    fire: Fire,
+    flying: Flying,
+    ghost: Ghost,
+    grass: Grass,
+    ground: Ground,
+    ice: Ice,
+    normal: Normal,
+    poison: Poison,
+    psychic: Psychic,
+    rock: Rock,
+    steel: Steel,
+    water: Water
 }

@@ -1,16 +1,12 @@
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {useState, useEffect} from 'react'
+import { useHistory } from 'react-router-dom'
 import { Card, Col } from 'react-bootstrap'
-import {Bug, Dark, Dragon, Electric, Fairy, Fighting, Fire, Flying, Ghost, Grass, Ground, Ice, Normal, Poison, Psychic, Rock, Steel, Water } from '../media/types/index'
+import { typeImages } from '../media/types/index'
 
-type PokemonProps = {
-    pokemon: any,
-    }
-
-export default function PokemonCard({pokemon}: PokemonProps): any {
-    const [hasExtendedData, setHasExtendedData] = useState<any>(false)
-    const [pokemonData, setPokemonData] = useState<any>()
+export default function PokemonCard({pokemon}) {
+    const [hasExtendedData, setHasExtendedData] = useState(false)
+    const [pokemonData, setPokemonData] = useState()
+    const history = useHistory()
 
     useEffect(() => {
         const name = pokemon.name
@@ -38,12 +34,15 @@ export default function PokemonCard({pokemon}: PokemonProps): any {
     // const pokedexIndex = pokemonList.index
     const pokemonName = pokemon.name
     if (pokemonName) {
-        const types = pokemonData && pokemonData.types.map((type: any) => {
-            return type.type.name
-        }).join('/')
+        const types = pokemonData && pokemonData.types.map((type, index) => {
+            const typeName = type.type.name
+            return (
+                <img key={index} src={typeImages[typeName]} style={{ maxWidth: '35px', margin: '0 2.5px' }} alt={typeName} />
+            )
+        })
         return (
             <Col>
-                <Card border="secondary">
+                <Card border="secondary pokemon-card">
                     <Card.Body>
                         <Card.Title style={{textAlign: 'center'}}>
                             { hasExtendedData && <img src={pokemonData.img} alt={pokemon.name} style={{height: '150px', width: '150px'}} draggable={ false } />}
@@ -56,11 +55,12 @@ export default function PokemonCard({pokemon}: PokemonProps): any {
                                 <div>#{pokemonData.id}</div>
                                 <div>Height: {pokemonData.height}</div>
                                 <div>Base XP: {pokemonData.baseExperience}</div>
-                                <div style={{textTransform: 'capitalize'}}>{types.includes('/') ? 'types' : 'type'}: {types}</div>
+                                <div style={{textTransform: 'capitalize'}}>{pokemonData.types.length > 1 ? 'types' : 'type'}: {types}</div>
                             </div>
                             : <div>Loading...</div>
                         }
                     </Card.Body>
+                    <a onClick={() => history.push('/pokemon')} className="stretched-link"></a>
                 </Card>
             </Col>
         )
