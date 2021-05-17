@@ -1,13 +1,18 @@
 import React from 'react'
 import { Navbar } from 'react-bootstrap'
+import PropTypes from 'prop-types'
 import pokeball from '../media/pokeball.png'
 
 export default class PokeFooter extends React.Component {
-    render(){
+    render() {
         const date = new Date
 
+        PokeFooter.propTypes = {
+            pokemonCount: PropTypes.number
+        }
+
         return (
-            <Navbar bg="dark">
+            <Navbar bg="dark" fixed="bottom">
                 <Navbar.Brand href="/pokedex">
                     <img
                         src={ pokeball }
@@ -21,9 +26,10 @@ export default class PokeFooter extends React.Component {
                 <span style={{color: 'white'}}>
                 © {date.getFullYear()} Tayden Flitcroft
                 </span>
+                { this.props.pokemonCount &&
                 <div className="ml-auto" style={{color: 'white'}}>
-                    Currently Existing Pokemon: 
-                </div>
+                    National Pokédex Count: { this.props.pokemonCount }
+                </div> }
             </Navbar>
         )
     }

@@ -1,38 +1,47 @@
+/* eslint-disable no-console */
 import React, {useState, useEffect} from 'react'
+import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { Card, Col } from 'react-bootstrap'
 import { typeImages } from '../media/types/index'
+import spinner from '../media/spinner.webp'
+import imageNotFound from '../media/image-not-found.png'
 
-export default function PokemonCard({pokemon}) {
+export default function PokemonCard({ pokemon, setSelectedPokemon }) {
+    const pokemonName = pokemon.name
+
     const [hasExtendedData, setHasExtendedData] = useState(false)
     const [pokemonData, setPokemonData] = useState()
+    const [isLoadingData, setIsLoadingData] = useState(true)
+    const [errorImg, setErrorImg] = useState()
     const history = useHistory()
 
     useEffect(() => {
-        const name = pokemon.name
         const getPokemonData = async () => {
-            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
-            if (res.status === 200){
-                res.json().then(function (data) {
-                    setPokemonData({
-                        baseExperience: data.base_experience,
-                        height: data.height,
-                        id: data.id,
-                        img: data.sprites.front_default,
-                        name: name,
-                        types: data.types
+            try {
+                const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+                if (res.status === 200){
+                    res.json().then(function (data) {
+                        setPokemonData({
+                            baseExperience: data.base_experience,
+                            id: data.id,
+                            img: data.sprites.front_default,
+                            img_alt: data.sprites.front_shiny,
+                            name: pokemonName,
+                            types: data.types
+                        })
+                        setHasExtendedData(true)
                     })
-                    setHasExtendedData(true)
-                })
-            } else {
-                console.log('Whoops, shits broke')
+                } else {
+                    console.log('Whoops, shits broke')
+                }
+            } catch (e) {
+                console.log(e)
             }
         }
         getPokemonData()
     }, [])
 
-    // const pokedexIndex = pokemonList.index
-    const pokemonName = pokemon.name
     if (pokemonName) {
         const types = pokemonData && pokemonData.types.map((type, index) => {
             const typeName = type.type.name
@@ -40,29 +49,54 @@ export default function PokemonCard({pokemon}) {
                 <img key={index} src={typeImages[typeName]} style={{ maxWidth: '35px', margin: '0 2.5px' }} alt={typeName} />
             )
         })
+
         return (
             <Col>
                 <Card border="secondary pokemon-card">
                     <Card.Body>
                         <Card.Title style={{textAlign: 'center'}}>
-                            { hasExtendedData && <img src={pokemonData.img} alt={pokemon.name} style={{height: '150px', width: '150px'}} draggable={ false } />}
+                            { hasExtendedData && !isLoadingData
+                                ? <img
+                                    src={ errorImg || pokemonData.img || pokemonData.img_alt }
+                                    alt={pokemonName}
+                                    style={{height: '150px', width: '150px'}} // Need to set width of error image to 200px
+                                    draggable={ false }
+                                    onError={() => setErrorImg(imageNotFound)}
+                                />
+                                : <img
+                                    src={ spinner }
+                                    alt='loading'
+                                    style={{ height: '75px', width: '75px', margin: '38px' }}
+                                    draggable={ false }
+                                    onLoad={() => setIsLoadingData(false)}
+                                />}
                         </Card.Title>
                         <Card.Subtitle className="pokemon-name">
-                            {pokemon.name}
+                            {pokemonName}
                         </Card.Subtitle>
                         { hasExtendedData
                             ? <div style={{fontSize: '12px', fontWeight: 100}}>
                                 <div>#{pokemonData.id}</div>
-                                <div>Height: {pokemonData.height}</div>
                                 <div>Base XP: {pokemonData.baseExperience}</div>
-                                <div style={{textTransform: 'capitalize'}}>{pokemonData.types.length > 1 ? 'types' : 'type'}: {types}</div>
+                                <div>{pokemonData.types.length > 1 ? 'Types' : 'Type'}: {types}</div>
                             </div>
                             : <div>Loading...</div>
                         }
                     </Card.Body>
-                    <a onClick={() => history.push('/pokemon')} className="stretched-link"></a>
+                    <a
+                        className="stretched-link"
+                        onClick={() => {
+                            setSelectedPokemon(pokemonName)
+                            history.push(`/pokemon/${pokemonName}`)
+                        }}
+                    ></a>
                 </Card>
             </Col>
         )
     }
+}
+
+PokemonCard.propTypes ={
+    pokemon: PropTypes.object,
+    setSelectedPokemon: PropTypes.func
 }
