@@ -18,25 +18,21 @@ export default function PokemonCard({ pokemon, setSelectedPokemon }) {
 
     useEffect(() => {
         const getPokemonData = async () => {
-            try {
-                const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-                if (res.status === 200){
-                    res.json().then(function (data) {
-                        setPokemonData({
-                            baseExperience: data.base_experience,
-                            id: data.id,
-                            img: data.sprites.front_default,
-                            img_alt: data.sprites.front_shiny,
-                            name: pokemonName,
-                            types: data.types
-                        })
-                        setHasExtendedData(true)
+            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+            if (res.status === 200){
+                await res.json().then(function (data) {
+                    setPokemonData({
+                        baseExperience: data.base_experience,
+                        id: data.id,
+                        img: data.sprites.front_default,
+                        img_alt: data.sprites.front_shiny,
+                        name: pokemonName,
+                        types: data.types
                     })
-                } else {
-                    console.log('Whoops, shits broke')
-                }
-            } catch (e) {
-                console.log(e)
+                    setHasExtendedData(true)
+                })
+            } else {
+                console.log('Whoops, shits broke')
             }
         }
         getPokemonData()

@@ -20,9 +20,11 @@ export default function PokeNavbar({ setSelectedPokemon }) {
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-                
-                
-                <Form inline onSubmit={ (event) => fetchPokemon(event, searchData, history, setSelectedPokemon, setShowOverlay, setOverlayParams) } className="ml-auto">
+                <Form
+                    className="ml-auto"
+                    inline
+                    onSubmit={ (event) => fetchPokemon(event, searchData, history, setSelectedPokemon, setShowOverlay, setOverlayParams) }
+                >
                     <FormControl
                         type="text"
                         placeholder="Search Pokémon"
@@ -79,9 +81,5 @@ async function fetchPokemon(e, pokemon, history, setSelectedPokemon, setShowOver
 }
 
 PokeNavbar.propTypes ={
-    alertParams: PropTypes.object,
-    setAlertParams: PropTypes.func,
-    setSelectedPokemon: PropTypes.func,
-    setShowAlert: PropTypes.func,
-    showAlert: PropTypes.bool
+    setSelectedPokemon: PropTypes.func
 }
