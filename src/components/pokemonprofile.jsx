@@ -1,59 +1,79 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Carousel } from 'react-bootstrap'
+import { useHistory } from 'react-router-dom'
 
-export default function PokemonProfile({ pokemon }) {
+export default function PokemonProfile({ pokemon, pokemonData, setPokemonData }) {
+    const history = useHistory()
 
     const [isCallInProgress, setIsCallInProgress] = useState(false)
-    const [pokemonData, setPokemonData] = useState()
+    const [gameIndices, setGameIndices] = useState()
+    const [sprites, setSprites] = useState()
 
     useEffect(() => {
         async function getPokemon() {
             setIsCallInProgress(true)
-            try{
-                const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
-                if (res.status === 200){
-                    await res.json().then(function (data) {
-                        setPokemonData(data)
-                    })
-                } else {
-                    console.log('Whoops, shits broke') // Need to create error page to navigate to
-                }
-            } catch (e) {
-                console.log(e)
-            } finally {
-                setIsCallInProgress(false)
+            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+            if (res.status === 200){
+                await res.json().then(function (data) {
+                    setPokemonData(data)
+                    setIsCallInProgress(false)
+                })
+            } else {
+                history.push('/error')
             }
         }
-        if (!pokemon) {
-            pokemon = window.location.href
+        if (!pokemonData) {
+            getPokemon()
         }
-        getPokemon()
     }, [])
+
+    useEffect(() => {
+        if (pokemonData) {
+            let completeIndices = []
+            let allSprites = []
+            pokemonData.game_indices.forEach(index => {
+                completeIndices.push(index.version.name)
+            })
+
+            for (const [key, value] of Object.entries(pokemonData.sprites)) {
+                if (value !== null && key !== 'other' && key !== 'versions'){
+                    allSprites.push([`${key}`, `${value}`])
+                }
+            }
+
+            for (const [key, value] of Object.entries(pokemonData.sprites)) {
+                if (value !== null && key !== 'other' && key !== 'versions'){
+                    allSprites.push([`${key}`, `${value}`])
+                }
+            }
+
+            setGameIndices(completeIndices)
+            setSprites(allSprites)
+        }
+    }, [pokemonData])
 
     return ( // Want to set pokemon name in navbar
         <>
             { !isCallInProgress && pokemonData
                 ? <div style={{ textAlign: '-webkit-center' }}>
-                    <Carousel style={{ width: '50%' }}>
-                        <Carousel.Item interval={5000}>
+                    { sprites.map((sprite, index) => {
+                        return (
                             <img
-                                className="d-block w-100"
-                                src={ pokemonData.sprites.front_default }
                                 alt="First slide"
-                                draggable={ false }
-                            />
-                        </Carousel.Item>
-                        <Carousel.Item interval={5000}>
-                            <img
                                 className="d-block w-100"
-                                src={ pokemonData.sprites.front_shiny }
-                                alt="Second slide"
                                 draggable={ false }
+                                key={ index }
+                                src={ sprite[1] }
+                                style={{ maxWidth: '100px' }}
                             />
-                        </Carousel.Item>
-                    </Carousel>
+                        )
+                    }) }
+                    { gameIndices.map((game, index) => {
+                        return (
+                            <span key={ index }>{ game } </span>
+                        )
+                    })}
                 </div>
                 :<div>Loading...</div> }
         </>
@@ -61,5 +81,7 @@ export default function PokemonProfile({ pokemon }) {
 }
 
 PokemonProfile.propTypes = {
-    pokemon: PropTypes.string
+    pokemon: PropTypes.string,
+    pokemonData: PropTypes.object,
+    setPokemonData: PropTypes.func
 }

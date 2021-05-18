@@ -42,20 +42,23 @@ export default function PokemonCard({ pokemon, setSelectedPokemon }) {
         const types = pokemonData && pokemonData.types.map((type, index) => {
             const typeName = type.type.name
             return (
-                <img key={index} src={typeImages[typeName]} style={{ maxWidth: '35px', margin: '0 2.5px' }} alt={typeName} />
+                <img key={index} src={typeImages[typeName]} style={{ maxWidth: '50px', margin: '0 2.5px' }} alt={typeName} />
             )
         })
 
         return (
             <Col>
                 <Card border="secondary pokemon-card">
+                    { hasExtendedData && <span style={{ padding: '5px 0 0 10px', fontSize: '16px', fontWeight: 100, textAlign: 'left' }}>#{ pokemonData.id }</span> }
                     <Card.Body>
+                    
                         <Card.Title style={{textAlign: 'center'}}>
+                            
                             { hasExtendedData && !isLoadingData
                                 ? <img
                                     src={ errorImg || pokemonData.img || pokemonData.img_alt }
                                     alt={pokemonName}
-                                    style={{height: '150px', width: '150px'}} // Need to set width of error image to 200px
+                                    style={{height: '175px', width: '175px'}} // Need to set width of error image to 200px
                                     draggable={ false }
                                     onError={() => setErrorImg(imageNotFound)}
                                 />
@@ -69,15 +72,10 @@ export default function PokemonCard({ pokemon, setSelectedPokemon }) {
                         </Card.Title>
                         <Card.Subtitle className="pokemon-name">
                             {pokemonName}
-                        </Card.Subtitle>
-                        { hasExtendedData
-                            ? <div style={{fontSize: '12px', fontWeight: 100}}>
-                                <div>#{pokemonData.id}</div>
-                                <div>Base XP: {pokemonData.baseExperience}</div>
-                                <div>{pokemonData.types.length > 1 ? 'Types' : 'Type'}: {types}</div>
+                            <div>
+                                { hasExtendedData && types }
                             </div>
-                            : <div>Loading...</div>
-                        }
+                        </Card.Subtitle>
                     </Card.Body>
                     <a
                         className="stretched-link"

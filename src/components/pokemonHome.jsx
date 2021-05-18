@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import { Row, Alert } from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
 import PokemonCard from './pokemonCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
@@ -9,30 +9,33 @@ export default function PokemonHome ({ setPokemonCount, setSelectedPokemon }) {
     const [pokemonList, setPokemonList] = useState()
     const [nextPokemonURL, setNextPokemonURL] = useState()
     const [isCallInProgress, setIsCallInProgress] = useState(false)
-    const [showAlert, setShowAlert] = useState(false)
-    const [alertParams, setAlertParams] = useState()
 
     useEffect(() => {
+        async function getPokedexCount() {
+            const res = await fetch('https://pokeapi.co/api/v2/pokedex/1')
+            if (res.status === 200){
+                await res.json().then(function (data) {
+                    setPokemonCount(data.pokemon_entries.length)
+                })
+            } else {
+                console.log('Whoops, shits broke')
+            }
+        }
+        getPokedexCount()
         getPokemon()
     }, [])
 
     async function getPokemon() {
         setIsCallInProgress(true)
-        try{
-            const res = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=60')
-            if (res.status === 200){
-                await res.json().then(function (data) {
-                    setPokemonList(data.results)
-                    setNextPokemonURL(data.next)
-                    setPokemonCount(data.count)
-                })
-            } else {
-                console.log('Whoops, shits broke')
-            }
-        } catch (e) {
-            console.log(e)
-        } finally {
-            setIsCallInProgress(false)
+        const res = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=60')
+        if (res.status === 200){
+            await res.json().then(function (data) {
+                setPokemonList(data.results)
+                setNextPokemonURL(data.next)
+                setIsCallInProgress(false)
+            })
+        } else {
+            console.log('Whoops, shits broke')
         }
     }
 
@@ -44,7 +47,6 @@ export default function PokemonHome ({ setPokemonCount, setSelectedPokemon }) {
                     const mergedData = pokemonList.concat(data.results)
                     setPokemonList(mergedData)
                     setNextPokemonURL(data.next)
-                    setPokemonCount(data.count)
                 })
             } else {
                 console.log('Whoops, shits broke')
@@ -56,19 +58,6 @@ export default function PokemonHome ({ setPokemonCount, setSelectedPokemon }) {
 
     return (
         <div>
-            { showAlert &&
-            <Alert
-                dismissible
-                variant={ alertParams.variant }
-                onClose={() => {
-                    setShowAlert(false)
-                    setAlertParams({})
-                }}
-            >
-                <Alert.Heading>{ alertParams.heading }</Alert.Heading>
-                <p>{alertParams.message || 'I\'m not sure what happened, please try again'}</p>
-            </Alert>
-            }
             { pokemonList && !isCallInProgress
                 ?    <InfiniteScroll
                     dataLength={pokemonList.length}
@@ -80,7 +69,7 @@ export default function PokemonHome ({ setPokemonCount, setSelectedPokemon }) {
                         </p>
                     }
                 >
-                    <Row xl={6} lg={4} md={3} sm={2} xs={1}>
+                    <Row xl={ 3 } lg={ 1 } md={ 1 } sm={ 1 } xs={ 1 } style={{ justifyContent: 'center' }}>
                         { pokemonList.map(function (pokemon, index) {
                             return (
                                 <PokemonCard

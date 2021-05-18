@@ -8,6 +8,8 @@
 
 .col {
     padding: 15px 15px;
+    text-align: -webkit-center;
+    max-width: 375px;
 }
 
 .pokemon-card {
@@ -18,4 +20,5 @@
     transform: scale(1.050);
     cursor: pointer;
     box-shadow: 0px 0px 10px black;
-  }
+  
+}
