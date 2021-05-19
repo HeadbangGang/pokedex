@@ -1,14 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PokemonContainer from './components/pokemonContainer'
-import { Router } from 'react-router-dom'
-import { createBrowserHistory } from 'history'
-
-const history = createBrowserHistory()
+import './fonts/Pokemon_Hollow.ttf'
+import './fonts/Pokemon_Solid.ttf'
 
 ReactDOM.render(
-    <Router history={ history }>
-        <PokemonContainer />
-    </Router>,
+    <PokemonContainer />,
     document.getElementById('root')
 )

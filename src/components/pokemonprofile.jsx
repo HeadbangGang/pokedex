@@ -53,11 +53,11 @@ export default function PokemonProfile({ pokemon, pokemonData, setPokemonData })
         }
     }, [pokemonData])
 
-    return ( // Want to set pokemon name in navbar
+    return (
         <>
             { !isCallInProgress && pokemonData
                 ? <div style={{ textAlign: '-webkit-center' }}>
-                    { sprites.map((sprite, index) => {
+                    { sprites && sprites.map((sprite, index) => {
                         return (
                             <img
                                 alt="First slide"
@@ -69,7 +69,7 @@ export default function PokemonProfile({ pokemon, pokemonData, setPokemonData })
                             />
                         )
                     }) }
-                    { gameIndices.map((game, index) => {
+                    { gameIndices && gameIndices.map((game, index) => {
                         return (
                             <span key={ index }>{ game } </span>
                         )

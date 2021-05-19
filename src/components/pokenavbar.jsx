@@ -68,6 +68,7 @@ export default function PokeNavbar({ selectedPokemon, selectedPokemonData, setSe
                             Search
                     </Button>
                 </Form>
+                <Button onClick={()=> history.push('/account/sign-up')}>Sign Up</Button>
             </Navbar.Collapse>
             <Overlay
                 containerPadding={ 20 }
