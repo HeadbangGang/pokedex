@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import pokeball from '../media/pokeball.png'
 
-export default function PokeNavbar({ selectedPokemon, selectedPokemonData, setSelectedPokemon, setSelectedPokemonData }) {
+export default function PokeNavbar({ selectedPokemonData, setSelectedPokemon, setSelectedPokemonData }) {
     const history = useHistory()
     const overlayTarget = useRef(null)
 
@@ -25,22 +25,6 @@ export default function PokeNavbar({ selectedPokemon, selectedPokemonData, setSe
                 <img src={ pokeball } style={{ height: '50px', width: '50px', margin: '0 10px 0 0' }} draggable={ false } />
                     Pokédex
             </Navbar.Brand>
-            <div
-                style={{
-                    position: 'absolute', 
-                    width: '100%',
-                    left: 0,
-                    textAlign: 'center',
-                    margin: 'auto',
-                    paddingTop: '10px',
-                    textTransform: 'capitalize',
-                    fontWeight: 500,
-                    fontSize: '24px',
-                    zIndex: -1,
-                    paddingBottom: '10px' }}
-            >
-                { selectedPokemon }</div>
-
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Form
@@ -68,7 +52,7 @@ export default function PokeNavbar({ selectedPokemon, selectedPokemonData, setSe
                             Search
                     </Button>
                 </Form>
-                <Button onClick={()=> history.push('/account/sign-up')}>Sign Up</Button>
+                <Button variant="outline-dark" style={{ marginLeft: '5px' }} onClick={()=> history.push('/account/sign-up')}>Sign Up/Sign In</Button>
             </Navbar.Collapse>
             <Overlay
                 containerPadding={ 20 }

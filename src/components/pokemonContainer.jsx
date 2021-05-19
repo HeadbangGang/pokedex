@@ -21,7 +21,6 @@ export default function PokemonContainer() {
                 <PokeNavbar
                     selectedPokemonData={ selectedPokemonData }
                     setSelectedPokemon={ setSelectedPokemon }
-                    selectedPokemon={ selectedPokemon }
                     setSelectedPokemonData={ setSelectedPokemonData }
                 />
                 <div style={{ paddingTop: '100px', minHeight: '100vh' }}>
