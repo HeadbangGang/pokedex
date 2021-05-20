@@ -48,7 +48,7 @@
         "react/no-typos": 2,
         "max-len": [2, { "code": 180, "tabWidth": 4, "ignoreTemplateLiterals": true, "ignoreUrls": true, "ignoreComments": true }],
         "no-debugger": 1,
-        "no-console": 1,
+        "no-console": 0,
         "no-unused-vars": 1
     }
 }

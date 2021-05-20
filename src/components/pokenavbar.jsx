@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useEffect, useState, useRef } from 'react'
 import { Navbar, Button, Form, FormControl, Overlay, Popover } from 'react-bootstrap'
 import PropTypes from 'prop-types'
@@ -36,7 +35,7 @@ export default function PokeNavbar({ selectedPokemonData, setSelectedPokemon, se
                 >
                     <FormControl
                         className="mr-sm-2"
-                        onChange={(e) => setSearchData(e.target.value)}
+                        onChange={(e) => setSearchData(e.target.value.trim())}
                         placeholder="Search Pokémon"
                         value={ searchData }
                         ref={ overlayTarget }
@@ -52,7 +51,7 @@ export default function PokeNavbar({ selectedPokemonData, setSelectedPokemon, se
                             Search
                     </Button>
                 </Form>
-                <Button variant="outline-dark" style={{ marginLeft: '5px' }} onClick={()=> history.push('/account/sign-up')}>Sign Up/Sign In</Button>
+                <Button variant="outline-dark" style={{ marginLeft: '5px' }} onClick={()=> history.push('/account/sign-in')}>Sign Up/Sign In</Button>
             </Navbar.Collapse>
             <Overlay
                 containerPadding={ 20 }

@@ -42,12 +42,6 @@ export default function PokemonProfile({ pokemon, pokemonData, setPokemonData })
                 }
             }
 
-            for (const [key, value] of Object.entries(pokemonData.sprites)) {
-                if (value !== null && key !== 'other' && key !== 'versions'){
-                    allSprites.push([`${key}`, `${value}`])
-                }
-            }
-
             setGameIndices(completeIndices)
             setSprites(allSprites)
         }
