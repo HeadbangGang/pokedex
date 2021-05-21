@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import { signInWithGoogle, auth, generateUserDocument } from '../../database/firebase'
 import SignInWithGoogle from '../../media/signinwithgoogle.png'
 
-export default function SignUp() {
+export default function SignUp({ setError }) {
     const history = useHistory()
 
     const [email, setEmail] = useState(null)
@@ -86,12 +87,16 @@ export default function SignUp() {
             const {user} = await auth.createUserWithEmailAndPassword(email, password)
             generateUserDocument(user, {username})
         }
-        catch(error){
-            console.log('Error Signing up with email and password')
+        catch(e){
+            setError(e.message)
         }
 
         console.log(email)
         console.log(password)
         console.log(username)
     }
+}
+
+SignUp.propTypes ={
+    setError: PropTypes.func
 }

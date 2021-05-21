@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useHistory, Link } from 'react-router-dom'
 import { signInWithGoogle } from '../../database/firebase'
+import PropTypes from 'prop-types'
 import SignInWithGoogle from '../../media/signinwithgoogle.png'
 
-export default function SignIn() {
+export default function SignIn({ setError }) {
     const history = useHistory()
 
     const [email, setEmail] = useState(null)
@@ -15,7 +16,7 @@ export default function SignIn() {
             <div style={{ border: '1px solid grey', maxWidth: '1000px', backgroundColor: 'white' }}>
                 <div style={{ margin: '50px' }}>
                     <span style={{ fontSize: '30px', fontWeight: 700  }}>Sign In</span>
-                    <Form onSubmit={(e) => createAccountHandler(e)} style={{ width: '75%', margin: '15px' }}>
+                    <Form onSubmit={(e) => signInToAccountHandler(e)} style={{ width: '75%', margin: '15px' }}>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Email Address</Form.Label>
                             <Form.Control
@@ -47,7 +48,7 @@ export default function SignIn() {
                         </Form.Group>
                         <Button variant="primary" type='null' onClick={(e) => {
                             e.preventDefault()
-                            createAccountHandler(e)
+                            signInToAccountHandler(e)
                         }}
                         >
                         Sign In
@@ -71,9 +72,13 @@ export default function SignIn() {
         </div>
     )
 
-    function createAccountHandler(e) {
+    function signInToAccountHandler(e) {
         e.preventDefault()
         console.log(email)
         console.log(password)
     }
+}
+
+SignIn.propTypes ={
+    setError: PropTypes.func
 }

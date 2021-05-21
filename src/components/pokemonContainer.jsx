@@ -17,15 +17,18 @@ export default function PokemonContainer() {
     const [pokemonCount, setPokemonCount] = useState()
     const [selectedPokemon, setSelectedPokemon] = useState(pageURL.includes('pokemon') && pageURL.substr(pageURL.lastIndexOf('/') + 1).toLowerCase())
     const [selectedPokemonData, setSelectedPokemonData] = useState()
+    const [error, setError] = useState()
 
     return (
         <UserProvider>
             <Router basename="/">
-                <div style={{ backgroundColor: 'lightgrey', }}>
+                <div style={{ backgroundColor: 'lightgrey' }}>
                     <PokeNavbar
                         selectedPokemonData={ selectedPokemonData }
                         setSelectedPokemon={ setSelectedPokemon }
                         setSelectedPokemonData={ setSelectedPokemonData }
+                        setError={ setError }
+                        error={ error }
                     />
                     <div style={{ paddingTop: '100px', minHeight: '100vh' }}>
                         <Switch>
@@ -43,10 +46,10 @@ export default function PokemonContainer() {
                                 />
                             </Route>
                             <Route exact path="/account/sign-up">
-                                <SignUp />
+                                <SignUp error={ error } setError={ setError } />
                             </Route>
                             <Route exact path="/account/sign-in">
-                                <SignIn />
+                                <SignIn error={ error } setError={ setError } />
                             </Route>
                             <Route exact path="/account/password-reset">
                                 <PasswordReset />

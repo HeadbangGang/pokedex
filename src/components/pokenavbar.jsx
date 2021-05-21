@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Navbar, Button, Form, FormControl, Overlay, Popover } from 'react-bootstrap'
+import { Navbar, Button, Form, FormControl, Overlay, Popover, Toast } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import pokeball from '../media/pokeball.png'
 
-export default function PokeNavbar({ selectedPokemonData, setSelectedPokemon, setSelectedPokemonData }) {
+export default function PokeNavbar({ selectedPokemonData, setSelectedPokemon, setSelectedPokemonData, error, setError }) {
     const history = useHistory()
     const overlayTarget = useRef(null)
 
@@ -20,6 +20,19 @@ export default function PokeNavbar({ selectedPokemonData, setSelectedPokemon, se
 
     return (
         <Navbar style={{backgroundColor: 'red'}} expand="lg" fixed="top">
+            <Toast
+                autohide
+                show={ !!error }
+                delay={ 5000 }
+                style={{ position: 'absolute', top: '20px', right: '20px' }}
+                onClose={() => setError(null)}
+            >
+                <Toast.Header>
+                    <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
+                    <strong className="mr-auto">ERROR</strong>
+                </Toast.Header>
+                <Toast.Body>{ error }</Toast.Body>
+            </Toast>
             <Navbar.Brand href={'/pokedex'} style={{ color: 'white' }}>
                 <img src={ pokeball } style={{ height: '50px', width: '50px', margin: '0 10px 0 0' }} draggable={ false } />
                     Pokédex
@@ -97,8 +110,10 @@ async function fetchPokemon(e, searchData, setSearchData, setSelectedPokemon, se
 }
 
 PokeNavbar.propTypes ={
+    error: PropTypes.string,
     selectedPokemon: PropTypes.string,
     selectedPokemonData: PropTypes.object,
+    setError: PropTypes.func,
     setSelectedPokemon: PropTypes.func,
     setSelectedPokemonData: PropTypes.func
 }
