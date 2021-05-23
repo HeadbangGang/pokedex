@@ -70,7 +70,7 @@ export default function PokemonHome ({ setPokemonCount, setSelectedPokemon }) {
                     }
                 >
                     <Row xl={ 3 } lg={ 1 } md={ 1 } sm={ 1 } xs={ 1 } style={{ justifyContent: 'center', margin: '5px 15px' }}>
-                        { pokemonList.map(function (pokemon, index) {
+                        { pokemonList.map((pokemon, index) => {
                             return (
                                 <PokemonCard
                                     key={ index }

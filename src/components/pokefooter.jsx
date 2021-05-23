@@ -8,8 +8,12 @@ export default class PokeFooter extends React.Component {
         const date = new Date
 
         PokeFooter.propTypes = {
-            pokemonCount: PropTypes.number
+            error: PropTypes.string,
+            pokemonCount: PropTypes.number,
+            setError: PropTypes.func
         }
+
+        const { pokemonCount } = this.props
 
         return (
             <Navbar bg="dark" fixed="bottom">
@@ -28,7 +32,7 @@ export default class PokeFooter extends React.Component {
                 </span>
                 { this.props.pokemonCount &&
                 <div className="ml-auto" style={{color: 'white'}}>
-                    National Pokédex Count: { this.props.pokemonCount }
+                    National Pokédex Count: { pokemonCount }
                 </div> }
             </Navbar>
         )

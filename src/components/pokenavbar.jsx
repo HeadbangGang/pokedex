@@ -1,12 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
 import { Navbar, Button, Form, FormControl, Overlay, Popover, Toast } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import pokeball from '../media/pokeball.png'
+import { UserContext } from '../providers/userprovider'
 
-export default function PokeNavbar({ selectedPokemonData, setSelectedPokemon, setSelectedPokemonData, error, setError }) {
+export default function PokeNavbar({ error, selectedPokemonData, setError, setSelectedPokemon, setSelectedPokemonData }) {
     const history = useHistory()
     const overlayTarget = useRef(null)
+    const userContext = useContext(UserContext ?? '')
 
     const [searchData, setSearchData] = useState('')
     const [showOverlay, setShowOverlay] = useState(false)
@@ -28,7 +30,6 @@ export default function PokeNavbar({ selectedPokemonData, setSelectedPokemon, se
                 onClose={() => setError(null)}
             >
                 <Toast.Header>
-                    <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
                     <strong className="mr-auto">ERROR</strong>
                 </Toast.Header>
                 <Toast.Body>{ error }</Toast.Body>
@@ -64,7 +65,10 @@ export default function PokeNavbar({ selectedPokemonData, setSelectedPokemon, se
                             Search
                     </Button>
                 </Form>
-                <Button variant="outline-dark" style={{ marginLeft: '5px' }} onClick={()=> history.push('/account/sign-in')}>Sign Up/Sign In</Button>
+                { userContext.user
+                    ? console.log('meow')
+                    : <Button variant="outline-dark" style={{ marginLeft: '5px' }} onClick={()=> history.push('/account/sign-in')}>Sign Up/Sign In</Button>
+                }
             </Navbar.Collapse>
             <Overlay
                 containerPadding={ 20 }

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
+import PropTypes from 'prop-types'
 import { useHistory, Link } from 'react-router-dom'
 import { signInWithGoogle } from '../../database/firebase'
-import PropTypes from 'prop-types'
 import SignInWithGoogle from '../../media/signinwithgoogle.png'
 
 export default function SignIn({ setError }) {
@@ -46,10 +46,12 @@ export default function SignIn({ setError }) {
                                 </Link>
                             </div>
                         </Form.Group>
-                        <Button variant="primary" type='null' onClick={(e) => {
-                            e.preventDefault()
-                            signInToAccountHandler(e)
-                        }}
+                        <Button
+                            variant="primary"
+                            type='null'
+                            onClick={(e) => {
+                                signInToAccountHandler(e)
+                            }}
                         >
                         Sign In
                         </Button>
@@ -74,8 +76,17 @@ export default function SignIn({ setError }) {
 
     function signInToAccountHandler(e) {
         e.preventDefault()
-        console.log(email)
-        console.log(password)
+        if (email && password) {
+            console.log(email)
+            console.log(password)
+        } else {
+            if (!email) {
+                setError('Please enter a email')
+            } else if (!password) {
+                setError('Please enter a password')
+            }
+        }
+        
     }
 }
 

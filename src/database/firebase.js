@@ -35,8 +35,8 @@ export const generateUserDocument = async (user, additionalData) => {
                 photoURL,
                 ...additionalData
             })
-        } catch (error) {
-            console.error('Error creating user document', error)
+        } catch (e) {
+            console.error('Error creating user document', e)
         }
     }
     return getUserDocument(user.uid)
@@ -50,7 +50,7 @@ const getUserDocument = async uid => {
             uid,
             ...userDocument.data()
         }
-    } catch (error) {
-        console.error('Error fetching user', error)
+    } catch (e) {
+        console.error('Error fetching user', e)
     }
 }

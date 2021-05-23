@@ -26,7 +26,7 @@ export default function SignUp({ setError }) {
                                 onChange={(e) => {
                                     setUsername(e.target.value)
                                 }}
-                                placeholder="ILovePokémon1234"
+                                placeholder="ILovePokemon1234"
                             />
                             <Form.Text className="text-muted">
                             Be Creative!
@@ -59,7 +59,13 @@ export default function SignUp({ setError }) {
                                 type="password"
                             />
                         </Form.Group>
-                        <Button variant="primary" type="submit" onClick={(e) => createAccountHandler(e)}>
+                        <Button 
+                            variant="primary"
+                            type="submit"
+                            onClick={(e) => {
+                                createAccountHandler(e)
+                            }}
+                        >
                         Create Account
                         </Button>
                     </Form>
@@ -83,20 +89,26 @@ export default function SignUp({ setError }) {
     async function createAccountHandler(e) {
         e.preventDefault()
 
-        try{
-            const {user} = await auth.createUserWithEmailAndPassword(email, password)
-            generateUserDocument(user, {username})
+        if (email && password && username) {
+            try{
+                const {user} = await auth.createUserWithEmailAndPassword(email, password)
+                generateUserDocument(user, {username})
+            }
+            catch(e){
+                setError(e.message)
+            }
+        } else {
+            if (!username) {
+                setError('Please enter a username')
+            } else if (!email) {
+                setError('Please enter a email')
+            } else if (!password) {
+                setError('Please enter a password')
+            }
         }
-        catch(e){
-            setError(e.message)
-        }
-
-        console.log(email)
-        console.log(password)
-        console.log(username)
     }
 }
 
-SignUp.propTypes ={
+SignUp.propTypes = {
     setError: PropTypes.func
 }
