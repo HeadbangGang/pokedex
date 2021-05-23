@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { signInWithGoogle, auth, generateUserDocument } from '../../database/firebase'
-import SignInWithGoogle from '../../media/signinwithgoogle.png'
+import { auth, generateUserDocument } from '../../database/firebase'
 
 export default function SignUp({ setError }) {
     const history = useHistory()
@@ -59,6 +58,7 @@ export default function SignUp({ setError }) {
                                 type="password"
                             />
                         </Form.Group>
+               
                         <Button 
                             variant="primary"
                             type="submit"
@@ -69,17 +69,14 @@ export default function SignUp({ setError }) {
                         Create Account
                         </Button>
                     </Form>
-                    <div style={{ margin: '35px 10px 10px' }}>
+                    <div style={{ fontWeight: 700 }}>
+                        <span style={{ borderBottom: '1px solid black' }}>or</span>
+                    </div>
+                    <div style={{ margin: '20px 10px 10px' }}>
                         Already Have an Account?
                         <div>
                             <a href='' onClick={() => history.push('/account/sign-in')}>Sign In Here</a>
                         </div>
-                    </div>
-                    <div style={{ fontWeight: 700 }}>
-                        <span style={{ borderBottom: '1px solid black' }}>or</span>
-                    </div>
-                    <div style={{ margin: '15px' }}>
-                        <input type='image' src={ SignInWithGoogle } alt='' onClick={() => signInWithGoogle()} style={{ width: '260px' }} />
                     </div>
                 </div>
             </div>

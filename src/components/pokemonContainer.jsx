@@ -60,7 +60,7 @@ export default function PokemonContainer() {
                                     setError={ setError }
                                 />
                             </Route>
-                            <Route exact path="/account/profile-page">
+                            <Route exact path="/account/profile">
                                 <ProfilePage />
                             </Route>
                             <Route exact path="/error">

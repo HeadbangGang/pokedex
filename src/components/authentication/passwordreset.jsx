@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Form, Button } from 'react-bootstrap'
+import { auth } from '../../database/firebase'
 import { useHistory} from 'react-router-dom'
 
 export default function PasswordReset({ setError }) {
     const history = useHistory()
 
     const [email, setEmail] = useState(null)
+    const [emailHasBeenSent, setEmailHasBeenSent] = useState()
 
     return (
         <div style={{ textAlign: '-webkit-center', margin: '25px', padding: '0 75px 75px' }}>
@@ -30,7 +32,10 @@ export default function PasswordReset({ setError }) {
                         Send Password Reset Email
                         </Button>
                     </Form>
-                    
+                    {emailHasBeenSent &&
+                    <div>
+                        An email has been sent!
+                    </div>}
                     <div style={{ fontWeight: 700, margin: '30px' }}>
                         <span style={{ borderBottom: '1px solid black' }}>or</span>
                     </div>
@@ -48,7 +53,20 @@ export default function PasswordReset({ setError }) {
     function passwordResetHandler(e) {
         e.preventDefault()
         if (email) {
-            console.log(email)
+            auth.sendPasswordResetEmail(email)
+                .then(() => {
+                    setEmailHasBeenSent(true)
+                })
+                .catch((e) => {
+                    console.log(e)
+                    if (e.code === 'auth/user-not-found') {
+                        setError('This email address is not registered. Please try another or proceed to Create an Account')
+                    } else if (e.code === 'auth/invalid-email') {
+                        setError('Please enter a valid email address')
+                    } else {
+                        setError('Error sending email')
+                    }
+                })
         } else {
             setError('Please enter an email')
         }

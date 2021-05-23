@@ -3,6 +3,7 @@ import { Navbar, Button, Form, FormControl, Overlay, Popover, Toast } from 'reac
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import pokeball from '../media/pokeball.png'
+import userIcon from '../media/user-icon.png'
 import { UserContext } from '../providers/userprovider'
 
 export default function PokeNavbar({ error, selectedPokemonData, setError, setSelectedPokemon, setSelectedPokemonData }) {
@@ -59,14 +60,18 @@ export default function PokeNavbar({ error, selectedPokemonData, setError, setSe
                         onClick={(event) => {
                             fetchPokemon(event, searchData, setSearchData, setSelectedPokemon, setSelectedPokemonData, setShowOverlay, setOverlayParams)
                         } }
-                        style={{color: 'black', borderColor: 'black' }}
-                        variant="outline"
+                        variant="outline-dark"
                     >
-                            Search
+                    Search
                     </Button>
                 </Form>
-                { userContext.user
-                    ? console.log('meow')
+                { userContext?.email && userContext?.username
+                    ? <input
+                        type="image"
+                        src={ userContext?.photoURL || userIcon }
+                        style={{ height: '35px', width: '35px', border: '1px solid black', borderRadius: '50%', marginLeft: '10px' }}
+                        onClick={() => history.push('/account/profile') }
+                    />
                     : <Button variant="outline-dark" style={{ marginLeft: '5px' }} onClick={()=> history.push('/account/sign-in')}>Sign Up/Sign In</Button>
                 }
             </Navbar.Collapse>
