@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
-import { useHistory, Link } from 'react-router-dom'
-import { signInWithGoogle } from '../../database/firebase'
 import PropTypes from 'prop-types'
-import SignInWithGoogle from '../../media/signinwithgoogle.png'
+import { useHistory, Link } from 'react-router-dom'
+import { auth } from '../../database/firebase'
 
 export default function SignIn({ setError }) {
     const history = useHistory()
@@ -46,22 +45,20 @@ export default function SignIn({ setError }) {
                                 </Link>
                             </div>
                         </Form.Group>
-                        <Button variant="primary" type='null' onClick={(e) => {
-                            e.preventDefault()
-                            signInToAccountHandler(e)
-                        }}
+                        <Button
+                            variant="primary"
+                            type='null'
+                            onClick={(e) => {
+                                signInToAccountHandler(e)
+                            }}
                         >
                         Sign In
                         </Button>
                     </Form>
-                    
                     <div style={{ fontWeight: 700 }}>
                         <span style={{ borderBottom: '1px solid black' }}>or</span>
                     </div>
-                    <div style={{ margin: '15px' }}>
-                        <input type='image' src={ SignInWithGoogle } alt='' onClick={() => signInWithGoogle()} style={{ width: '260px' }} />
-                    </div>
-                    <div style={{ margin: '35px 10px 10px' }}>
+                    <div style={{ margin: '20px 10px 10px' }}>
                         Need To Create an Account?
                         <div>
                             <a href='' onClick={() => history.push('/account/sign-up')}>Create an Account</a>
@@ -72,13 +69,38 @@ export default function SignIn({ setError }) {
         </div>
     )
 
-    function signInToAccountHandler(e) {
+    async function signInToAccountHandler(e) {
         e.preventDefault()
-        console.log(email)
-        console.log(password)
+        if (email && password) {
+            await auth.signInWithEmailAndPassword(email, password)
+                .then(user => {
+                    console.log(user.user)
+                    if(user.user) {
+                        history.push('/account/profile')
+                    }
+                })
+                .catch(e => {
+                    console.log(e)
+                    if (e.code === 'auth/wrong-password') {
+                        setError('Wrong password. Please try again.')
+                    } else if(e.code === 'auth/user-not-found') {
+                        setError('No user was found with this email. Try another email address or proceed to Create an Account')
+                    } else {
+                        setError('Error signing in with password and email!')
+                    }
+                })
+        } else {
+            if (!email) {
+                setError('Please enter a email')
+            } else if (!password) {
+                setError('Please enter a password')
+            }
+        }
+        
     }
 }
 
-SignIn.propTypes ={
+SignIn.propTypes={
+    getUserDocument: PropTypes.func,
     setError: PropTypes.func
 }

@@ -75,7 +75,10 @@ export default function PokemonProfile({ pokemon, pokemonData, setPokemonData })
 }
 
 PokemonProfile.propTypes = {
-    pokemon: PropTypes.string,
+    pokemon: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.string
+    ]),
     pokemonData: PropTypes.object,
     setPokemonData: PropTypes.func
 }

@@ -16,12 +16,6 @@ firebase.initializeApp(firebaseConfig)
 export const auth = firebase.auth()
 export const db = firebase.firestore()
 
-const provider = new firebase.auth.GoogleAuthProvider()
-
-export const signInWithGoogle = () => { // Testing has to be done in Firefox
-    auth.signInWithPopup(provider)
-}
-
 export const generateUserDocument = async (user, additionalData) => {
     if (!user) return
     const userRef = db.doc(`users/${user.uid}`)
@@ -35,8 +29,8 @@ export const generateUserDocument = async (user, additionalData) => {
                 photoURL,
                 ...additionalData
             })
-        } catch (error) {
-            console.error('Error creating user document', error)
+        } catch (e) {
+            console.error('Error creating user document', e)
         }
     }
     return getUserDocument(user.uid)
@@ -46,11 +40,14 @@ const getUserDocument = async uid => {
     if (!uid) return null
     try {
         const userDocument = await db.doc(`users/${uid}`).get()
+        if (!userDocument.exists) {
+            console.log('meow')
+        }
         return {
             uid,
             ...userDocument.data()
         }
-    } catch (error) {
-        console.error('Error fetching user', error)
+    } catch (e) {
+        console.error('Error fetching user', e)
     }
 }

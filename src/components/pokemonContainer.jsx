@@ -46,15 +46,21 @@ export default function PokemonContainer() {
                                 />
                             </Route>
                             <Route exact path="/account/sign-up">
-                                <SignUp error={ error } setError={ setError } />
+                                <SignUp
+                                    setError={ setError }
+                                />
                             </Route>
                             <Route exact path="/account/sign-in">
-                                <SignIn error={ error } setError={ setError } />
+                                <SignIn
+                                    setError={ setError }
+                                />
                             </Route>
                             <Route exact path="/account/password-reset">
-                                <PasswordReset />
+                                <PasswordReset
+                                    setError={ setError }
+                                />
                             </Route>
-                            <Route exact path="/account/profile-page">
+                            <Route exact path="/account/profile">
                                 <ProfilePage />
                             </Route>
                             <Route exact path="/error">
@@ -64,9 +70,12 @@ export default function PokemonContainer() {
                                 <Redirect to="/pokedex" />
                             </Route>
                         </Switch>
+                       
                     </div>
                     <PokeFooter
                         pokemonCount={ pokemonCount }
+                        error={ error }
+                        setError={ setError }
                     />
                 </div>
             </Router>

@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { signInWithGoogle, auth, generateUserDocument } from '../../database/firebase'
-import SignInWithGoogle from '../../media/signinwithgoogle.png'
+import { auth, generateUserDocument } from '../../database/firebase'
 
 export default function SignUp({ setError }) {
     const history = useHistory()
@@ -26,7 +25,7 @@ export default function SignUp({ setError }) {
                                 onChange={(e) => {
                                     setUsername(e.target.value)
                                 }}
-                                placeholder="ILovePokémon1234"
+                                placeholder="ILovePokemon1234"
                             />
                             <Form.Text className="text-muted">
                             Be Creative!
@@ -59,21 +58,25 @@ export default function SignUp({ setError }) {
                                 type="password"
                             />
                         </Form.Group>
-                        <Button variant="primary" type="submit" onClick={(e) => createAccountHandler(e)}>
+               
+                        <Button 
+                            variant="primary"
+                            type="submit"
+                            onClick={(e) => {
+                                createAccountHandler(e)
+                            }}
+                        >
                         Create Account
                         </Button>
                     </Form>
-                    <div style={{ margin: '35px 10px 10px' }}>
+                    <div style={{ fontWeight: 700 }}>
+                        <span style={{ borderBottom: '1px solid black' }}>or</span>
+                    </div>
+                    <div style={{ margin: '20px 10px 10px' }}>
                         Already Have an Account?
                         <div>
                             <a href='' onClick={() => history.push('/account/sign-in')}>Sign In Here</a>
                         </div>
-                    </div>
-                    <div style={{ fontWeight: 700 }}>
-                        <span style={{ borderBottom: '1px solid black' }}>or</span>
-                    </div>
-                    <div style={{ margin: '15px' }}>
-                        <input type='image' src={ SignInWithGoogle } alt='' onClick={() => signInWithGoogle()} style={{ width: '260px' }} />
                     </div>
                 </div>
             </div>
@@ -83,20 +86,26 @@ export default function SignUp({ setError }) {
     async function createAccountHandler(e) {
         e.preventDefault()
 
-        try{
-            const {user} = await auth.createUserWithEmailAndPassword(email, password)
-            generateUserDocument(user, {username})
+        if (email && password && username) {
+            try{
+                const {user} = await auth.createUserWithEmailAndPassword(email, password)
+                generateUserDocument(user, {username})
+            }
+            catch(e){
+                setError(e.message)
+            }
+        } else {
+            if (!username) {
+                setError('Please enter a username')
+            } else if (!email) {
+                setError('Please enter a email')
+            } else if (!password) {
+                setError('Please enter a password')
+            }
         }
-        catch(e){
-            setError(e.message)
-        }
-
-        console.log(email)
-        console.log(password)
-        console.log(username)
     }
 }
 
-SignUp.propTypes ={
+SignUp.propTypes = {
     setError: PropTypes.func
 }

@@ -1,14 +1,15 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { auth } from '../database/firebase'
+import { auth, generateUserDocument } from '../database/firebase'
 
 export const UserContext = createContext({ user: null })
 
 export default function UserProvider(props) {
-    const [userAccount, setUserAccount] = useState(null)
+    const [userAccount, setUserAccount] = useState([])
 
     useEffect(() => {
-        auth.onAuthStateChanged(userAuth => {
-            setUserAccount({ user: userAuth })
+        auth.onAuthStateChanged(async userAuth => {
+            const user = await generateUserDocument(userAuth)
+            setUserAccount(user)
         })
     }, [])
 
