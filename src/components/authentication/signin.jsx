@@ -11,8 +11,8 @@ export default function SignIn({ setError }) {
     const [password, setPassword] = useState(null)
 
     return (
-        <div style={{ textAlign: '-webkit-center', margin: '25px', padding: '0 75px 75px' }}>
-            <div style={{ border: '1px solid grey', maxWidth: '1000px', backgroundColor: 'white' }}>
+        <div style={{ margin: '25px', padding: '0 75px 75px' }}>
+            <div style={{ border: '1px solid grey', maxWidth: '1000px', backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto' }}>
                 <div style={{ margin: '50px' }}>
                     <span style={{ fontSize: '30px', fontWeight: 700  }}>Sign In</span>
                     <Form onSubmit={(e) => signInToAccountHandler(e)} style={{ width: '75%', margin: '15px' }}>
@@ -74,7 +74,6 @@ export default function SignIn({ setError }) {
         if (email && password) {
             await auth.signInWithEmailAndPassword(email, password)
                 .then(user => {
-                    console.log(user.user)
                     if(user.user) {
                         history.push('/account/profile')
                     }

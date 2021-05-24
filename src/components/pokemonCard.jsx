@@ -51,9 +51,7 @@ export default function PokemonCard({ pokemon, setSelectedPokemon }) {
                 <Card border="secondary pokemon-card">
                     { hasExtendedData && <span style={{ padding: '5px 0 0 10px', fontSize: '16px', fontWeight: 100, textAlign: 'left' }}>#{ pokemonData.id }</span> }
                     <Card.Body>
-                    
                         <Card.Title style={{textAlign: 'center'}}>
-                            
                             { hasExtendedData && !isLoadingData
                                 ? <img
                                     src={ errorImg || pokemonData.img || pokemonData.img_alt }

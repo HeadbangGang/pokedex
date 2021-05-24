@@ -35,7 +35,7 @@ export default function PokeNavbar({ error, selectedPokemonData, setError, setSe
                 </Toast.Header>
                 <Toast.Body>{ error }</Toast.Body>
             </Toast>
-            <Navbar.Brand href={'/pokedex'} style={{ color: 'white' }}>
+            <Navbar.Brand href='/pokedex' style={{ color: 'white' }}>
                 <img src={ pokeball } style={{ height: '50px', width: '50px', margin: '0 10px 0 0' }} draggable={ false } />
                     Pokédex
             </Navbar.Brand>
@@ -61,6 +61,7 @@ export default function PokeNavbar({ error, selectedPokemonData, setError, setSe
                             fetchPokemon(event, searchData, setSearchData, setSelectedPokemon, setSelectedPokemonData, setShowOverlay, setOverlayParams)
                         } }
                         variant="outline-dark"
+                        style={{ margin: '5px 10px 5px 0' }}
                     >
                     Search
                     </Button>
@@ -69,10 +70,10 @@ export default function PokeNavbar({ error, selectedPokemonData, setError, setSe
                     ? <input
                         type="image"
                         src={ userContext?.photoURL || userIcon }
-                        style={{ height: '35px', width: '35px', border: '1px solid black', borderRadius: '50%', marginLeft: '10px' }}
+                        style={{ height: '35px', width: '35px', border: '1px solid black', borderRadius: '50%' }}
                         onClick={() => history.push('/account/profile') }
                     />
-                    : <Button variant="outline-dark" style={{ marginLeft: '5px' }} onClick={()=> history.push('/account/sign-in')}>Sign Up/Sign In</Button>
+                    : <Button variant="outline-dark" onClick={()=> history.push('/account/sign-in')}>Sign Up/Sign In</Button>
                 }
             </Navbar.Collapse>
             <Overlay

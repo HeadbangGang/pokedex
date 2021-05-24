@@ -5,40 +5,29 @@ import { Row } from 'react-bootstrap'
 import PokemonCard from './pokemonCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
-export default function PokemonHome ({ setPokemonCount, setSelectedPokemon }) {
+export default function PokemonHome ({ setSelectedPokemon }) {
     const [pokemonList, setPokemonList] = useState()
     const [nextPokemonURL, setNextPokemonURL] = useState()
     const [isCallInProgress, setIsCallInProgress] = useState(false)
 
     useEffect(() => {
-        async function getPokedexCount() {
-            const res = await fetch('https://pokeapi.co/api/v2/pokedex/1')
+        async function getPokemon() {
+            setIsCallInProgress(true)
+            const res = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=60')
             if (res.status === 200){
                 await res.json().then(function (data) {
-                    setPokemonCount(data.pokemon_entries.length)
+                    setPokemonList(data.results)
+                    setNextPokemonURL(data.next)
+                    setIsCallInProgress(false)
                 })
             } else {
                 console.log('Whoops, shits broke')
             }
         }
-        getPokedexCount()
         getPokemon()
     }, [])
 
-    async function getPokemon() {
-        setIsCallInProgress(true)
-        const res = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=60')
-        if (res.status === 200){
-            await res.json().then(function (data) {
-                setPokemonList(data.results)
-                setNextPokemonURL(data.next)
-                setIsCallInProgress(false)
-            })
-        } else {
-            console.log('Whoops, shits broke')
-        }
-    }
-
+    
     async function updatePokemonList() {
         try{
             const res = await fetch(nextPokemonURL)
@@ -87,10 +76,5 @@ export default function PokemonHome ({ setPokemonCount, setSelectedPokemon }) {
 }
 
 PokemonHome.propTypes = {
-    alertParams: PropTypes.string,
-    setAlertParams: PropTypes.func,
-    setPokemonCount: PropTypes.func,
-    setSelectedPokemon: PropTypes.func,
-    setShowAlert: PropTypes.func,
-    showAlert: PropTypes.bool
+    setSelectedPokemon: PropTypes.func
 }
