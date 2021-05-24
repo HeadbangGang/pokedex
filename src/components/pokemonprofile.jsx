@@ -35,14 +35,34 @@ export default function PokemonProfile({ pokemon, pokemonData, setPokemonData })
         if (pokemonData) {
             let completeIndices = []
             let allSprites = []
+            let tayden = []
             pokemonData.game_indices.forEach(index => {
-                console.log(index)
                 completeIndices.push(index.version.name)
             })
             for (const [key, value] of Object.entries(pokemonData.sprites)) {
                 if (value !== null && key !== 'other' && key !== 'versions' && !key.includes('back')){
                     allSprites.push([`${key}`, `${value}`])
                 }
+            }
+
+            for (const property in pokemonData.sprites.versions) {
+                tayden.push(pokemonData.sprites.versions[property])
+            }
+            if (tayden) { // THIS NEEDS TO BE CLEANED UP
+                tayden.forEach(type => {
+                    if (!Object.keys(type).includes('icons')) {
+                        for (const property in type) {
+                            Object.keys(type[property]).forEach(entry => {
+                                for (const whatever in type[property]) {
+                                    if (typeof type[property][whatever] !== 'object' && whatever.indexOf('front') > -1 && !whatever.indexOf('female') > -1 ){
+                                        const tanner = [whatever, type[property][whatever]]
+                                        allSprites.push(tanner)
+                                    }
+                                }
+                            })
+                        }
+                    }
+                })
             }
             setGameIndices(completeIndices)
             setSprites(allSprites)
@@ -85,7 +105,6 @@ export default function PokemonProfile({ pokemon, pokemonData, setPokemonData })
                             return (
                                 <Col key={ index }>
                                     <img src={ boxArt[game]} alt={ game } style={{ maxWidth: '200px', maxHeight: '200px' }} />
-                                    <div style={{ textTransform: 'capitalize' }}>{ game }</div>
                                 </Col>
                             )
                         })}
