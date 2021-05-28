@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Carousel, Col, Row } from 'react-bootstrap'
@@ -35,7 +34,7 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
         if (pokemonData) {
             let completeIndices = []
             let allSprites = []
-            let tayden = []
+            let additionalSprites = []
             pokemonData.game_indices.forEach(index => {
                 completeIndices.push(index.version.name)
             })
@@ -44,22 +43,18 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
                     allSprites.push([`${key}`, `${value}`])
                 }
             }
-
-            for (const property in pokemonData.sprites.versions) {
-                tayden.push(pokemonData.sprites.versions[property])
+            for (const game in pokemonData.sprites.versions) {
+                additionalSprites.push(pokemonData.sprites.versions[game])
             }
-            if (tayden) { // THIS NEEDS TO BE CLEANED UP
-                tayden.forEach(type => {
+            if (additionalSprites) {
+                additionalSprites.forEach(type => {
                     if (!Object.keys(type).includes('icons')) {
-                        for (const property in type) {
-                            Object.keys(type[property]).forEach(entry => {
-                                for (const whatever in type[property]) {
-                                    if (typeof type[property][whatever] !== 'object' && whatever.indexOf('front') > -1 && !whatever.indexOf('female') > -1){
-                                        const tanner = [whatever, type[property][whatever]]
-                                        allSprites.push(tanner)
-                                    }
+                        for (const game in type) {
+                            for (const spriteType in type[game]) {
+                                if (typeof type[game][spriteType] !== 'object' && spriteType.indexOf('front') > -1 && !spriteType.indexOf('female') > -1){
+                                    allSprites.push([spriteType, type[game][spriteType]])
                                 }
-                            })
+                            }
                         }
                     }
                 })
@@ -76,25 +71,20 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
                     <h1 style={{ textTransform: 'capitalize' }}>{ pokemonData.name }</h1>
                     <Col xl={ 12 } lg={ 12 } md={ 6 }>
                         <Carousel
-                            style={{ maxWidth: '450px' }}
+                            style={{ maxWidth: '450px', maxHeight: '450px', minHeight: '350px' }}
                             nextIcon={ <img src={ Arrow } style={{ maxWidth: '30px' }} /> }
                             prevIcon={ <img src={ Arrow } style={{ transform: 'rotate(180deg)', maxWidth: '30px' }} /> }
                         >
                             { sprites && sprites.map((sprite, index) => {
                                 return (
-                                    <Carousel.Item interval={ 5000 } key={ index }>
+                                    <Carousel.Item key={ index }>
                                         <img // need to set loading while image is loading
                                             alt=''
                                             className="d-block w-100"
                                             draggable={ false }
                                             src={ sprite[1] }
-                                            style={{ maxWidth: '400px' }}
+                                            style={{ maxWidth: '300px', maxHeight: '300px' }}
                                         />
-                                        <Carousel.Caption>
-                                            <div style={{ textTransform: 'capitalize' }} >
-                                                { sprite[0].replace(/_/g, ' ').replace('default', '') }
-                                            </div>
-                                        </Carousel.Caption>
                                     </Carousel.Item>
                                 )
                             }) }
@@ -103,8 +93,9 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
                     <Row xl={ 3 } lg={ 1 } md={ 1 } sm={ 1 } xs={ 1 } style={{ justifyContent: 'center', margin: '5px 15px' }}>
                         { gameIndices && gameIndices.map((game, index) => {
                             return (
+                                // Maybe display some game data when you hover over the box art
                                 <Col key={ index }>
-                                    <img src={ boxArt[game] } alt={ game } style={{ maxWidth: '200px', maxHeight: '200px' }} />
+                                    <img src={ boxArt[game] } alt={ game } style={{ maxWidth: '200px', maxHeight: '200px', hover: 'background' }} />
                                 </Col>
                             )
                         })}
