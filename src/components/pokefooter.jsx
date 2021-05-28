@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import pokeball from '../media/pokeball.png'
 import { PokemonCountContext } from '../providers/pokemoncount'
 
-export default function PokeFooter() {
+export default function PokeFooter () {
     const date = new Date
 
     const pokemonCount = useContext(PokemonCountContext)
@@ -21,11 +21,11 @@ export default function PokeFooter() {
                     draggable={ false }
                 />
             </Navbar.Brand>
-            <span style={{color: 'white'}}>
+            <span style={{ color: 'white' }}>
                 © {date.getFullYear()} Tayden Flitcroft
             </span>
             { pokemonCount &&
-                <div className="ml-auto" style={{color: 'white'}}>
+                <div className="ml-auto" style={{ color: 'white' }}>
                     National Pokédex Count: { pokemonCount }
                 </div> }
         </Navbar>

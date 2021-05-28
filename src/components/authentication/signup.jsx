@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { auth, generateUserDocument } from '../../database/firebase'
 
-export default function SignUp({ setError }) {
+export default function SignUp ({ setError }) {
     const history = useHistory()
 
     const [email, setEmail] = useState(null)
@@ -58,8 +58,8 @@ export default function SignUp({ setError }) {
                                 type="password"
                             />
                         </Form.Group>
-               
-                        <Button 
+
+                        <Button
                             variant="primary"
                             type="submit"
                             onClick={(e) => {
@@ -83,13 +83,13 @@ export default function SignUp({ setError }) {
         </div>
     )
 
-    async function createAccountHandler(e) {
+    async function createAccountHandler (e) {
         e.preventDefault()
 
         if (email && password && username) {
             try{
-                const {user} = await auth.createUserWithEmailAndPassword(email, password)
-                generateUserDocument(user, {username})
+                const { user } = await auth.createUserWithEmailAndPassword(email, password)
+                generateUserDocument(user, { username })
             }
             catch(e){
                 setError(e.message)

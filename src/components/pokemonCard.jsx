@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { Card, Col } from 'react-bootstrap'
@@ -7,7 +7,7 @@ import { typeImages } from '../media/types/index'
 import spinner from '../media/spinner.webp'
 import imageNotFound from '../media/image-not-found.png'
 
-export default function PokemonCard({ pokemon, setSelectedPokemon }) {
+export default function PokemonCard ({ pokemon, setSelectedPokemon }) {
     const pokemonName = pokemon.name
 
     const [hasExtendedData, setHasExtendedData] = useState(false)
@@ -51,12 +51,12 @@ export default function PokemonCard({ pokemon, setSelectedPokemon }) {
                 <Card border="secondary pokemon-card">
                     { hasExtendedData && <span style={{ padding: '5px 0 0 10px', fontSize: '16px', fontWeight: 100, textAlign: 'left' }}>#{ pokemonData.id }</span> }
                     <Card.Body>
-                        <Card.Title style={{textAlign: 'center'}}>
+                        <Card.Title style={{ textAlign: 'center' }}>
                             { hasExtendedData && !isLoadingData
                                 ? <img
                                     src={ errorImg || pokemonData.img || pokemonData.img_alt }
                                     alt={pokemonName}
-                                    style={{height: '175px', width: '175px'}} // Need to set width of error image to 200px
+                                    style={{ height: '175px', width: '175px' }} // Need to set width of error image to 200px
                                     draggable={ false }
                                     onError={() => setErrorImg(imageNotFound)}
                                 />

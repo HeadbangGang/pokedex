@@ -13,7 +13,7 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import './pokemon.css'
 import PokemonCount from '../providers/pokemoncount'
 
-export default function PokemonContainer() {
+export default function PokemonContainer () {
     const pageURL = window.location.href
     const [selectedPokemon, setSelectedPokemon] = useState(pageURL.includes('pokemon') && pageURL.substr(pageURL.lastIndexOf('/') + 1).toLowerCase())
     const [selectedPokemonData, setSelectedPokemonData] = useState()
@@ -70,7 +70,7 @@ export default function PokemonContainer() {
                                     <Redirect to="/pokedex" />
                                 </Route>
                             </Switch>
-                       
+
                         </div>
                         <PokeFooter
                             error={ error }

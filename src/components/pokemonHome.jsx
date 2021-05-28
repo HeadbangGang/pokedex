@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Row } from 'react-bootstrap'
 import PokemonCard from './pokemonCard'
@@ -11,7 +11,7 @@ export default function PokemonHome ({ setSelectedPokemon }) {
     const [isCallInProgress, setIsCallInProgress] = useState(false)
 
     useEffect(() => {
-        async function getPokemon() {
+        async function getPokemon () {
             setIsCallInProgress(true)
             const res = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=60')
             if (res.status === 200){
@@ -27,8 +27,7 @@ export default function PokemonHome ({ setSelectedPokemon }) {
         getPokemon()
     }, [])
 
-    
-    async function updatePokemonList() {
+    async function updatePokemonList () {
         try{
             const res = await fetch(nextPokemonURL)
             if (res.status === 200){

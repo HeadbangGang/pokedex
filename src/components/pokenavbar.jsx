@@ -6,7 +6,7 @@ import pokeball from '../media/pokeball.png'
 import userIcon from '../media/user-icon.png'
 import { UserContext } from '../providers/userprovider'
 
-export default function PokeNavbar({ error, selectedPokemonData, setError, setSelectedPokemon, setSelectedPokemonData }) {
+export default function PokeNavbar ({ error, selectedPokemonData, setError, setSelectedPokemon, setSelectedPokemonData }) {
     const history = useHistory()
     const overlayTarget = useRef(null)
     const userContext = useContext(UserContext ?? '')
@@ -22,7 +22,7 @@ export default function PokeNavbar({ error, selectedPokemonData, setError, setSe
     }, [selectedPokemonData])
 
     return (
-        <Navbar style={{backgroundColor: 'red'}} expand="lg" fixed="top">
+        <Navbar style={{ backgroundColor: 'red' }} expand="lg" fixed="top">
             <Toast
                 autohide
                 show={ !!error }
@@ -94,7 +94,7 @@ export default function PokeNavbar({ error, selectedPokemonData, setError, setSe
     )
 }
 
-async function fetchPokemon(e, searchData, setSearchData, setSelectedPokemon, setSelectedPokemonData, setShowOverlay, setOverlayParams) {
+async function fetchPokemon (e, searchData, setSearchData, setSelectedPokemon, setSelectedPokemonData, setShowOverlay, setOverlayParams) {
     e.preventDefault()
     if (searchData !== '') {
         searchData = searchData.toLowerCase()

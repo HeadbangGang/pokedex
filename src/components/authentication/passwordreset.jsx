@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Form, Button } from 'react-bootstrap'
 import { auth } from '../../database/firebase'
-import { useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
-export default function PasswordReset({ setError }) {
+export default function PasswordReset ({ setError }) {
     const history = useHistory()
 
     const [email, setEmail] = useState(null)
@@ -50,7 +50,7 @@ export default function PasswordReset({ setError }) {
         </div>
     )
 
-    function passwordResetHandler(e) {
+    function passwordResetHandler (e) {
         e.preventDefault()
         if (email) {
             auth.sendPasswordResetEmail(email)

@@ -3,7 +3,7 @@ import { auth, generateUserDocument } from '../database/firebase'
 
 export const UserContext = createContext({ user: null })
 
-export default function UserProvider(props) {
+export default function UserProvider (props) {
     const [userAccount, setUserAccount] = useState([])
 
     useEffect(() => {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useHistory, Link } from 'react-router-dom'
 import { auth } from '../../database/firebase'
 
-export default function SignIn({ setError }) {
+export default function SignIn ({ setError }) {
     const history = useHistory()
 
     const [email, setEmail] = useState(null)
@@ -40,7 +40,7 @@ export default function SignIn({ setError }) {
                                 type="password"
                             />
                             <div style={{ textAlign: 'left' }}>
-                                <Link to={{ pathname: '/account/password-reset'}}>
+                                <Link to={{ pathname: '/account/password-reset' }}>
                                 Forgot Password?
                                 </Link>
                             </div>
@@ -69,7 +69,7 @@ export default function SignIn({ setError }) {
         </div>
     )
 
-    async function signInToAccountHandler(e) {
+    async function signInToAccountHandler (e) {
         e.preventDefault()
         if (email && password) {
             await auth.signInWithEmailAndPassword(email, password)
@@ -95,7 +95,7 @@ export default function SignIn({ setError }) {
                 setError('Please enter a password')
             }
         }
-        
+
     }
 }
 

@@ -2,11 +2,11 @@ import React, { createContext, useEffect, useState } from 'react'
 
 export const PokemonCountContext = createContext()
 
-export default function PokemonCount(props) {
+export default function PokemonCount (props) {
     const [pokemonCount, setPokemonCount] = useState([])
 
     useEffect(() => {
-        async function getPokedexCount() {
+        async function getPokedexCount () {
             const res = await fetch('https://pokeapi.co/api/v2/pokedex/1')
             if (res.status === 200){
                 await res.json().then(function (data) {

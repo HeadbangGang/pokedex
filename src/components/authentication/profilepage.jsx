@@ -4,7 +4,7 @@ import { UserContext } from '../../providers/userprovider'
 import { useHistory } from 'react-router-dom'
 
 
-export default function ProfilePage() {
+export default function ProfilePage () {
     const userContext = useContext(UserContext ?? '')
     const history = useHistory()
 
@@ -25,5 +25,5 @@ export default function ProfilePage() {
                     >Sign out</button>
                 </div> }
         </div>
-    ) 
+    )
 }
