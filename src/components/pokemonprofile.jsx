@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 import { boxArt } from '../media/boxart/index'
 import Arrow from '../media/arrow.png'
 
-export default function PokemonProfile({ pokemon, pokemonData, setPokemonData }) {
+export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }) {
     const history = useHistory()
 
     const [isCallInProgress, setIsCallInProgress] = useState(false)
@@ -14,7 +14,7 @@ export default function PokemonProfile({ pokemon, pokemonData, setPokemonData })
     const [sprites, setSprites] = useState()
 
     useEffect(() => {
-        async function getPokemon() {
+        async function getPokemon () {
             setIsCallInProgress(true)
             const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
             if (res.status === 200){
@@ -54,7 +54,7 @@ export default function PokemonProfile({ pokemon, pokemonData, setPokemonData })
                         for (const property in type) {
                             Object.keys(type[property]).forEach(entry => {
                                 for (const whatever in type[property]) {
-                                    if (typeof type[property][whatever] !== 'object' && whatever.indexOf('front') > -1 && !whatever.indexOf('female') > -1 ){
+                                    if (typeof type[property][whatever] !== 'object' && whatever.indexOf('front') > -1 && !whatever.indexOf('female') > -1){
                                         const tanner = [whatever, type[property][whatever]]
                                         allSprites.push(tanner)
                                     }
@@ -78,11 +78,11 @@ export default function PokemonProfile({ pokemon, pokemonData, setPokemonData })
                         <Carousel
                             style={{ maxWidth: '450px' }}
                             nextIcon={ <img src={ Arrow } style={{ maxWidth: '30px' }} /> }
-                            prevIcon={ <img src={ Arrow } style={{ transform: 'rotate(180deg)', maxWidth: '30px' }} />}
+                            prevIcon={ <img src={ Arrow } style={{ transform: 'rotate(180deg)', maxWidth: '30px' }} /> }
                         >
                             { sprites && sprites.map((sprite, index) => {
                                 return (
-                                    <Carousel.Item interval={5000} key={ index }>
+                                    <Carousel.Item interval={ 5000 } key={ index }>
                                         <img // need to set loading while image is loading
                                             alt=''
                                             className="d-block w-100"
@@ -104,7 +104,7 @@ export default function PokemonProfile({ pokemon, pokemonData, setPokemonData })
                         { gameIndices && gameIndices.map((game, index) => {
                             return (
                                 <Col key={ index }>
-                                    <img src={ boxArt[game]} alt={ game } style={{ maxWidth: '200px', maxHeight: '200px' }} />
+                                    <img src={ boxArt[game] } alt={ game } style={{ maxWidth: '200px', maxHeight: '200px' }} />
                                 </Col>
                             )
                         })}

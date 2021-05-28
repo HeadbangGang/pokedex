@@ -15,16 +15,16 @@ export default function SignUp ({ setError }) {
         <div style={{ margin: '25px', padding: '0 75px 75px' }}>
             <div style={{ border: '1px solid grey', maxWidth: '1000px', backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto' }}>
                 <div style={{ margin: '50px' }}>
-                    <span style={{ fontSize: '30px', fontWeight: 700  }}>Create an Account</span>
-                    <Form onSubmit={(e) => createAccountHandler(e)} style={{ width: '75%', margin: '15px' }}>
+                    <span style={{ fontSize: '30px', fontWeight: 700 }}>Create an Account</span>
+                    <Form onSubmit={ (e) => createAccountHandler(e) } style={{ width: '75%', margin: '15px' }}>
                         <Form.Group controlId="formUsername">
                             <Form.Label>User Name</Form.Label>
                             <Form.Control
                                 autoComplete="off"
                                 data-lpignore="true"
-                                onChange={(e) => {
+                                onChange={ (e) => {
                                     setUsername(e.target.value)
-                                }}
+                                } }
                                 placeholder="ILovePokemon1234"
                             />
                             <Form.Text className="text-muted">
@@ -36,9 +36,9 @@ export default function SignUp ({ setError }) {
                             <Form.Control
                                 autoComplete="email"
                                 data-lpignore="true"
-                                onChange={(e) => {
+                                onChange={ (e) => {
                                     setEmail(e.target.value)
-                                }}
+                                } }
                                 placeholder="example@gmail.com"
                                 type="email"
                             />
@@ -51,9 +51,9 @@ export default function SignUp ({ setError }) {
                             <Form.Control
                                 autoComplete="current-password"
                                 data-lpignore="true"
-                                onChange={(e) => {
+                                onChange={ (e) => {
                                     setPassword(e.target.value)
-                                }}
+                                } }
                                 placeholder="Password"
                                 type="password"
                             />
@@ -62,9 +62,9 @@ export default function SignUp ({ setError }) {
                         <Button
                             variant="primary"
                             type="submit"
-                            onClick={(e) => {
+                            onClick={ (e) => {
                                 createAccountHandler(e)
-                            }}
+                            } }
                         >
                         Create Account
                         </Button>
@@ -75,7 +75,7 @@ export default function SignUp ({ setError }) {
                     <div style={{ margin: '20px 10px 10px' }}>
                         Already Have an Account?
                         <div>
-                            <a href='' onClick={() => history.push('/account/sign-in')}>Sign In Here</a>
+                            <a href='' onClick={ () => history.push('/account/sign-in') }>Sign In Here</a>
                         </div>
                     </div>
                 </div>

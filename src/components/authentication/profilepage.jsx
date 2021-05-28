@@ -18,10 +18,10 @@ export default function ProfilePage () {
                             <h3>{ userContext.email }</h3>
                         </div>
                     </div>
-                    <button onClick={async () => {
+                    <button onClick={ async () => {
                         await auth.signOut()
                             .then(history.push('/pokedex'))
-                    }}
+                    } }
                     >Sign out</button>
                 </div> }
         </div>

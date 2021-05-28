@@ -47,10 +47,10 @@ export default function PokemonHome ({ setSelectedPokemon }) {
     return (
         <div>
             { pokemonList && !isCallInProgress
-                ?    <InfiniteScroll
-                    dataLength={pokemonList.length}
-                    next={() => updatePokemonList()}
-                    hasMore={!!nextPokemonURL}
+                ? <InfiniteScroll
+                    dataLength={ pokemonList.length }
+                    next={ () => updatePokemonList() }
+                    hasMore={ !!nextPokemonURL }
                     endMessage={
                         <p style={{ textAlign: 'center' }}>
                             <b>Yay! You have seen it all</b>

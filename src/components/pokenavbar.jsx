@@ -28,7 +28,7 @@ export default function PokeNavbar ({ error, selectedPokemonData, setError, setS
                 show={ !!error }
                 delay={ 5000 }
                 style={{ position: 'absolute', top: '20px', right: '20px' }}
-                onClose={() => setError(null)}
+                onClose={ () => setError(null) }
             >
                 <Toast.Header>
                     <strong className="mr-auto">ERROR</strong>
@@ -50,14 +50,14 @@ export default function PokeNavbar ({ error, selectedPokemonData, setError, setS
                 >
                     <FormControl
                         className="mr-sm-2"
-                        onChange={(e) => setSearchData(e.target.value.trim())}
+                        onChange={ (e) => setSearchData(e.target.value.trim()) }
                         placeholder="Search Pokémon"
                         value={ searchData }
                         ref={ overlayTarget }
                         type="text"
                     />
                     <Button
-                        onClick={(event) => {
+                        onClick={ (event) => {
                             fetchPokemon(event, searchData, setSearchData, setSelectedPokemon, setSelectedPokemonData, setShowOverlay, setOverlayParams)
                         } }
                         variant="outline-dark"
@@ -71,16 +71,16 @@ export default function PokeNavbar ({ error, selectedPokemonData, setError, setS
                         type="image"
                         src={ userContext?.photoURL || userIcon }
                         style={{ height: '35px', width: '35px', border: '1px solid black', borderRadius: '50%' }}
-                        onClick={() => history.push('/account/profile') }
+                        onClick={ () => history.push('/account/profile') }
                     />
-                    : <Button variant="outline-dark" onClick={()=> history.push('/account/sign-in')}>Sign Up/Sign In</Button>
+                    : <Button variant="outline-dark" onClick={ ()=> history.push('/account/sign-in') }>Sign Up/Sign In</Button>
                 }
             </Navbar.Collapse>
             <Overlay
                 containerPadding={ 20 }
                 placement="bottom-start"
                 rootClose
-                onHide={() => setShowOverlay(false)}
+                onHide={ () => setShowOverlay(false) }
                 show={ showOverlay }
                 target={ overlayTarget }
             >

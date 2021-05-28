@@ -42,7 +42,7 @@ export default function PokemonCard ({ pokemon, setSelectedPokemon }) {
         const types = pokemonData && pokemonData.types.map((type, index) => {
             const typeName = type.type.name
             return (
-                <img key={index} src={typeImages[typeName]} style={{ maxWidth: '50px', margin: '0 2.5px' }} alt={typeName} />
+                <img key={ index } src={ typeImages[typeName] } style={{ maxWidth: '50px', margin: '0 2.5px' }} alt={ typeName } />
             )
         })
 
@@ -55,17 +55,17 @@ export default function PokemonCard ({ pokemon, setSelectedPokemon }) {
                             { hasExtendedData && !isLoadingData
                                 ? <img
                                     src={ errorImg || pokemonData.img || pokemonData.img_alt }
-                                    alt={pokemonName}
+                                    alt={ pokemonName }
                                     style={{ height: '175px', width: '175px' }} // Need to set width of error image to 200px
                                     draggable={ false }
-                                    onError={() => setErrorImg(imageNotFound)}
+                                    onError={ () => setErrorImg(imageNotFound) }
                                 />
                                 : <img
                                     src={ spinner }
                                     alt='loading'
                                     style={{ height: '75px', width: '75px', margin: '38px' }}
                                     draggable={ false }
-                                    onLoad={() => setIsLoadingData(false)}
+                                    onLoad={ () => setIsLoadingData(false) }
                                 />}
                         </Card.Title>
                         <Card.Subtitle className="pokemon-name">
@@ -77,10 +77,10 @@ export default function PokemonCard ({ pokemon, setSelectedPokemon }) {
                     </Card.Body>
                     <a
                         className="stretched-link"
-                        onClick={() => {
+                        onClick={ () => {
                             setSelectedPokemon(pokemonName)
                             history.push(`/pokemon/${pokemonName}`)
-                        }}
+                        } }
                     ></a>
                 </Card>
             </Col>

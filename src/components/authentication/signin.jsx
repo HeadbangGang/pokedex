@@ -14,16 +14,16 @@ export default function SignIn ({ setError }) {
         <div style={{ margin: '25px', padding: '0 75px 75px' }}>
             <div style={{ border: '1px solid grey', maxWidth: '1000px', backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto' }}>
                 <div style={{ margin: '50px' }}>
-                    <span style={{ fontSize: '30px', fontWeight: 700  }}>Sign In</span>
-                    <Form onSubmit={(e) => signInToAccountHandler(e)} style={{ width: '75%', margin: '15px' }}>
+                    <span style={{ fontSize: '30px', fontWeight: 700 }}>Sign In</span>
+                    <Form onSubmit={ (e) => signInToAccountHandler(e) } style={{ width: '75%', margin: '15px' }}>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Email Address</Form.Label>
                             <Form.Control
                                 autoComplete="email"
                                 data-lpignore="true"
-                                onChange={(e) => {
+                                onChange={ (e) => {
                                     setEmail(e.target.value)
-                                }}
+                                } }
                                 placeholder="example@gmail.com"
                                 type="email"
                             />
@@ -33,9 +33,9 @@ export default function SignIn ({ setError }) {
                             <Form.Control
                                 autoComplete="current-password"
                                 data-lpignore="true"
-                                onChange={(e) => {
+                                onChange={ (e) => {
                                     setPassword(e.target.value)
-                                }}
+                                } }
                                 placeholder="Password"
                                 type="password"
                             />
@@ -48,9 +48,9 @@ export default function SignIn ({ setError }) {
                         <Button
                             variant="primary"
                             type='null'
-                            onClick={(e) => {
+                            onClick={ (e) => {
                                 signInToAccountHandler(e)
-                            }}
+                            } }
                         >
                         Sign In
                         </Button>
@@ -61,7 +61,7 @@ export default function SignIn ({ setError }) {
                     <div style={{ margin: '20px 10px 10px' }}>
                         Need To Create an Account?
                         <div>
-                            <a href='' onClick={() => history.push('/account/sign-up')}>Create an Account</a>
+                            <a href='' onClick={ () => history.push('/account/sign-up') }>Create an Account</a>
                         </div>
                     </div>
                 </div>

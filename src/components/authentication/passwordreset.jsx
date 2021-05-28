@@ -14,21 +14,21 @@ export default function PasswordReset ({ setError }) {
         <div style={{ textAlign: '-webkit-center', margin: '25px', padding: '0 75px 75px' }}>
             <div style={{ border: '1px solid grey', maxWidth: '1000px', backgroundColor: 'white' }}>
                 <div style={{ margin: '50px' }}>
-                    <span style={{ fontSize: '30px', fontWeight: 700  }}>Reset Password</span>
-                    <Form onSubmit={(e) => passwordResetHandler(e)} style={{ width: '75%', margin: '15px' }}>
+                    <span style={{ fontSize: '30px', fontWeight: 700 }}>Reset Password</span>
+                    <Form onSubmit={ (e) => passwordResetHandler(e) } style={{ width: '75%', margin: '15px' }}>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Email Address</Form.Label>
                             <Form.Control
                                 autoComplete="email"
                                 data-lpignore="true"
-                                onChange={(e) => {
+                                onChange={ (e) => {
                                     setEmail(e.target.value)
-                                }}
+                                } }
                                 placeholder="example@gmail.com"
                                 type="email"
                             />
                         </Form.Group>
-                        <Button variant="primary" type="submit" onClick={(e) => passwordResetHandler(e)}>
+                        <Button variant="primary" type="submit" onClick={ (e) => passwordResetHandler(e) }>
                         Send Password Reset Email
                         </Button>
                     </Form>
@@ -42,7 +42,7 @@ export default function PasswordReset ({ setError }) {
                     <div>
                         Need To Create an Account?
                         <div>
-                            <a href='' onClick={() => history.push('/account/sign-up')}>Create an Account</a>
+                            <a href='' onClick={ () => history.push('/account/sign-up') }>Create an Account</a>
                         </div>
                     </div>
                 </div>
