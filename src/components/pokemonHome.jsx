@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { Row } from 'react-bootstrap'
 import PokemonCard from './pokemonCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import { GENERAL } from './language-map'
 
 export default function PokemonHome ({ setSelectedPokemon }) {
     const [pokemonList, setPokemonList] = useState()
@@ -13,7 +14,7 @@ export default function PokemonHome ({ setSelectedPokemon }) {
     useEffect(() => {
         async function getPokemon () {
             setIsCallInProgress(true)
-            const res = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=60')
+            const res = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=100')
             if (res.status === 200){
                 await res.json().then(function (data) {
                     setPokemonList(data.results)
@@ -51,13 +52,8 @@ export default function PokemonHome ({ setSelectedPokemon }) {
                     dataLength={ pokemonList.length }
                     next={ () => updatePokemonList() }
                     hasMore={ !!nextPokemonURL }
-                    endMessage={
-                        <p style={{ textAlign: 'center' }}>
-                            <b>Yay! You have seen it all</b>
-                        </p>
-                    }
                 >
-                    <Row xl={ 3 } lg={ 1 } md={ 1 } sm={ 1 } xs={ 1 } style={{ justifyContent: 'center', margin: '5px 15px' }}>
+                    <Row xl={ 3 } lg={ 1 } md={ 1 } sm={ 1 } xs={ 1 } className='pokemon-home-cards-container'>
                         { pokemonList.map((pokemon, index) => {
                             return (
                                 <PokemonCard
@@ -69,7 +65,9 @@ export default function PokemonHome ({ setSelectedPokemon }) {
                         }) }
                     </Row>
                 </InfiniteScroll>
-                : <div>Loading...</div> }
+                : <div>
+                    { GENERAL.loading }
+                </div> }
         </div>
     )
 }

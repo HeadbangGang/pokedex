@@ -18,7 +18,7 @@ export const db = firebase.firestore()
 
 export const generateUserDocument = async (user, additionalData) => {
     if (!user) return
-    const userRef = db.doc(`users/${user.uid}`)
+    const userRef = db.doc(`users/${ user.uid }`)
     const snapshot = await userRef.get()
     if (!snapshot.exists) {
         const { email, username, photoURL } = user
@@ -39,10 +39,7 @@ export const generateUserDocument = async (user, additionalData) => {
 const getUserDocument = async uid => {
     if (!uid) return null
     try {
-        const userDocument = await db.doc(`users/${uid}`).get()
-        if (!userDocument.exists) {
-            console.log('meow')
-        }
+        const userDocument = await db.doc(`users/${ uid }`).get()
         return {
             uid,
             ...userDocument.data()

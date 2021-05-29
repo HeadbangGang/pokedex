@@ -18,7 +18,7 @@ export default function PokemonCard ({ pokemon, setSelectedPokemon }) {
 
     useEffect(() => {
         const getPokemonData = async () => {
-            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${ pokemonName }`)
             if (res.status === 200){
                 await res.json().then(function (data) {
                     setPokemonData({
@@ -42,34 +42,41 @@ export default function PokemonCard ({ pokemon, setSelectedPokemon }) {
         const types = pokemonData && pokemonData.types.map((type, index) => {
             const typeName = type.type.name
             return (
-                <img key={ index } src={ typeImages[typeName] } style={{ maxWidth: '50px', margin: '0 2.5px' }} alt={ typeName } />
+                <img
+                    className="pokemon-card-type-img" alt={ typeName }
+                    key={ index }
+                    src={ typeImages[typeName] }
+                />
             )
         })
 
         return (
             <Col>
                 <Card border="secondary pokemon-card">
-                    { hasExtendedData && <span style={{ padding: '5px 0 0 10px', fontSize: '16px', fontWeight: 100, textAlign: 'left' }}>#{ pokemonData.id }</span> }
+                    { hasExtendedData &&
+                    <span className='pokemon-card-id'>
+                        #{ pokemonData.id }
+                    </span> }
                     <Card.Body>
-                        <Card.Title style={{ textAlign: 'center' }}>
+                        <Card.Title classnName="pokemon-card-img-container">
                             { hasExtendedData && !isLoadingData
                                 ? <img
-                                    src={ errorImg || pokemonData.img || pokemonData.img_alt }
                                     alt={ pokemonName }
-                                    style={{ height: '175px', width: '175px' }} // Need to set width of error image to 200px
+                                    className="pokemon-card-img"
                                     draggable={ false }
                                     onError={ () => setErrorImg(imageNotFound) }
+                                    src={ errorImg || pokemonData.img || pokemonData.img_alt }
                                 />
                                 : <img
-                                    src={ spinner }
                                     alt='loading'
-                                    style={{ height: '75px', width: '75px', margin: '38px' }}
+                                    className='pokemon-card-img-loading'
                                     draggable={ false }
                                     onLoad={ () => setIsLoadingData(false) }
+                                    src={ spinner }
                                 />}
                         </Card.Title>
-                        <Card.Subtitle className="pokemon-name">
-                            {pokemonName}
+                        <Card.Subtitle className="pokemon-card-name">
+                            { pokemonName }
                             <div>
                                 { hasExtendedData && types }
                             </div>
@@ -79,7 +86,7 @@ export default function PokemonCard ({ pokemon, setSelectedPokemon }) {
                         className="stretched-link"
                         onClick={ () => {
                             setSelectedPokemon(pokemonName)
-                            history.push(`/pokemon/${pokemonName}`)
+                            history.push(`/pokemon/${ pokemonName }`)
                         } }
                     ></a>
                 </Card>

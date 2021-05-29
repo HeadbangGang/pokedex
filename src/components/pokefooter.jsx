@@ -3,6 +3,7 @@ import { Navbar } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import pokeball from '../media/pokeball.png'
 import { PokemonCountContext } from '../providers/pokemoncount'
+import { GENERAL } from './language-map'
 
 export default function PokeFooter () {
     const date = new Date
@@ -10,7 +11,7 @@ export default function PokeFooter () {
     const pokemonCount = useContext(PokemonCountContext)
 
     return (
-        <Navbar bg="dark" fixed="bottom">
+        <Navbar bg="dark" fixed="bottom" className="navbar-container-footer">
             <Navbar.Brand href="/pokedex">
                 <img
                     src={ pokeball }
@@ -21,12 +22,10 @@ export default function PokeFooter () {
                     draggable={ false }
                 />
             </Navbar.Brand>
-            <span style={{ color: 'white' }}>
-                © {date.getFullYear()} Tayden Flitcroft
-            </span>
+            { GENERAL.copyright + ' ' + date.getFullYear() + ' ' + GENERAL.name }
             { pokemonCount &&
-                <div className="ml-auto" style={{ color: 'white' }}>
-                    National Pokédex Count: { pokemonCount }
+                <div className="ml-auto">
+                    {GENERAL.pokedexCountHeader + ' ' + pokemonCount }
                 </div> }
         </Navbar>
     )

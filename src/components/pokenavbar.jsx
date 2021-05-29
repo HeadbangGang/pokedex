@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 import pokeball from '../media/pokeball.png'
 import userIcon from '../media/user-icon.png'
 import { UserContext } from '../providers/userprovider'
+import { GENERAL, ERRORS, AUTHENTICATION } from './language-map'
 
 export default function PokeNavbar ({ error, selectedPokemonData, setError, setSelectedPokemon, setSelectedPokemonData }) {
     const history = useHistory()
@@ -22,22 +23,24 @@ export default function PokeNavbar ({ error, selectedPokemonData, setError, setS
     }, [selectedPokemonData])
 
     return (
-        <Navbar style={{ backgroundColor: 'red' }} expand="lg" fixed="top">
+        <Navbar className="navbar-container" expand="lg" fixed="top">
             <Toast
                 autohide
-                show={ !!error }
+                className="navbar-toast-container"
                 delay={ 5000 }
-                style={{ position: 'absolute', top: '20px', right: '20px' }}
                 onClose={ () => setError(null) }
+                show={ !!error }
             >
                 <Toast.Header>
-                    <strong className="mr-auto">ERROR</strong>
+                    <strong className="mr-auto">
+                        { ERRORS.error }
+                    </strong>
                 </Toast.Header>
                 <Toast.Body>{ error }</Toast.Body>
             </Toast>
-            <Navbar.Brand href='/pokedex' style={{ color: 'white' }}>
-                <img src={ pokeball } style={{ height: '50px', width: '50px', margin: '0 10px 0 0' }} draggable={ false } />
-                    Pokédex
+            <Navbar.Brand href='/pokedex' className="navbar-brand-name">
+                <img src={ pokeball } className="navbar-logo" draggable={ false } />
+                { GENERAL.pokedex }
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -51,29 +54,35 @@ export default function PokeNavbar ({ error, selectedPokemonData, setError, setS
                     <FormControl
                         className="mr-sm-2"
                         onChange={ (e) => setSearchData(e.target.value.trim()) }
-                        placeholder="Search Pokémon"
+                        placeholder={ GENERAL.searchPokemon }
                         value={ searchData }
                         ref={ overlayTarget }
                         type="text"
                     />
                     <Button
+                        className="navbar-search-button"
                         onClick={ (event) => {
                             fetchPokemon(event, searchData, setSearchData, setSelectedPokemon, setSelectedPokemonData, setShowOverlay, setOverlayParams)
                         } }
                         variant="outline-dark"
-                        style={{ margin: '5px 10px 5px 0' }}
                     >
-                    Search
+                        { GENERAL.search }
                     </Button>
                 </Form>
                 { userContext?.email && userContext?.username
                     ? <input
-                        type="image"
-                        src={ userContext?.photoURL || userIcon }
-                        style={{ height: '35px', width: '35px', border: '1px solid black', borderRadius: '50%' }}
+                        className="navbar-user-icon"
                         onClick={ () => history.push('/account/profile') }
+                        src={ userContext?.photoURL || userIcon }
+                        type="image"
                     />
-                    : <Button variant="outline-dark" onClick={ ()=> history.push('/account/sign-in') }>Sign Up/Sign In</Button>
+                    : <Button variant="outline-dark"
+                        onClick={ () => {
+                            history.push('/account/sign-in')
+                        } }
+                    >
+                        { AUTHENTICATION.signIn }
+                    </Button>
                 }
             </Navbar.Collapse>
             <Overlay
@@ -98,7 +107,7 @@ async function fetchPokemon (e, searchData, setSearchData, setSelectedPokemon, s
     e.preventDefault()
     if (searchData !== '') {
         searchData = searchData.toLowerCase()
-        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchData}`)
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${ searchData }`)
         if (res.status === 200){
             await res.json().then(function (data) {
                 setSelectedPokemonData(data)
@@ -108,13 +117,13 @@ async function fetchPokemon (e, searchData, setSearchData, setSelectedPokemon, s
         } else {
             setShowOverlay(true)
             setOverlayParams({
-                message: 'This Pokémon does not exist, please search for a Pokémon that exists in the National Pokédex'
+                message: ERRORS.pokemonDoesNotExist
             })
         }
     } else {
         setShowOverlay(true)
         setOverlayParams({
-            message: 'Enter a Pokémon Name'
+            message: ERRORS.enterPokemon
         })
     }
 }

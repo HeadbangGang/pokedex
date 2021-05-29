@@ -3,6 +3,7 @@ import { Form, Button } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import { useHistory, Link } from 'react-router-dom'
 import { auth } from '../../database/firebase'
+import { AUTHENTICATION, ERRORS } from '../language-map'
 
 export default function SignIn ({ setError }) {
     const history = useHistory()
@@ -11,58 +12,71 @@ export default function SignIn ({ setError }) {
     const [password, setPassword] = useState(null)
 
     return (
-        <div style={{ margin: '25px', padding: '0 75px 75px' }}>
-            <div style={{ border: '1px solid grey', maxWidth: '1000px', backgroundColor: 'white', marginLeft: 'auto', marginRight: 'auto' }}>
-                <div style={{ margin: '50px' }}>
-                    <span style={{ fontSize: '30px', fontWeight: 700 }}>Sign In</span>
-                    <Form onSubmit={ (e) => signInToAccountHandler(e) } style={{ width: '75%', margin: '15px' }}>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Email Address</Form.Label>
-                            <Form.Control
-                                autoComplete="email"
-                                data-lpignore="true"
-                                onChange={ (e) => {
-                                    setEmail(e.target.value)
-                                } }
-                                placeholder="example@gmail.com"
-                                type="email"
-                            />
-                        </Form.Group>
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                autoComplete="current-password"
-                                data-lpignore="true"
-                                onChange={ (e) => {
-                                    setPassword(e.target.value)
-                                } }
-                                placeholder="Password"
-                                type="password"
-                            />
-                            <div style={{ textAlign: 'left' }}>
-                                <Link to={{ pathname: '/account/password-reset' }}>
-                                Forgot Password?
-                                </Link>
-                            </div>
-                        </Form.Group>
+        <div className="authentication-page-container">
+            <div className="authentication-box">
+                <div className="authentication-header">
+                    { AUTHENTICATION.signIn }
+                </div>
+                <Form
+                    className="authentication-form-container"
+                    onSubmit={ (e) => signInToAccountHandler(e) }
+                >
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>
+                            { AUTHENTICATION.email }
+                        </Form.Label>
+                        <Form.Control
+                            autoComplete="email"
+                            data-lpignore="true"
+                            onChange={ (e) => {
+                                setEmail(e.target.value)
+                            } }
+                            placeholder="example@gmail.com"
+                            type="email"
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label>
+                            { AUTHENTICATION.password }
+                        </Form.Label>
+                        <Form.Control
+                            autoComplete="current-password"
+                            data-lpignore="true"
+                            onChange={ (e) => {
+                                setPassword(e.target.value)
+                            } }
+                            placeholder="Password"
+                            type="password"
+                        />
+                        <Link
+                            to={{ pathname: '/account/password-reset' }}
+                        >
+                            { AUTHENTICATION.forgotPassword }
+                        </Link>
+                    </Form.Group>
+                    <div className="authentication-submit">
                         <Button
-                            variant="primary"
-                            type='null'
                             onClick={ (e) => {
                                 signInToAccountHandler(e)
                             } }
+                            type="null"
+                            variant="outline-danger"
                         >
-                        Sign In
+                            { AUTHENTICATION.signIn }
                         </Button>
-                    </Form>
-                    <div style={{ fontWeight: 700 }}>
-                        <span style={{ borderBottom: '1px solid black' }}>or</span>
                     </div>
-                    <div style={{ margin: '20px 10px 10px' }}>
-                        Need To Create an Account?
-                        <div>
-                            <a href='' onClick={ () => history.push('/account/sign-up') }>Create an Account</a>
-                        </div>
+                </Form>
+                <div className="authentication-alt-option-container">
+                    <span className="authentication-or">or</span>
+                    <div className="authentication-alt-option">
+                        <Button
+                            onClick={ () => {
+                                history.push('/account/sign-up')
+                            } }
+                            variant="dark"
+                        >
+                            { AUTHENTICATION.createAnAccount }
+                        </Button>
                     </div>
                 </div>
             </div>
@@ -79,20 +93,19 @@ export default function SignIn ({ setError }) {
                     }
                 })
                 .catch(e => {
-                    console.log(e)
                     if (e.code === 'auth/wrong-password') {
-                        setError('Wrong password. Please try again.')
+                        setError(ERRORS.wrongPassword)
                     } else if(e.code === 'auth/user-not-found') {
-                        setError('No user was found with this email. Try another email address or proceed to Create an Account')
+                        setError(ERRORS.noUserFound)
                     } else {
-                        setError('Error signing in with password and email!')
+                        setError(ERRORS.signingIn)
                     }
                 })
         } else {
             if (!email) {
-                setError('Please enter a email')
+                setError(ERRORS.enterEmail)
             } else if (!password) {
-                setError('Please enter a password')
+                setError(ERRORS.enterPassword)
             }
         }
 

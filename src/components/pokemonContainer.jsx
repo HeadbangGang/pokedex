@@ -10,8 +10,9 @@ import SignIn from './authentication/signin'
 import PasswordReset from './authentication/passwordreset'
 import ProfilePage from './authentication/profilepage'
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
-import './pokemon.css'
 import PokemonCount from '../providers/pokemoncount'
+import './pokemon.css'
+import './authentication/authentication.css'
 
 export default function PokemonContainer () {
     const pageURL = window.location.href
@@ -23,7 +24,7 @@ export default function PokemonContainer () {
         <UserProvider>
             <PokemonCount>
                 <Router basename="/">
-                    <div style={{ backgroundColor: 'lightgrey' }}>
+                    <div className="pokemon-container">
                         <PokeNavbar
                             selectedPokemonData={ selectedPokemonData }
                             setSelectedPokemon={ setSelectedPokemon }
@@ -31,14 +32,14 @@ export default function PokemonContainer () {
                             setError={ setError }
                             error={ error }
                         />
-                        <div style={{ paddingTop: '100px', minHeight: '100vh' }}>
+                        <div className="pokemon-container-main-content">
                             <Switch>
                                 <Route exact path="/pokedex">
                                     <PokemonHome
                                         setSelectedPokemon={ setSelectedPokemon }
                                     />
                                 </Route>
-                                <Route exact path={ `/pokemon/${selectedPokemon}` }>
+                                <Route exact path={ `/pokemon/${ selectedPokemon }` }>
                                     <PokemonProfile
                                         pokemon={ selectedPokemon }
                                         pokemonData={ selectedPokemonData }

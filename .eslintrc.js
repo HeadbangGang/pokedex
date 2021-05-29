@@ -50,6 +50,7 @@ module.exports = {
         'react/prefer-es6-class': [1, 'always'],
         'react/sort-prop-types': [1, { 'ignoreCase': true }],
         'react/react-in-jsx-scope': 1,
+        'template-curly-spacing': [1, 'always'],
         'jsx-a11y/href-no-hash': 0,
         'jsx-a11y/img-has-alt': 0,
         'react/jsx-closing-bracket-location': [1, 'line-aligned'],
@@ -58,7 +59,7 @@ module.exports = {
         'react/no-typos': 2,
         'max-len': [1, { 'code': 180, 'tabWidth': 4, 'ignoreTemplateLiterals': true, 'ignoreUrls': true, 'ignoreComments': true }],
         'no-debugger': 1,
-        'no-console': 0,
+        'no-console': 1,
         'no-unused-vars': 1
     }
 }

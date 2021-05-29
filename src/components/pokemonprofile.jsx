@@ -4,6 +4,7 @@ import { Carousel, Col, Row } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import { boxArt } from '../media/boxart/index'
 import Arrow from '../media/arrow.png'
+import { GENERAL } from './language-map'
 
 export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }) {
     const history = useHistory()
@@ -15,7 +16,7 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
     useEffect(() => {
         async function getPokemon () {
             setIsCallInProgress(true)
-            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+            const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${ pokemon }`)
             if (res.status === 200){
                 await res.json().then(function (data) {
                     setPokemonData(data)
@@ -40,7 +41,7 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
             })
             for (const [key, value] of Object.entries(pokemonData.sprites)) {
                 if (value !== null && key !== 'other' && key !== 'versions' && !key.includes('back')){
-                    allSprites.push([`${key}`, `${value}`])
+                    allSprites.push([`${ key }`, `${ value }`])
                 }
             }
             for (const game in pokemonData.sprites.versions) {
@@ -101,7 +102,9 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
                         })}
                     </Row>
                 </div>
-                :<div>Loading...</div>
+                :<div>
+                    { GENERAL.loading }
+                </div>
             }
         </>
     )
