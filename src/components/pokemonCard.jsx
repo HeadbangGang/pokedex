@@ -58,7 +58,7 @@ export default function PokemonCard ({ pokemon, setSelectedPokemon }) {
                         #{ pokemonData.id }
                     </span> }
                     <Card.Body>
-                        <Card.Title classnName="pokemon-card-img-container">
+                        <Card.Title className="pokemon-card-img-container">
                             { hasExtendedData && !isLoadingData
                                 ? <img
                                     alt={ pokemonName }
