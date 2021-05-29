@@ -77,7 +77,7 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
                             style={{ maxWidth: '450px', maxHeight: '450px', minHeight: '350px', margin: '20px auto' }}
                             nextIcon={ <img src={ Arrow } style={{ maxWidth: '30px' }} /> }
                             prevIcon={ <img src={ Arrow } style={{ transform: 'rotate(180deg)', maxWidth: '30px' }} /> }
-                            interval={ 5000 }
+                            interval={ null }
                         >
                             { sprites && sprites.map((sprite, index) => {
                                 return (
@@ -85,10 +85,10 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
                                         <div style={{ display: 'flex', justifyContent: 'center', verticalAlign: '50%' }}>
                                             <img // need to set loading while image is loading
                                                 alt=''
-                                                className="d-block w-100"
+                                                className="d-block"
                                                 draggable={ false }
                                                 src={ sprite[1] }
-                                                style={{ maxWidth: '300px', maxHeight: '300px', border: '5px solid black', backgroundColor: 'white', borderRadius: '50%' }}
+                                                style={{ maxWidth: '300px', maxHeight: '300px', width: '300px', height: '300px', border: '5px solid black', backgroundColor: 'white', borderRadius: '50%' }}
                                             />
                                         </div>
                                     </Carousel.Item>

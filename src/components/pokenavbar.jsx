@@ -77,6 +77,7 @@ export default function PokeNavbar ({ error, selectedPokemonData, setError, setS
                         type="image"
                     />
                     : <Button variant="outline-dark"
+                        className="navbar-sign-in-button"
                         onClick={ () => {
                             history.push('/account/sign-in')
                         } }
