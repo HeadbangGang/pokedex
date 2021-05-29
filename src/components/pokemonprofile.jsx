@@ -68,35 +68,42 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
     return (
         <>
             { !isCallInProgress && pokemonData
-                ? <div style={{ textAlign: '-webkit-center', margin: '10px 0 50px' }}>
-                    <h1 style={{ textTransform: 'capitalize' }}>{ pokemonData.name }</h1>
-                    <Col xl={ 12 } lg={ 12 } md={ 6 }>
+                ? <div style={{ margin: '10px 0 50px' }}>
+                    <h1 style={{ textTransform: 'capitalize', display: 'flex', justifyContent: 'center' }}>
+                        { pokemonData.name }
+                    </h1>
+                    <Col xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 } xs={ 12 }>
                         <Carousel
-                            style={{ maxWidth: '450px', maxHeight: '450px', minHeight: '350px' }}
+                            style={{ maxWidth: '450px', maxHeight: '450px', minHeight: '350px', margin: '20px auto' }}
                             nextIcon={ <img src={ Arrow } style={{ maxWidth: '30px' }} /> }
                             prevIcon={ <img src={ Arrow } style={{ transform: 'rotate(180deg)', maxWidth: '30px' }} /> }
+                            interval={ 5000 }
                         >
                             { sprites && sprites.map((sprite, index) => {
                                 return (
                                     <Carousel.Item key={ index }>
-                                        <img // need to set loading while image is loading
-                                            alt=''
-                                            className="d-block w-100"
-                                            draggable={ false }
-                                            src={ sprite[1] }
-                                            style={{ maxWidth: '300px', maxHeight: '300px' }}
-                                        />
+                                        <div style={{ display: 'flex', justifyContent: 'center', verticalAlign: '50%' }}>
+                                            <img // need to set loading while image is loading
+                                                alt=''
+                                                className="d-block w-100"
+                                                draggable={ false }
+                                                src={ sprite[1] }
+                                                style={{ maxWidth: '300px', maxHeight: '300px', border: '5px solid black', backgroundColor: 'white', borderRadius: '50%' }}
+                                            />
+                                        </div>
                                     </Carousel.Item>
                                 )
                             }) }
                         </Carousel>
                     </Col>
-                    <Row xl={ 3 } lg={ 1 } md={ 1 } sm={ 1 } xs={ 1 } style={{ justifyContent: 'center', margin: '5px 15px' }}>
+                    <Row xl={ 12 } lg={ 12 } md={ 12 } sm={ 1 } xs={ 1 } className="pokemon-profile-boxart-container">
                         { gameIndices && gameIndices.map((game, index) => {
                             return (
-                                // Maybe display some game data when you hover over the box art
-                                <Col key={ index }>
-                                    <img src={ boxArt[game] } alt={ game } style={{ maxWidth: '200px', maxHeight: '200px', hover: 'background' }} />
+                                <Col key={ index } className='tayden'>
+                                    <img src={ boxArt[game] } alt={ game } className="pokemon-profile-boxart" />
+                                    <div className='overlay'>
+                                        <div className='text'>{ GENERAL.pokemon }</div>
+                                    </div>
                                 </Col>
                             )
                         })}

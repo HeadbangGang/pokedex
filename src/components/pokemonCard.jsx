@@ -51,7 +51,7 @@ export default function PokemonCard ({ pokemon, setSelectedPokemon }) {
         })
 
         return (
-            <Col>
+            <Col className='pokemon-card-container'>
                 <Card border="secondary pokemon-card">
                     { hasExtendedData &&
                     <span className='pokemon-card-id'>
