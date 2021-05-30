@@ -24,7 +24,6 @@ export const ERRORS = {
     pokemonDoesNotExist: 'This Pokémon does not exist, please search for a Pokémon that exists in the National Pokédex',
     signingIn: 'Error signing in with password and email!',
     wrongPassword: 'Wrong password. Please try again.',
-    emailAlreadyExists: 'The email address entered is already in use by another account. Please use a different email address and try again or proceed to Sign In.'
 }
 
 export const GENERAL = {

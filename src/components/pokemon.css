@@ -71,7 +71,6 @@
     height: auto;
     line-height: normal;
 }
-
 /* -------------------------- Home Page -------------------------- */
 .pokemon-home-cards-container {
     justify-content: center;
@@ -133,89 +132,9 @@
 }
 
 /* -------------------------- Pokemon Profile -------------------------- */
-.pokemon-profile-container {
-    margin: 10px 0 50px;
-}
-
-.pokemon-profile-name {
-    text-transform: capitalize;
-    display: flex;
-    justify-content: center;
-}
-
 .pokemon-profile-boxart-container {
     margin: 5px 15px;
     justify-content: center;
-}
-
-.pokemon-profile-carousel-container {
-    max-width: 450px;
-    max-height: 450px;
-    min-height: 350px;
-    margin: 20px auto;
-}
-
-.pokemon-profile-carousel-navigation-icon-right {
-    max-width: 30px;
-    max-height: 30px;
-}
-
-.pokemon-profile-carousel-img {
-    width: 300px;
-    height: 300px;
-    border: 5px solid black;
-    border-radius: 50%;
-    background-color: white;
-}
-.pokemon-profile-carousel-navigation-icon-left {
-    transform: rotate(180deg);
-    max-width: 30px;
-    max-height: 30px;
-}
-
-.pokemon-profile-carousel-img-container {
-    display: flex;
-    justify-content: center;
-    vertical-align: 50%;
-}
-
-.pokemon-profile-boxart-wrapper {
-    margin: auto 0 0;
-    display: flex;
-    justify-content: center;
-}
-
-.pokemon-profile-boxart-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: black;
-    opacity: 75%;
-    overflow: hidden;
-    width: 100%;
-    height: 0;
-    transition: .5s ease;
-}
-
-.pokemon-profile-boxart-overlay-content {
-    white-space: nowrap; 
-    color: white;
-    font-size: 20px;
-    position: absolute;
-    overflow: hidden;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-}
-
-.pokemon-profile-boxart-overlay-title {
-    text-transform: capitalize;
-}
-.pokemon-profile-boxart-container:hover .pokemon-profile-boxart-overlay {
-    height: 100%;
-    padding: 5%;
 }
 
 .pokemon-profile-boxart {
@@ -227,3 +146,36 @@
 .pokemon-profile-boxart:hover {
     background-color: red;
 }
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: black;
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    transition: .5s ease;
+  }
+
+  .tayden {
+    margin: auto 0 0;
+  }
+
+  .tayden:hover .overlay {
+    height: 100%;
+    padding: 5%;
+  }
+
+  .text {
+    white-space: nowrap; 
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+  }
