@@ -77,7 +77,7 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
                             className="pokemon-profile-carousel-container"
                             nextIcon={ <img src={ Arrow } className="pokemon-profile-carousel-navigation-icon-right" /> }
                             prevIcon={ <img src={ Arrow } className="pokemon-profile-carousel-navigation-icon-left" /> }
-                            interval={ null }
+                            interval={ 5000 }
                         >
                             { sprites && sprites.map((sprite, index) => {
                                 return (
