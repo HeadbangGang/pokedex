@@ -98,9 +98,10 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
                     </Col>
                     <Row xl={ 12 } lg={ 12 } md={ 12 } sm={ 1 } xs={ 1 } className='pokemon-profile-boxart-wrapper'>
                         { gameIndices && gameIndices.map((game, index) => {
+                            // Need to discover why overlay does not work in prod
                             return (
                                 <Col key={ index } className="pokemon-profile-boxart-container">
-                                    <img src={ boxArt[game] } alt={ game } className="pokemon-profile-boxart" />
+                                    <img src={ boxArt[game] } alt={ game } className="pokemon-profile-boxart" /> 
                                     <div className='pokemon-profile-boxart-overlay'>
                                         <div className='pokemon-profile-boxart-overlay-content'>
                                             <div className="pokemon-profile-boxart-overlay-title">
