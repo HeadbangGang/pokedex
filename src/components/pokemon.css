@@ -1,229 +1,229 @@
-/*  WILL NEED TO BREAK OUT INTO OTHER CSS FILES TO REMOVE ALL THS */
+/*  WILL NEED TO BREAK OUT INTO OTHER CSS FILES TO REMOVE ALL THE IMPORTANTS */
 /* -------------------------- Main Container --------------------------*/
 .pokemon-container {
-    background-color: lightgrey;
+    background-color: lightgrey !important;
 }
 
 .pokemon-container-main-content {
-    padding: 100px 0 75px;
-    min-height: 100vh;
+    padding: 100px 0 75px !important;
+    min-height: 100vh !important;
 }
 
 /* -------------------------- Navbar | Header --------------------------*/
 .navbar-container {
-    background-color: red;
-    border: 1px solid black;
-    margin: 10px;
+    background-color: red !important;
+    border: 1px solid black !important;
+    margin: 10px !important;
     border-radius: 50px;
 }
 
 .navbar-brand-name {
-    color: #ffcb05;
-    text-shadow:  2px 1px 3px #2a75bb, 0 0 1em #2a75bb, 0 0 0.2em #2a75bb;
-    font-size: 30px;
+    color: #ffcb05 !important;
+    text-shadow:  2px 1px 3px #2a75bb, 0 0 1em #2a75bb, 0 0 0.2em #2a75bb !important;
+    font-size: 30px !important;
 }
 
 .navbar-logo {
-    height: 50px;
-    width: 50px;
-    margin: 0 10px 0 0;
+    height: 50px !important;
+    width: 50px !important;
+    margin: 0 10px 0 0 !important;
 }
 
 .navbar-logo:hover {
-    animation: rotation 2s infinite linear;
+    animation: rotation 2s infinite linear !important;
 }
 
 .navbar-toast-container {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    position: absolute !important;
+    top: 20px !important;
+    right: 20px !important;
 }
 
 .navbar-search-button {
-    margin: 5px 10px 5px 0;
+    margin: 5px 10px 5px 0 !important;
 }
 
 .navbar-user-icon {
-    height: 35px;
-    width: 35px;
-    border: 1px solid black;
-    border-radius: 50%;
+    height: 35px !important;
+    width: 35px !important;
+    border: 1px solid black !important;
+    border-radius: 50% !important;
 }
 
 @keyframes rotation {
     from {
-      transform: rotate(0deg);
+      transform: rotate(0deg) !important;
     }
     to {
-      transform: rotate(359deg);
+      transform: rotate(359deg) !important;
     }
   }
 
 /* -------------------------- Navbar | Footer --------------------------*/
 .navbar-container-footer {
-    color: white;
+    color: white !important;
 }
 
 .navbar-sign-in-button {
-    border-radius: 20px;
-    border-width: 2px;
-    font-weight: 600;
-    height: auto;
-    line-height: normal;
+    border-radius: 20px !important;
+    border-width: 2px !important;
+    font-weight: 600 !important;
+    height: auto !important;
+    line-height: normal !important;
 }
 
 /* -------------------------- Home Page -------------------------- */
 .pokemon-home-cards-container {
-    justify-content: center;
-    margin: 5px 15px;
+    justify-content: center !important;
+    margin: 5px 15px !important;
 }
 
 /* -------------------------- Pokemon Cards -------------------------- */
 
 .col {
-    padding: 15px 15px;
-    text-align: -webkit-center;
-    max-width: 300px;
+    padding: 15px 15px !important;
+    text-align: -webkit-center !important;
+    max-width: 300px !important;
 }
 
 .pokemon-card {
-    transition: transform .25s;
+    transition: transform .25s !important;
 }
 
 .pokemon-card:hover {
-    transform: scale(1.050);
-    cursor: pointer;
-    box-shadow: 0px 0px 10px black;
+    transform: scale(1.050) !important;
+    cursor: pointer !important;
+    box-shadow: 0px 0px 10px black !important;
 }
 
 .pokemon-card-name {
-    text-transform: capitalize;
-    text-align: center;
-    margin-bottom: 10px;
-    font-size: 20px;
-    font-weight: 300;
+    text-transform: capitalize !important;
+    text-align: center !important;
+    margin-bottom: 10px !important;
+    font-size: 20px !important;
+    font-weight: 300 !important;
 }
 
 .pokemon-card-type-img {
-    max-width: 50px;
-    margin: 0 2.5px;
+    max-width: 50px !important;
+    margin: 0 2.5px !important;
 }
 
 .pokemon-card-id {
-    padding: 5px 0 0 10px;
-    font-size: 16px;
-    font-weight: 100;
-    text-align: left;
+    padding: 5px 0 0 10px !important;
+    font-size: 16px !important;
+    font-weight: 100 !important;
+    text-align: left !important;
 }
 
 .pokemon-card-img-container {
-    display: flex;
-    justify-content: center;
+    display: flex !important;
+    justify-content: center !important;
 }
 
 .pokemon-card-img {
-    height: 175px;
-    width: 175px;
+    height: 175px !important;
+    width: 175px !important;
 }
 
 .pokemon-card-img-loading {
-    height: 75px;
-    width: 75px;
-    margin: 38px;
+    height: 75px !important;
+    width: 75px !important;
+    margin: 38px !important;
 }
 
 /* -------------------------- Pokemon Profile -------------------------- */
 .pokemon-profile-container {
-    margin: 10px 0 50px;
+    margin: 10px 0 50px !important;
 }
 
 .pokemon-profile-name {
-    text-transform: capitalize;
-    display: flex;
-    justify-content: center;
+    text-transform: capitalize !important;
+    display: flex !important;
+    justify-content: center !important;
 }
 
 .pokemon-profile-boxart-container {
-    margin: 5px 15px;
-    justify-content: center;
+    margin: 5px 15px !important;
+    justify-content: center !important;
 }
 
 .pokemon-profile-carousel-container {
-    max-width: 450px;
-    max-height: 450px;
-    min-height: 350px;
-    margin: 20px auto;
+    max-width: 450px !important;
+    max-height: 450px !important;
+    min-height: 350px !important;
+    margin: 20px auto !important;
 }
 
 .pokemon-profile-carousel-navigation-icon-right {
-    max-width: 30px;
-    max-height: 30px;
+    max-width: 30px !important;
+    max-height: 30px !important;
 }
 
 .pokemon-profile-carousel-img {
-    width: 300px;
-    height: 300px;
-    border: 5px solid black;
-    border-radius: 50%;
-    background-color: white;
+    width: 300px !important;
+    height: 300px !important;
+    border: 5px solid black !important;
+    border-radius: 50% !important;
+    background-color: white !important;
 }
 .pokemon-profile-carousel-navigation-icon-left {
-    transform: rotate(180deg);
-    max-width: 30px;
-    max-height: 30px;
+    transform: rotate(180deg) !important;
+    max-width: 30px !important;
+    max-height: 30px !important;
 }
 
 .pokemon-profile-carousel-img-container {
-    display: flex;
-    justify-content: center;
-    vertical-align: 50%;
+    display: flex !important;
+    justify-content: center !important;
+    vertical-align: 50% !important;
 }
 
 .pokemon-profile-boxart-wrapper {
-    margin: auto 0 0;
-    display: flex;
-    justify-content: center;
+    margin: auto 0 0 !important;
+    display: flex !important;
+    justify-content: center !important;
 }
 
 .pokemon-profile-boxart-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: black;
-    opacity: 75%;
-    overflow: hidden;
-    width: 100%;
-    height: 0;
-    transition: .5s ease;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background-color: black !important;
+    opacity: 75% !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    height: 0 !important;
+    transition: .5s ease !important;
 }
 
 .pokemon-profile-boxart-overlay-content {
-    white-space: nowrap; 
-    color: white;
+    white-space: nowrap !important; 
+    color: white !important;
     font-size: 20px;
-    position: absolute;
-    overflow: hidden;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
+    position: absolute !important;
+    overflow: hidden !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    -ms-transform: translate(-50%, -50%) !important;
 }
 
 .pokemon-profile-boxart-overlay-title {
-    text-transform: capitalize;
+    text-transform: capitalize !important;
 }
 .pokemon-profile-boxart-container:hover .pokemon-profile-boxart-overlay {
-    height: 100%;
-    padding: 5%;
+    height: 100% !important;
+    padding: 5% !important;
 }
 
 .pokemon-profile-boxart {
-    display: block;
-    width: 100%;
-    height: auto;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
 }
 
 .pokemon-profile-boxart:hover {
-    background-color: red;
+    background-color: red !important;
 }
