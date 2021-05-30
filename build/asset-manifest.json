@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.60a99c6e.chunk.css",
-    "main.js": "/static/js/main.25448a11.chunk.js",
-    "main.js.map": "/static/js/main.25448a11.chunk.js.map",
+    "main.css": "/static/css/main.0215524e.chunk.css",
+    "main.js": "/static/js/main.853a820c.chunk.js",
+    "main.js.map": "/static/js/main.853a820c.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.7cfbbd3e.js",
     "runtime-main.js.map": "/static/js/runtime-main.7cfbbd3e.js.map",
-    "static/js/2.36ec2645.chunk.js": "/static/js/2.36ec2645.chunk.js",
-    "static/js/2.36ec2645.chunk.js.map": "/static/js/2.36ec2645.chunk.js.map",
+    "static/js/2.b3276783.chunk.js": "/static/js/2.b3276783.chunk.js",
+    "static/js/2.b3276783.chunk.js.map": "/static/js/2.b3276783.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.60a99c6e.chunk.css.map": "/static/css/main.60a99c6e.chunk.css.map",
-    "static/js/2.36ec2645.chunk.js.LICENSE.txt": "/static/js/2.36ec2645.chunk.js.LICENSE.txt",
+    "static/css/main.0215524e.chunk.css.map": "/static/css/main.0215524e.chunk.css.map",
+    "static/js/2.b3276783.chunk.js.LICENSE.txt": "/static/js/2.b3276783.chunk.js.LICENSE.txt",
     "static/media/Pokemon_Hollow.47f77ce9.ttf": "/static/media/Pokemon_Hollow.47f77ce9.ttf",
     "static/media/Pokemon_Solid.5d60be1f.ttf": "/static/media/Pokemon_Solid.5d60be1f.ttf",
     "static/media/arrow.0797d0d5.png": "/static/media/arrow.0797d0d5.png",
@@ -57,8 +57,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.7cfbbd3e.js",
-    "static/js/2.36ec2645.chunk.js",
-    "static/css/main.60a99c6e.chunk.css",
-    "static/js/main.25448a11.chunk.js"
+    "static/js/2.b3276783.chunk.js",
+    "static/css/main.0215524e.chunk.css",
+    "static/js/main.853a820c.chunk.js"
   ]
 }

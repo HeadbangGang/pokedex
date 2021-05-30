@@ -1,0 +1,8 @@
+.pokemon-container {
+    background-color: lightgrey !important;
+}
+
+.pokemon-container-main-content {
+    padding: 100px 0 75px !important;
+    min-height: 100vh !important;
+}

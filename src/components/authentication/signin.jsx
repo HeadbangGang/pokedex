@@ -86,21 +86,20 @@ export default function SignIn ({ setError }) {
     async function signInToAccountHandler (e) {
         e.preventDefault()
         if (email && password) {
-            await auth.signInWithEmailAndPassword(email, password)
-                .then(user => {
-                    if(user.user) {
-                        history.push('/account/profile')
-                    }
-                })
-                .catch(e => {
-                    if (e.code === 'auth/wrong-password') {
-                        setError(ERRORS.wrongPassword)
-                    } else if(e.code === 'auth/user-not-found') {
-                        setError(ERRORS.noUserFound)
-                    } else {
-                        setError(ERRORS.signingIn)
-                    }
-                })
+            try {
+                const res = await auth.signInWithEmailAndPassword(email, password)
+                if (res.user) {
+                    history.push('/account/profile')
+                }
+            } catch(e) {
+                if (e.code === 'auth/wrong-password') {
+                    setError(ERRORS.wrongPassword)
+                } else if(e.code === 'auth/user-not-found') {
+                    setError(ERRORS.noUserFound)
+                } else {
+                    setError(ERRORS.signingIn)
+                }
+            }
         } else {
             if (!email) {
                 setError(ERRORS.enterEmail)

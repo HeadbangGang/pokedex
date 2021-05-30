@@ -6,6 +6,7 @@ import pokeball from '../media/pokeball.png'
 import userIcon from '../media/user-icon.png'
 import { UserContext } from '../providers/userprovider'
 import { GENERAL, ERRORS, AUTHENTICATION } from './language-map'
+import './stylesheets/header.css'
 
 export default function PokeNavbar ({ error, selectedPokemonData, setError, setSelectedPokemon, setSelectedPokemonData }) {
     const history = useHistory()

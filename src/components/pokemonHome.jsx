@@ -5,6 +5,7 @@ import { Row } from 'react-bootstrap'
 import PokemonCard from './pokemonCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { GENERAL } from './language-map'
+import './stylesheets/pokemon-home.css'
 
 export default function PokemonHome ({ setSelectedPokemon }) {
     const [pokemonList, setPokemonList] = useState()
@@ -46,7 +47,7 @@ export default function PokemonHome ({ setSelectedPokemon }) {
     }
 
     return (
-        <div>
+        <>
             { pokemonList && !isCallInProgress
                 ? <InfiniteScroll
                     dataLength={ pokemonList.length }
@@ -68,7 +69,7 @@ export default function PokemonHome ({ setSelectedPokemon }) {
                 : <div>
                     { GENERAL.loading }
                 </div> }
-        </div>
+        </>
     )
 }
 

@@ -6,6 +6,7 @@ import { Card, Col } from 'react-bootstrap'
 import { typeImages } from '../media/types/index'
 import spinner from '../media/spinner.webp'
 import imageNotFound from '../media/image-not-found.png'
+import './stylesheets/pokemon-cards.css'
 
 export default function PokemonCard ({ pokemon, setSelectedPokemon }) {
     const pokemonName = pokemon.name

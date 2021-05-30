@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 import { boxArt } from '../media/boxart/index'
 import Arrow from '../media/arrow.png'
 import { GENERAL } from './language-map'
+import './stylesheets/pokemon-profile.css'
 
 export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }) {
     const history = useHistory()
@@ -77,7 +78,7 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
                             className="pokemon-profile-carousel-container"
                             nextIcon={ <img src={ Arrow } className="pokemon-profile-carousel-navigation-icon-right" /> }
                             prevIcon={ <img src={ Arrow } className="pokemon-profile-carousel-navigation-icon-left" /> }
-                            interval={ null }
+                            interval={ 5000 }
                         >
                             { sprites && sprites.map((sprite, index) => {
                                 return (

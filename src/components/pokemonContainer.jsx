@@ -11,7 +11,7 @@ import PasswordReset from './authentication/passwordreset'
 import ProfilePage from './authentication/profilepage'
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import PokemonCount from '../providers/pokemoncount'
-import './pokemon.css'
+import './stylesheets/pokemon-container.css'
 import './authentication/authentication.css'
 
 export default function PokemonContainer () {

@@ -34,6 +34,10 @@ export default function PasswordReset ({ setError }) {
                             placeholder="example@gmail.com"
                             type="email"
                         />
+                        { emailHasBeenSent &&
+                    <div>
+                        { AUTHENTICATION.resetEmailSent }
+                    </div> }
                     </Form.Group>
                     <div className="authentication-submit">
                         <Button
@@ -45,10 +49,6 @@ export default function PasswordReset ({ setError }) {
                         </Button>
                     </div>
                 </Form>
-                { emailHasBeenSent &&
-                    <div>
-                        { AUTHENTICATION.resetEmailSent }
-                    </div> }
                 <div className="authentication-alt-option-container">
                     <span className="authentication-or">or</span>
                     <div className="authentication-alt-option">

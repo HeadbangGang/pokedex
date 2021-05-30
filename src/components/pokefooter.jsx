@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import pokeball from '../media/pokeball.png'
 import { PokemonCountContext } from '../providers/pokemoncount'
 import { GENERAL } from './language-map'
+import './stylesheets/footer.css'
 
 export default function PokeFooter () {
     const date = new Date
