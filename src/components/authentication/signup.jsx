@@ -105,7 +105,11 @@ export default function SignUp ({ setError }) {
                 generateUserDocument(user, { username })
             }
             catch(e){
-                setError(e.message)
+                if (e.code === 'auth/email-already-in-use') {
+                    setError(ERRORS.emailAlreadyExists)
+                } else {
+                    setError(e.message)
+                }
             }
         } else {
             if (!username) {
