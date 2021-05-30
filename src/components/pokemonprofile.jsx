@@ -68,27 +68,26 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
     return (
         <>
             { !isCallInProgress && pokemonData
-                ? <div style={{ margin: '10px 0 50px' }}>
-                    <h1 style={{ textTransform: 'capitalize', display: 'flex', justifyContent: 'center' }}>
+                ? <div className="pokemon-profile-container">
+                    <h1 className="pokemon-profile-name">
                         { pokemonData.name }
                     </h1>
                     <Col xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 } xs={ 12 }>
                         <Carousel
-                            style={{ maxWidth: '450px', maxHeight: '450px', minHeight: '350px', margin: '20px auto' }}
-                            nextIcon={ <img src={ Arrow } style={{ maxWidth: '30px' }} /> }
-                            prevIcon={ <img src={ Arrow } style={{ transform: 'rotate(180deg)', maxWidth: '30px' }} /> }
+                            className="pokemon-profile-carousel-container"
+                            nextIcon={ <img src={ Arrow } className="pokemon-profile-carousel-navigation-icon-right" /> }
+                            prevIcon={ <img src={ Arrow } className="pokemon-profile-carousel-navigation-icon-left" /> }
                             interval={ null }
                         >
                             { sprites && sprites.map((sprite, index) => {
                                 return (
                                     <Carousel.Item key={ index }>
-                                        <div style={{ display: 'flex', justifyContent: 'center', verticalAlign: '50%' }}>
+                                        <div className="pokemon-profile-carousel-img-container">
                                             <img // need to set loading while image is loading
                                                 alt=''
-                                                className="d-block"
+                                                className="d-block pokemon-profile-carousel-img"
                                                 draggable={ false }
                                                 src={ sprite[1] }
-                                                style={{ maxWidth: '300px', maxHeight: '300px', width: '300px', height: '300px', border: '5px solid black', backgroundColor: 'white', borderRadius: '50%' }}
                                             />
                                         </div>
                                     </Carousel.Item>
@@ -96,13 +95,17 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
                             }) }
                         </Carousel>
                     </Col>
-                    <Row xl={ 12 } lg={ 12 } md={ 12 } sm={ 1 } xs={ 1 } className="pokemon-profile-boxart-container">
+                    <Row xl={ 12 } lg={ 12 } md={ 12 } sm={ 1 } xs={ 1 } className='pokemon-profile-boxart-wrapper'>
                         { gameIndices && gameIndices.map((game, index) => {
                             return (
-                                <Col key={ index } className='tayden'>
+                                <Col key={ index } className="pokemon-profile-boxart-container">
                                     <img src={ boxArt[game] } alt={ game } className="pokemon-profile-boxart" />
-                                    <div className='overlay'>
-                                        <div className='text'>{ GENERAL.pokemon }</div>
+                                    <div className='pokemon-profile-boxart-overlay'>
+                                        <div className='pokemon-profile-boxart-overlay-content'>
+                                            <div className="pokemon-profile-boxart-overlay-title">
+                                                { `${ game.replace('-', ' ') } version` }
+                                            </div>
+                                        </div>
                                     </div>
                                 </Col>
                             )
