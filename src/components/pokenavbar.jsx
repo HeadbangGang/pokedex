@@ -70,7 +70,7 @@ export default function PokeNavbar ({ error, selectedPokemonData, setError, setS
                         { GENERAL.search }
                     </Button>
                 </Form>
-                { userContext?.email && userContext?.username
+                { userContext?.email || userContext?.username
                     ? <input
                         className="navbar-user-icon"
                         onClick={ () => history.push('/account/profile') }
@@ -89,9 +89,10 @@ export default function PokeNavbar ({ error, selectedPokemonData, setError, setS
             </Navbar.Collapse>
             <Overlay
                 containerPadding={ 20 }
+                onEntered={ () => setTimeout(() => setShowOverlay(false), 5000) }
+                onHide={ () => setShowOverlay(false) }
                 placement="bottom-start"
                 rootClose
-                onHide={ () => setShowOverlay(false) }
                 show={ showOverlay }
                 target={ overlayTarget }
             >
@@ -110,7 +111,7 @@ async function fetchPokemon (e, searchData, setSearchData, setSelectedPokemon, s
     if (searchData !== '') {
         searchData = searchData.toLowerCase()
         const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${ searchData }`)
-        if (res.status === 200){
+        if (res.status === 200) {
             await res.json().then(function (data) {
                 setSelectedPokemonData(data)
                 setSelectedPokemon(searchData)
@@ -119,8 +120,9 @@ async function fetchPokemon (e, searchData, setSearchData, setSelectedPokemon, s
         } else {
             setShowOverlay(true)
             setOverlayParams({
-                message: ERRORS.pokemonDoesNotExist
+                message: searchData + ERRORS.pokemonDoesNotExist
             })
+            setSearchData('')
         }
     } else {
         setShowOverlay(true)

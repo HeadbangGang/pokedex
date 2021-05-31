@@ -41,8 +41,8 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
                 completeIndices.push(index.version.name)
             })
             for (const [key, value] of Object.entries(pokemonData.sprites)) {
-                if (value !== null && key !== 'other' && key !== 'versions' && !key.includes('back')){
-                    allSprites.push([`${ key }`, `${ value }`])
+                if (key.includes('front_default')){
+                    allSprites.push([null, `${ key }`, `${ value }`])
                 }
             }
             for (const game in pokemonData.sprites.versions) {
@@ -53,8 +53,8 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
                     if (!Object.keys(type).includes('icons')) {
                         for (const game in type) {
                             for (const spriteType in type[game]) {
-                                if (typeof type[game][spriteType] !== 'object' && spriteType.indexOf('front') > -1 && !spriteType.indexOf('female') > -1){
-                                    allSprites.push([spriteType, type[game][spriteType]])
+                                if (typeof type[game][spriteType] !== 'object' && spriteType.indexOf('front_default') > -1){
+                                    allSprites.push([game, spriteType, type[game][spriteType]])
                                 }
                             }
                         }
@@ -74,40 +74,40 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
                         { pokemonData.name }
                     </h1>
                     <Col xl={ 12 } lg={ 12 } md={ 12 } sm={ 12 } xs={ 12 }>
-                        <Carousel
-                            className="pokemon-profile-carousel-container"
-                            nextIcon={ <img src={ Arrow } className="pokemon-profile-carousel-navigation-icon-right" /> }
-                            prevIcon={ <img src={ Arrow } className="pokemon-profile-carousel-navigation-icon-left" /> }
-                            interval={ 5000 }
-                        >
-                            { sprites && sprites.map((sprite, index) => {
+                        { sprites?.map((sprite, index) => {
+                            if(sprite[0] === null) {
                                 return (
-                                    <Carousel.Item key={ index }>
-                                        <div className="pokemon-profile-carousel-img-container">
-                                            <img // need to set loading while image is loading
-                                                alt=''
-                                                className="d-block pokemon-profile-carousel-img"
-                                                draggable={ false }
-                                                src={ sprite[1] }
-                                            />
-                                        </div>
-                                    </Carousel.Item>
+                                    <div className="pokemon-profile-img-container" key={ index }>
+                                        <img // need to set loading while image is loading
+                                            alt=''
+                                            className="d-block pokemon-profile-img"
+                                            draggable={ false }
+                                            src={ sprite[2] }
+                                        />
+                                    </div>
                                 )
-                            }) }
-                        </Carousel>
+                            }
+                        }) }
                     </Col>
                     <Row xl={ 12 } lg={ 12 } md={ 12 } sm={ 1 } xs={ 1 } className='pokemon-profile-boxart-wrapper'>
-                        { gameIndices && gameIndices.map((game, index) => {
-                            // Need to discover why overlay does not work in prod
+                        { gameIndices?.map((game, index) => {
+                            let gameInstanceSprite
+                            let gameInstanceAlt
+                            sprites.forEach(sprite => {
+                                if (!gameInstanceSprite) {
+                                    if (sprite[0] === game) {
+                                        gameInstanceSprite = sprite[2]
+                                    } else if (sprite[0]?.includes(game)) {
+                                        gameInstanceSprite = sprite[2]
+                                    }
+                                    gameInstanceAlt = sprite[1]
+                                }
+                            })
                             return (
                                 <Col key={ index } className="pokemon-profile-boxart-container">
-                                    <img src={ boxArt[game] } alt={ game } className="pokemon-profile-boxart" /> 
-                                    <div className='pokemon-profile-boxart-overlay'>
-                                        <div className='pokemon-profile-boxart-overlay-content'>
-                                            <div className="pokemon-profile-boxart-overlay-title">
-                                                { `${ game.replace('-', ' ') } version` }
-                                            </div>
-                                        </div>
+                                    <div className='pokemon-profile-boxart-wrapper'>
+                                        <img src={ boxArt[game] } alt={ game } className="pokemon-profile-boxart" />
+                                        { gameInstanceSprite && <img className='pokemon-profile-boxart-sprite' src={ gameInstanceSprite } alt={ gameInstanceAlt } />}
                                     </div>
                                 </Col>
                             )
