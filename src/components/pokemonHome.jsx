@@ -5,6 +5,7 @@ import { Row } from 'react-bootstrap'
 import PokemonCard from './pokemonCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { GENERAL } from './language-map'
+import spinner from '../media/spinner.webp'
 import './stylesheets/pokemon-home.css'
 
 export default function PokemonHome ({ setSelectedPokemon }) {
@@ -14,16 +15,19 @@ export default function PokemonHome ({ setSelectedPokemon }) {
 
     useEffect(() => {
         async function getPokemon () {
-            setIsCallInProgress(true)
-            const res = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=100')
-            if (res.status === 200){
-                await res.json().then(function (data) {
-                    setPokemonList(data.results)
-                    setNextPokemonURL(data.next)
-                    setIsCallInProgress(false)
-                })
-            } else {
-                console.log('Whoops, shits broke')
+            try {
+                setIsCallInProgress(true)
+                const res = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=100')
+                if (res.status === 200){
+                    await res.json().then(function (data) {
+                        setPokemonList(data.results)
+                        setNextPokemonURL(data.next)
+                    })
+                }
+            } catch (e) {
+                console.log(e)
+            } finally {
+                setIsCallInProgress(false)
             }
         }
         getPokemon()
@@ -38,39 +42,37 @@ export default function PokemonHome ({ setSelectedPokemon }) {
                     setPokemonList(mergedData)
                     setNextPokemonURL(data.next)
                 })
-            } else {
-                console.log('Whoops, shits broke')
             }
         } catch (e) {
             console.log(e)
         }
     }
 
-    return (
-        <>
-            { pokemonList && !isCallInProgress
-                ? <InfiniteScroll
-                    dataLength={ pokemonList.length }
-                    next={ () => updatePokemonList() }
-                    hasMore={ !!nextPokemonURL }
-                >
-                    <Row xl={ 3 } lg={ 1 } md={ 1 } sm={ 1 } xs={ 1 } className='pokemon-home-cards-container'>
-                        { pokemonList.map((pokemon, index) => {
-                            return (
-                                <PokemonCard
-                                    key={ index }
-                                    pokemon={ pokemon }
-                                    setSelectedPokemon={ setSelectedPokemon }
-                                />
-                            )
-                        }) }
-                    </Row>
-                </InfiniteScroll>
-                : <div>
-                    { GENERAL.loading }
-                </div> }
-        </>
-    )
+    if (pokemonList && !isCallInProgress) {
+        return (
+            <InfiniteScroll
+                dataLength={ pokemonList.length }
+                next={ () => updatePokemonList() }
+                hasMore={ !!nextPokemonURL }
+            >
+                <Row xl={ 3 } lg={ 1 } md={ 1 } sm={ 1 } xs={ 1 } className='pokemon-home-cards-container'>
+                    { pokemonList.map((pokemon, index) => {
+                        return (
+                            <PokemonCard
+                                key={ index }
+                                pokemon={ pokemon }
+                                setSelectedPokemon={ setSelectedPokemon }
+                            />
+                        )
+                    }) }
+                </Row>
+            </InfiniteScroll>
+        )
+    } else {
+        return (
+            <img src={ spinner } alt={ GENERAL.loading } className='pokemon-page-spinner' />
+        )
+    }
 }
 
 PokemonHome.propTypes = {

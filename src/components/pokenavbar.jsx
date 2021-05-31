@@ -39,10 +39,16 @@ export default function PokeNavbar ({ error, selectedPokemonData, setError, setS
                 </Toast.Header>
                 <Toast.Body>{ error }</Toast.Body>
             </Toast>
-            <Navbar.Brand href='/pokedex' className="navbar-brand-name">
+            <a
+                href=''
+                className="navbar-brand-name navbar-brand"
+                onClick={ () => {
+                    history.push('/pokedex')
+                } }
+            >
                 <img src={ pokeball } className="navbar-logo" draggable={ false } />
                 { GENERAL.pokedex }
-            </Navbar.Brand>
+            </a>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Form
@@ -89,7 +95,9 @@ export default function PokeNavbar ({ error, selectedPokemonData, setError, setS
             </Navbar.Collapse>
             <Overlay
                 containerPadding={ 20 }
-                onEntered={ () => setTimeout(() => setShowOverlay(false), 5000) }
+                onEntered={ () => {
+                    setTimeout(() => setShowOverlay(false), 5000)
+                } }
                 onHide={ () => setShowOverlay(false) }
                 placement="bottom-start"
                 rootClose
@@ -132,7 +140,7 @@ async function fetchPokemon (e, searchData, setSearchData, setSelectedPokemon, s
     }
 }
 
-PokeNavbar.propTypes ={
+PokeNavbar.propTypes={
     error: PropTypes.string,
     selectedPokemon: PropTypes.string,
     selectedPokemonData: PropTypes.object,
