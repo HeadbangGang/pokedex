@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Col, Row } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
-import { boxArt } from '../media/boxart/index'
-import { GENERAL } from './language-map'
-import spinner from '../media/spinner.webp'
-import './stylesheets/pokemon-profile.css'
+import { boxArt } from '../../media/boxart/index'
+import { GENERAL } from '../language-map'
+import spinner from '../../media/spinner.webp'
+import { PokemonProfileBoxArt } from './pokemon-boxart'
+import{ PokemonDataChart } from './pokemon-data-chart'
+import '../stylesheets/pokemon-profile.css'
 
 export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }) {
     const history = useHistory()
@@ -76,11 +78,14 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
                             if(sprite[0] === null) {
                                 return (
                                     <div className="pokemon-profile-img-container" key={ index }>
-                                        <img // need to set loading while image is loading
+                                        <img
                                             alt=''
                                             className="d-block pokemon-profile-img"
                                             draggable={ false }
                                             src={ sprite[2] }
+                                        />
+                                        <PokemonDataChart
+                                            data={ pokemonData }
                                         />
                                     </div>
                                 )
@@ -108,8 +113,18 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
                                             { game
                                                 ?
                                                 <>
-                                                    <img src={ boxArt[game] } alt={ game } className="pokemon-profile-boxart" />
-                                                    { gameInstanceSprite && <img className='pokemon-profile-boxart-sprite' src={ gameInstanceSprite } alt={ gameInstanceAlt } /> }
+                                                    <img
+                                                        alt={ game }
+                                                        className="pokemon-profile-boxart"
+                                                        draggable={ false }
+                                                        src={ boxArt[game] }
+                                                    />
+                                                    { gameInstanceSprite &&
+                                                    <PokemonProfileBoxArt
+                                                        alt={ gameInstanceAlt }
+                                                        pokemon={ pokemon }
+                                                        sprite={ gameInstanceSprite }
+                                                    />}
                                                 </>
                                                 :
                                                 <img src={ spinner } alt={ GENERAL.loading } className='pokemon-page-spinner' />

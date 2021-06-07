@@ -28,14 +28,10 @@
 }
 
 .pokemon-profile-boxart-wrapper {
+    position: relative;
     margin: auto 0 0;
     display: flex;
     justify-content: center;
-}
-
-.pokemon-profile-boxart-wrapper {
-    position: relative;
-
 }
 
 .pokemon-profile-boxart {
@@ -45,8 +41,8 @@
     left: 0;
     margin-top: auto;
     border: 1px solid black;
-    width: 100%;
-    height: auto;
+    width: 275px;
+    height: 275px;
 }
 
 .pokemon-profile-boxart-sprite {
@@ -57,5 +53,29 @@
     border: 1px solid black;
     border-radius: 15px;
     background-color: white;
-    box-shadow: -10px -10px 10px 0 black;
+    box-shadow: -6px -6px 15px 0 black;
+    cursor: pointer;
+}
+
+.pokemon-profile-boxart-sprite-clicked {
+    margin-bottom: 10px;
+    position: absolute;
+    height: 80px;
+    top: 100px;
+    left: 100px;
+    /* transition: 1s ease-in-out; */
+    transform: scale(3);
+    border: 1px solid black;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0px 0px 15px 0 black;
+}
+
+.pokemon-profile-close-button {
+    height: 25px;
+    position: absolute;
+    top: 35px;
+    right: 25px;
+    z-index: 1000;
+    cursor: pointer;
 }
