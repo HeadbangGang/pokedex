@@ -6,7 +6,6 @@ import { boxArt } from '../../media/boxart/index'
 import { GENERAL } from '../language-map'
 import spinner from '../../media/spinner.webp'
 import { PokemonProfileBoxArt } from './pokemon-boxart'
-import{ PokemonDataChart } from './pokemon-data-chart'
 import '../stylesheets/pokemon-profile.css'
 
 export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }) {
@@ -83,9 +82,6 @@ export default function PokemonProfile ({ pokemon, pokemonData, setPokemonData }
                                             className="d-block pokemon-profile-img"
                                             draggable={ false }
                                             src={ sprite[2] }
-                                        />
-                                        <PokemonDataChart
-                                            data={ pokemonData }
                                         />
                                     </div>
                                 )
