@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { createContext, useEffect, useState } from 'react'
 
 export const PokemonCountContext = createContext()
@@ -13,7 +14,7 @@ export default function PokemonCount (props) {
                     setPokemonCount(data.pokemon_entries.length)
                 })
             } else {
-                console.log('Whoops, shits broke')
+                console.log('Whoops, something went wrong')
             }
         }
         getPokedexCount()

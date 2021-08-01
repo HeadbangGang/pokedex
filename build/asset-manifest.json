@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.0215524e.chunk.css",
-    "main.js": "/static/js/main.853a820c.chunk.js",
-    "main.js.map": "/static/js/main.853a820c.chunk.js.map",
+    "main.css": "/static/css/main.ee830524.chunk.css",
+    "main.js": "/static/js/main.ba21935f.chunk.js",
+    "main.js.map": "/static/js/main.ba21935f.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.7cfbbd3e.js",
     "runtime-main.js.map": "/static/js/runtime-main.7cfbbd3e.js.map",
-    "static/js/2.b3276783.chunk.js": "/static/js/2.b3276783.chunk.js",
-    "static/js/2.b3276783.chunk.js.map": "/static/js/2.b3276783.chunk.js.map",
+    "static/js/2.5dcfcb82.chunk.js": "/static/js/2.5dcfcb82.chunk.js",
+    "static/js/2.5dcfcb82.chunk.js.map": "/static/js/2.5dcfcb82.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.0215524e.chunk.css.map": "/static/css/main.0215524e.chunk.css.map",
-    "static/js/2.b3276783.chunk.js.LICENSE.txt": "/static/js/2.b3276783.chunk.js.LICENSE.txt",
+    "static/css/main.ee830524.chunk.css.map": "/static/css/main.ee830524.chunk.css.map",
+    "static/js/2.5dcfcb82.chunk.js.LICENSE.txt": "/static/js/2.5dcfcb82.chunk.js.LICENSE.txt",
     "static/media/Pokemon_Hollow.47f77ce9.ttf": "/static/media/Pokemon_Hollow.47f77ce9.ttf",
     "static/media/Pokemon_Solid.5d60be1f.ttf": "/static/media/Pokemon_Solid.5d60be1f.ttf",
-    "static/media/arrow.0797d0d5.png": "/static/media/arrow.0797d0d5.png",
     "static/media/black.6ffa1d70.webp": "/static/media/black.6ffa1d70.webp",
     "static/media/black2.5f9c062d.webp": "/static/media/black2.5f9c062d.webp",
     "static/media/blue.ae35fe5a.png": "/static/media/blue.ae35fe5a.png",
     "static/media/bug.0d1d5c73.png": "/static/media/bug.0d1d5c73.png",
+    "static/media/close-button.664137c3.svg": "/static/media/close-button.664137c3.svg",
     "static/media/crystal.fbf03836.png": "/static/media/crystal.fbf03836.png",
     "static/media/dark.28273032.png": "/static/media/dark.28273032.png",
     "static/media/diamond.8ff60613.webp": "/static/media/diamond.8ff60613.webp",
@@ -57,8 +57,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.7cfbbd3e.js",
-    "static/js/2.b3276783.chunk.js",
-    "static/css/main.0215524e.chunk.css",
-    "static/js/main.853a820c.chunk.js"
+    "static/js/2.5dcfcb82.chunk.js",
+    "static/css/main.ee830524.chunk.css",
+    "static/js/main.ba21935f.chunk.js"
   ]
 }

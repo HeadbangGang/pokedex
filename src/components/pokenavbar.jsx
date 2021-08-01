@@ -1,17 +1,14 @@
-import React, { useEffect, useState, useRef, useContext } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Navbar, Button, Form, FormControl, Overlay, Popover, Toast } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import pokeball from '../media/pokeball.png'
-import userIcon from '../media/user-icon.png'
-import { UserContext } from '../providers/userprovider'
-import { GENERAL, ERRORS, AUTHENTICATION } from './language-map'
+import { GENERAL, ERRORS } from './language-map'
 import './stylesheets/header.css'
 
 export default function PokeNavbar ({ error, selectedPokemonData, setError, setSelectedPokemon, setSelectedPokemonData }) {
     const history = useHistory()
     const overlayTarget = useRef(null)
-    const userContext = useContext(UserContext ?? '')
 
     const [searchData, setSearchData] = useState('')
     const [showOverlay, setShowOverlay] = useState(false)
@@ -76,22 +73,6 @@ export default function PokeNavbar ({ error, selectedPokemonData, setError, setS
                         { GENERAL.search }
                     </Button>
                 </Form>
-                { userContext?.email || userContext?.username
-                    ? <input
-                        className="navbar-user-icon"
-                        onClick={ () => history.push('/account/profile') }
-                        src={ userContext?.photoURL || userIcon }
-                        type="image"
-                    />
-                    : <Button variant="outline-dark"
-                        className="navbar-sign-in-button"
-                        onClick={ () => {
-                            history.push('/account/sign-in')
-                        } }
-                    >
-                        { AUTHENTICATION.signIn }
-                    </Button>
-                }
             </Navbar.Collapse>
             <Overlay
                 containerPadding={ 20 }
