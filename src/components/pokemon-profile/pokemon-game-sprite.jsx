@@ -1,34 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import close from '../../media/close-button.svg'
 
-export const PokemonProfileBoxArt = ({
-    alt,
-    pokemon,
-    sprite
-}) => {
-    PokemonProfileBoxArt.propTypes={
-        alt: PropTypes.string,
-        pokemon: PropTypes.string,
-        sprite: PropTypes.string
-    }
+export default function PokemonGameSprite ({ alt, sprite }) {
     const [openBoxArt, setOpenBoxArt] = useState(false)
-
-    useEffect(() => {
-        setOpenBoxArt(false)
-    }, [pokemon])
-
     return (
         <>
-            { openBoxArt &&
-            <a onClick={ () => setOpenBoxArt(false) }>
+            {openBoxArt &&
+            <a onClick={ () => setOpenBoxArt(!openBoxArt) }>
                 <img
                     className='pokemon-profile-close-button'
                     draggable={ false }
                     src={ close }
                 />
-            </a> }
-            <a onClick={ () => setOpenBoxArt(true) }>
+            </a>}
+            <a onClick={ () => setOpenBoxArt(!openBoxArt) }>
                 <img
                     alt={ alt }
                     className={ openBoxArt ? 'pokemon-profile-boxart-sprite-clicked' : 'pokemon-profile-boxart-sprite' }
@@ -38,4 +24,9 @@ export const PokemonProfileBoxArt = ({
             </a>
         </>
     )
+}
+
+PokemonGameSprite.propTypes={
+    alt: PropTypes.string,
+    sprite: PropTypes.string
 }

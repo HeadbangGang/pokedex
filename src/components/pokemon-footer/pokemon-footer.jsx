@@ -1,14 +1,13 @@
 import React, { useContext } from 'react'
 import { Navbar } from 'react-bootstrap'
 import PropTypes from 'prop-types'
-import pokeball from '../media/pokeball.png'
-import { PokemonCountContext } from '../providers/pokemoncount'
-import { GENERAL } from './language-map'
-import './stylesheets/footer.css'
+import pokeball from '../../media/pokeball.png'
+import { PokemonCountContext } from '../../providers/pokemon-count'
+import { GENERAL } from '../../language-map'
+import './pokemon-footer.less'
 
-export default function PokeFooter () {
+export default function PokemonFooter () {
     const date = new Date
-
     const pokemonCount = useContext(PokemonCountContext)
 
     return (
@@ -23,16 +22,16 @@ export default function PokeFooter () {
                     draggable={ false }
                 />
             </Navbar.Brand>
-            { GENERAL.copyright + ' ' + date.getFullYear() + ' ' + GENERAL.name }
+            { `${ GENERAL.copyright } ${ date.getFullYear() } ${ GENERAL.name }`}
             { pokemonCount &&
                 <div className="ml-auto">
-                    {GENERAL.pokedexCountHeader + ' ' + pokemonCount }
+                    {`${ GENERAL.pokedexCountHeader } ${ pokemonCount }` }
                 </div> }
         </Navbar>
     )
 }
 
-PokeFooter.propTypes = {
+PokemonFooter.propTypes = {
     error: PropTypes.string,
     setError: PropTypes.func
 }

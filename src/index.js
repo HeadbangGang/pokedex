@@ -1,10 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import PokemonContainer from './components/pokemonContainer'
-import './fonts/Pokemon_Hollow.ttf'
-import './fonts/Pokemon_Solid.ttf'
+import PokemonContainer from './components/pokemon-container'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { PokemonCount } from './providers/pokemon-count'
+import './index.less'
 
 ReactDOM.render(
-    <PokemonContainer />,
+    <PokemonCount>
+        <Router basename="/">
+            <PokemonContainer />
+        </Router>
+    </PokemonCount>,
     document.getElementById('root')
 )
