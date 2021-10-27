@@ -1,19 +1,18 @@
 import React, { createContext, useEffect, useState } from 'react'
 
 export const PokemonCountContext = createContext()
+export const EnvironmentContext = createContext()
 
 export const PokemonCount = (props) => {
     const [pokemonCount, setPokemonCount] = useState(null)
-
     useEffect(() => {
+        const urlInit = process.env.NODE_ENV === 'development'
+            ? 'http://localhost:3001'
+            : null // Need to update to prod url
         const getPokedexCount = async () => {
-            try {
-                let res = await fetch('https://pokeapi.co/api/v2/pokedex/1')
-                res = await res.json()
-                setPokemonCount(res.count)
-            } catch (e) {
-                console.log(e)
-            }
+            let res = await fetch(`${ urlInit }/pokemon/count`)
+            res = await res.json()
+            setPokemonCount(res.count)
         }
         getPokedexCount()
     }, [])
