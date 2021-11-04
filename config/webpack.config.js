@@ -477,6 +477,18 @@ module.exports = function (webpackEnv) {
                             // See https://github.com/webpack/webpack/issues/6571
                             sideEffects: true,
                         },
+                        {
+                            test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+                            use: [
+                                {
+                                    loader: 'file-loader',
+                                    options: {
+                                        name: '[name].[contenthash].[ext]',
+                                        outputPath: 'fonts/',
+                                    },
+                                },
+                            ],
+                        },
                         // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
                         // using the extension .module.css
                         {
