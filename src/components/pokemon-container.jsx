@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PokemonHomepage from './pokemon-homepage/pokemon-homepage'
 import PokemonHeader from './pokemon-header/pokemon-header'
 import PokemonFooter from './pokemon-footer/pokemon-footer'
@@ -9,8 +9,15 @@ import './pokemon-container.less'
 export default function PokemonContainer () {
     const [allPokemonData, setAllPokemonData] = useState([])
     const [selectedPokemon, setSelectedPokemon] = useState('')
+    const [selectedPokemonData, setSelectedPokemonData] = useState({})
     const [error, setError] = useState('')
     const [showShiny, setShowShiny] = useState(false)
+
+    useEffect(() => {
+        if (selectedPokemon && allPokemonData) {
+            setSelectedPokemonData(allPokemonData.find(item => item.name === selectedPokemon))
+        }
+    }, [selectedPokemon, allPokemonData])
 
     return (
         <div className="pokemon-container">
@@ -34,8 +41,7 @@ export default function PokemonContainer () {
                     <Route exact path={ `/pokemon/${ selectedPokemon }` }>
                         <PokemonProfile
                             showShiny={ showShiny }
-                            selectedPokemon={ selectedPokemon }
-                            allPokemonData={ allPokemonData }
+                            selectedPokemonData={ selectedPokemonData }
                         />
                     </Route>
                     <Route exact path="/">

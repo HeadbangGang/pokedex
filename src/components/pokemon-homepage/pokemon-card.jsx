@@ -6,76 +6,20 @@ import { typeImages } from '../../media/types/index'
 import spinner from '../../media/spinner.webp'
 import imageNotFound from '../../media/image-not-found.png'
 
-export default function PokemonCard ({ allPokemonData, pokemon, setAllPokemonData, setError, setSelectedPokemon, showShiny }) {
+export default function PokemonCard ({ pokemonData, setSelectedPokemon, showShiny }) {
     const history = useHistory()
 
-    const { name } = pokemon
+    const { name, img, img_shiny, id, types } = pokemonData
 
-    const [isLoading, setIsLoading] = useState(true)
-    const [pokemonData, setPokemonData] = useState({})
     const [image, setImage] = useState(spinner)
 
     useEffect(() => {
-        const getPokemonData = async () => {
-            try {
-                setIsLoading(true)
-                const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${ name }`)
-                await res.json()
-                    .then(data => {
-                        const { id, sprites, types } = data
-                        allPokemonData.push(data)
-                        setAllPokemonData(allPokemonData)
-                        setPokemonData({
-                            id,
-                            img: sprites.front_default,
-                            img_shiny: sprites.front_shiny,
-                            types
-                        })
-                        setImage(sprites.front_default)
-                        setIsLoading(false)
-                    })
-            } catch (e) {
-                setError('Something went wrong. Please try again.')
-            } finally {
-                setIsLoading(false)
-            }
-
-        }
-        if (allPokemonData.length < 1 || allPokemonData.findIndex(item => item.name === name) < 0) {
-            getPokemonData()
-        } else {
-            const dataInstances = allPokemonData.reduce((array, item, index) => {
-                if (item.name === name) {
-                    array.push(index)
-                }
-                return array
-            }, [])
-
-            allPokemonData.findIndex(item => item.name === name)
-            const data = allPokemonData[allPokemonData.findIndex(item => item.name === name)]
-            const { id, sprites, types } = data
-            dataInstances.length < 1 && allPokemonData.push(data)
-            setAllPokemonData(allPokemonData)
-            setPokemonData({
-                id,
-                img: sprites.front_default,
-                img_shiny: sprites.front_shiny,
-                types
-            })
-            setIsLoading(false)
-        }
-    }, [])
-
-    useEffect(() => {
-        const { img_shiny, img } = pokemonData
         showShiny && img_shiny
             ? setImage(img_shiny)
             : setImage(img)
     }, [showShiny, pokemonData ])
 
-    const { id, types } = pokemonData
-
-    if (name && !isLoading) {
+    if (name) {
         return (
             <div className="pokemon-home__card-wrapper">
                 <Card border="secondary pokemon-card">

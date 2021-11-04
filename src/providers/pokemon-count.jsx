@@ -1,18 +1,23 @@
 import React, { createContext, useEffect, useState } from 'react'
+import axios from 'axios'
 
 export const PokemonCountContext = createContext()
-export const EnvironmentContext = createContext()
 
 export const PokemonCount = (props) => {
     const [pokemonCount, setPokemonCount] = useState(null)
     useEffect(() => {
         const urlInit = process.env.NODE_ENV === 'development'
             ? 'http://localhost:3001'
-            : null // Need to update to prod url
+            : 'http://api.taydenflitcroft.com'
         const getPokedexCount = async () => {
-            let res = await fetch(`${ urlInit }/pokemon/count`)
-            res = await res.json()
-            setPokemonCount(res.count)
+            await axios.get(`${ urlInit }/pokedex/count`)
+                .then((res) => {
+                    res = res.data
+                    setPokemonCount(res.count)
+                })
+                .catch(() => {
+                    //
+                })
         }
         getPokedexCount()
     }, [])

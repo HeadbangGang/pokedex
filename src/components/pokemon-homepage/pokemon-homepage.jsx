@@ -1,37 +1,41 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import axios from 'axios'
 import PropTypes from 'prop-types'
 import PokemonCard from './pokemon-card'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { GENERAL } from '../../language-map'
 import spinner from '../../media/spinner.webp'
+import { UrlInitContext } from '../../providers/url-init'
 import './pokemon-homepage.less'
 
-export default function PokemonHomepage ({ allPokemonData, setAllPokemonData, setSelectedPokemon, setError, showShiny }) {
-    const [pokemonList, setPokemonList] = useState([])
-    const [nextPokemonURL, setNextPokemonURL] = useState('')
+export default function PokemonHomepage (props) {
+    const [nextUrl, setNextUrl] = useState()
     const [isCallInProgress, setIsCallInProgress] = useState(false)
+
+    const urlInit = useContext(UrlInitContext)
+
+    const {
+        allPokemonData,
+        setAllPokemonData,
+        setSelectedPokemon,
+        setError,
+        showShiny
+    } = props
 
     useEffect(() => {
         getPokemon()
     }, [])
 
     async function getPokemon () {
-        let url = 'https://pokeapi.co/api/v2/pokemon/?limit=100'
-        url = nextPokemonURL || url
-        !nextPokemonURL && setIsCallInProgress(true)
+        setIsCallInProgress(true)
         try {
-            const res = await fetch(url)
-            if (res.status === 200){
-                await res.json()
-                    .then(data => {
-                        const { results, next } = data
-                        results.forEach(item => {
-                            pokemonList.push(item)
-                        })
-                        setPokemonList(pokemonList)
-                        setNextPokemonURL(next)
-                    })
-            }
+            await axios.post(`${ urlInit }/pokedex/data/pokemon/list`, { nextUrl })
+                .then((res) => {
+                    res = res.data
+                    const meow = allPokemonData.concat(res.pokemonData)
+                    setAllPokemonData(meow)
+                    setNextUrl(res.nextUrl)
+                })
         } catch (e) {
             setError('Something went wrong. Please try again.')
         } finally {
@@ -41,27 +45,29 @@ export default function PokemonHomepage ({ allPokemonData, setAllPokemonData, se
 
     return (
         <>
-            {pokemonList && !isCallInProgress
+            {allPokemonData.length > 0
                 ? <InfiniteScroll
-                    dataLength={ pokemonList.length }
+                    dataLength={ allPokemonData.length }
                     next={ getPokemon }
-                    hasMore={ !!nextPokemonURL }
+                    hasMore={ !!nextUrl }
                 >
                     <div className='pokemon-home__cards-container'>
-                        { pokemonList.map((pokemon, index) => {
+                        { allPokemonData.map((pokemon, index) => {
                             return (
                                 <PokemonCard
                                     key={ index }
                                     showShiny={ showShiny }
                                     setError={ setError }
-                                    pokemon={ pokemon }
-                                    allPokemonData={ allPokemonData }
-                                    setAllPokemonData={ setAllPokemonData }
+                                    pokemonData={ pokemon }
                                     setSelectedPokemon={ setSelectedPokemon }
                                 />
                             )
                         }) }
                     </div>
+                    {isCallInProgress &&
+                        <div style={{ textAlign: 'center' }}>
+                            <img src={ spinner } alt={ GENERAL.loading } height="50" width="50" />
+                        </div>}
                 </InfiniteScroll>
                 :<div className="pokemon-container__spinner-wrapper">
                     <img src={ spinner } alt={ GENERAL.loading } className='pokemon-container__spinner' />

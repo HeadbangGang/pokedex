@@ -57,10 +57,8 @@ export default function PokemonHeader ({ error, setError, setShowShiny, showShin
             </div>
             {/* would like to track shiny state using a cookie value instead */}
             <div style={{ float: 'right' }}>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <input id='tayden' type="checkbox" onChange={ ()=> setShowShiny(!showShiny) } style={{ marginRight: '5px' }} />
-                    <label htmlFor="tayden">Show Shiny Pokemon</label>
-                </div>
+                <input id="shiny-pokemon" type="checkbox" onChange={ ()=> setShowShiny(!showShiny) } style={{ marginRight: '5px' }} />
+                <label htmlFor="shiny-pokemon">Show Shiny Pokemon</label>
             </div>
         </div>
     )
