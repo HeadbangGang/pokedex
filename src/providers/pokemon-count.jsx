@@ -8,7 +8,7 @@ export const PokemonCount = (props) => {
     useEffect(() => {
         const urlInit = process.env.NODE_ENV === 'development'
             ? 'http://localhost:3001'
-            : 'http://api.taydenflitcroft.com'
+            : 'https://desolate-basin-78066.herokuapp.com'
         const getPokedexCount = async () => {
             await axios.get(`${ urlInit }/pokedex/count`)
                 .then((res) => {

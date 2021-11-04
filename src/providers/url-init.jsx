@@ -9,7 +9,7 @@ export const UrlInit = (props) => {
         setUrlInit(
             process.env.NODE_ENV === 'development'
                 ? 'http://localhost:3001'
-                : 'http://api.taydenflitcroft.com'
+                : 'https://desolate-basin-78066.herokuapp.com'
         )
     }, [])
 
