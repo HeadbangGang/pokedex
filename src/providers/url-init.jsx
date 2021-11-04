@@ -9,7 +9,7 @@ export const UrlInit = (props) => {
         setUrlInit(
             process.env.NODE_ENV === 'development'
                 ? 'http://localhost:3001'
-                : 'https://api.taydenflitcroft.com'
+                : 'http://api.taydenflitcroft.com'
         )
     }, [])
 
