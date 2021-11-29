@@ -9,13 +9,14 @@ import { UrlInitContext } from '../../providers/url-init'
 import './pokemon-homepage.less'
 
 export default function PokemonHomepage (props) {
-    const [nextUrl, setNextUrl] = useState()
     const [isCallInProgress, setIsCallInProgress] = useState(false)
 
     const urlInit = useContext(UrlInitContext)
 
     const {
         allPokemonData,
+        nextUrl,
+        setNextUrl,
         setAllPokemonData,
         setSelectedPokemon,
         setError,
@@ -34,7 +35,7 @@ export default function PokemonHomepage (props) {
                     res = res.data
                     const meow = allPokemonData.concat(res.pokemonData)
                     setAllPokemonData(meow)
-                    setNextUrl(res.nextUrl)
+                    res.nextUrl && setNextUrl(res.nextUrl)
                 })
         } catch (e) {
             setError('Something went wrong. Please try again.')
@@ -79,8 +80,10 @@ export default function PokemonHomepage (props) {
 
 PokemonHomepage.propTypes = {
     allPokemonData: PropTypes.array,
+    nextUrl: PropTypes.string,
     setAllPokemonData: PropTypes.func,
     setError: PropTypes.func,
+    setNextUrl: PropTypes.func,
     setSelectedPokemon: PropTypes.func,
     showShiny: PropTypes.bool
 }

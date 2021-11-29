@@ -12,6 +12,7 @@ export default function PokemonContainer () {
     const [selectedPokemonData, setSelectedPokemonData] = useState({})
     const [error, setError] = useState('')
     const [showShiny, setShowShiny] = useState(false)
+    const [nextUrl, setNextUrl] = useState(null)
 
     useEffect(() => {
         if (selectedPokemon && allPokemonData) {
@@ -36,6 +37,8 @@ export default function PokemonContainer () {
                             setAllPokemonData={ setAllPokemonData }
                             setError={ setError }
                             setSelectedPokemon={ setSelectedPokemon }
+                            setNextUrl={ setNextUrl }
+                            nextUrl={ nextUrl }
                         />
                     </Route>
                     <Route exact path={ `/pokemon/${ selectedPokemon }` }>
