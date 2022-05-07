@@ -1,11 +1,28 @@
 body {
-  font-family: 'PokemonSolid' !important;
+  font-family: PokemonSolid, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  &::before {
+    background-color: red;
+    background-image: url("/assets/media/pokeball.png");
+    background-position: 50px 30px;
+    background-repeat: repeat;
+    background-size: 100px;
+    content: "";
+    display: block;
+    height: 100vh;
+    left: 0;
+    opacity: 0.2;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
 }
 
 @font-face {
-  font-family: "PokemonSolid";
-  src: local("PokemonSolid"),
-    url("./fonts/Pokemon_Solid.ttf") format("truetype");
+  font-family: PokemonSolid;
+  src:
+    local("PokemonSolid"),
+    url("/assets/fonts/Pokemon_Solid.ttf") format("truetype");
 }

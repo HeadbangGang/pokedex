@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { boxArt } from '../../media/boxart/index'
-import spinner from '../../media/spinner.webp'
+import { boxArt } from '../../../assets/media/boxart/index'
+import spinner from '../../../assets/media/spinner.webp'
 import PokemonGameSprite from './pokemon-game-sprite'
 import './pokemon-profile.less'
 

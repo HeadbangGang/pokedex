@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import close from '../../media/close-button.svg'
+import close from '../../../assets/media/close-button.svg'
 
 export default function PokemonGameSprite ({ alt, sprite }) {
     const [openBoxArt, setOpenBoxArt] = useState(false)
