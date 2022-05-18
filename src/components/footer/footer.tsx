@@ -15,11 +15,11 @@ const Footer = () => {
                 <button className='footer-content__button' onClick={() => setShowSpoke(true)}>
                     <img alt='Menu' src="/assets/media/menu-icon.png" />
                 </button>
-                <Offcanvas className="offcanvas__content" show={showSpoke} onHide={() => setShowSpoke(false)} placement='bottom'>
+                <Offcanvas className="offcanvas__content" show={showShiny} onHide={() => setShowSpoke(false)} placement='bottom'>
                     <Offcanvas.Header closeButton>
                         <Offcanvas.Title>Menu</Offcanvas.Title>
                     </Offcanvas.Header>
-                    <Offcanvas.Body>
+                    <Offcanvas.Body className="offcanvas__body">
                         <div>
                             <Form.Check
                                 checked={ showShiny }
@@ -29,7 +29,7 @@ const Footer = () => {
                                 type="switch"
                             />
                         </div>
-                        <div>
+                        <div className="pokedex-count">
                             Pokédex Count: { pokedexCount }
                         </div>
                     </Offcanvas.Body>

@@ -17,12 +17,12 @@
     }
 
     @media screen and (max-width: 992px) {
+      font-size: 32px;
+
       img {
         height: 300px;
         width: 300px;
       }
-
-      font-size: 32px;
     }
   }
 
@@ -106,6 +106,28 @@
 
     100% {
       transform: translate(0) scale(1.1, 1.1);
+    }
+  }
+}
+
+.alert {
+  margin: 25px;
+
+  @media screen and (max-width: 992px) {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+
+    button {
+      place-self: flex-end;
+
+      @media screen and (max-width: 992px) {
+        width: 100%;
+      }
     }
   }
 }

@@ -8,40 +8,21 @@
   width: 100%;
   z-index: 1000;
 
-  button {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-  }
-
   &__title {
+    align-items: center;
+    cursor: default;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     width: 90%;
 
-    & > button > img {
+    & > img {
       max-width: 50px;
-
-      &:hover {
-        animation: rotation 2s infinite linear;
-      }
     }
 
     &__header {
       color: #ffcb05 !important;
       font-size: 42px;
       text-shadow: 2px 1px 3px #2a75bb, 0 0 1em #2a75bb, 0 0 0.2em #2a75bb;
-    }
-  }
-
-  @keyframes rotation {
-    from {
-      transform: rotate(0deg);
-    }
-
-    to {
-      transform: rotate(359deg);
     }
   }
 }

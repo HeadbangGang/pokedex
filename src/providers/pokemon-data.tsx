@@ -1,5 +1,6 @@
 import React, {createContext, useContext, useEffect, useState} from 'react'
-import { PokemonDataInterface } from '../interfaces'
+import { PokemonDataInterface, ResponseParamsInterface } from '../interfaces'
+import { isEmpty } from '../helpers/helpers'
 import {BaseUrlContext} from './base-url'
 
 export const PokemonDataContext = createContext(null)
@@ -7,25 +8,31 @@ PokemonDataContext.displayName = 'PokemonData'
 
 const PokemonData = ({ children }) => {
     const [showShiny, setShowShiny] = useState<boolean>(false)
-    const [passbackUrl, setPassbackUrl] = useState<string>(null)
     const [pokemonData, setPokemonData] = useState<PokemonDataInterface[]>([])
     const [pokedexCount, setPokedexCount] = useState<number>(null)
-    const [nextUrl, setNextUrl] = useState<string>(null)
-    const [previousUrl, setPreviousUrl] = useState<string>(null)
+    const [nextCallParams, setNextCallParams] = useState<ResponseParamsInterface>({})
 
     const baseUrl = useContext(BaseUrlContext)
 
     const fetchPokemonData = async () => {
-        fetch(`${ baseUrl }/pokemon/list`, {
-            method: 'POST',
-            body: JSON.stringify({ passbackUrl: passbackUrl })
-        })
+        let url = `${ baseUrl }/pokemon/list`
+        if (nextCallParams.offset && nextCallParams.limit) {
+            const { offset, limit } = nextCallParams
+            url = `${url}?offset=${offset}&limit=${limit}`
+        }
+        fetch(url)
             .then(res => res.json())
             .then(res => {
-                const { nextUrl, previousUrl } = res
-                setPokemonData([...pokemonData, ...res.pokemonData])
-                setNextUrl(nextUrl)
-                setPreviousUrl(previousUrl)
+                const newNextCallParams = {}
+                if (!isEmpty(res.pokemonData)) {
+                    setPokemonData(prevState => [...prevState, ...res.pokemonData])
+                }
+                if (!isEmpty(res.params)) {
+                    Object.keys(res.params).forEach(key => newNextCallParams[key] = res.params[key])
+                    setNextCallParams({...nextCallParams, ...newNextCallParams})
+                } else {
+                    setNextCallParams({})
+                }
             })
             .catch(() => {})
     }
@@ -40,12 +47,9 @@ const PokemonData = ({ children }) => {
 
     const data = {
         fetchPokemonData,
-        nextUrl,
-        passbackUrl,
+        nextCallParams,
         pokedexCount,
         pokemonData,
-        previousUrl,
-        setPassbackUrl,
         setShowShiny,
         showShiny
     }

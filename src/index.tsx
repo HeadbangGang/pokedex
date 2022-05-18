@@ -1,13 +1,13 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.less'
 import ProviderWrapper from './providers/provider-wrapper'
-import RoutesController from './routes'
+import LandingPage from './landing-page'
+import './index.less'
 
 const root = createRoot(document.getElementById('pokedex'))
 
 root.render(
     <ProviderWrapper>
-        <RoutesController />
+        <LandingPage />
     </ProviderWrapper>
 )
