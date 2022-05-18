@@ -15,7 +15,7 @@ const Footer = () => {
                 <button className='footer-content__button' onClick={() => setShowSpoke(true)}>
                     <img alt='Menu' src="/assets/media/menu-icon.png" />
                 </button>
-                <Offcanvas className="offcanvas__content" show={showShiny} onHide={() => setShowSpoke(false)} placement='bottom'>
+                <Offcanvas className="offcanvas__content" show={showSpoke} onHide={() => setShowSpoke(false)} placement='bottom'>
                     <Offcanvas.Header closeButton>
                         <Offcanvas.Title>Menu</Offcanvas.Title>
                     </Offcanvas.Header>
