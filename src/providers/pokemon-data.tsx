@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useEffect, useState} from 'react'
 import { PokemonDataInterface, ResponseParamsInterface } from '../interfaces'
-import { isEmpty } from '../helpers/helpers'
+import { getAccessToken, isEmpty } from '../helpers/helpers'
 import {BaseUrlContext} from './base-url'
 
 export const PokemonDataContext = createContext(null)
@@ -12,7 +12,7 @@ const PokemonData = ({ children }) => {
     const [pokedexCount, setPokedexCount] = useState<number>(null)
     const [nextCallParams, setNextCallParams] = useState<ResponseParamsInterface>({})
 
-    const baseUrl = useContext(BaseUrlContext)
+    const { baseUrl, awsClientData } = useContext(BaseUrlContext)
 
     const fetchPokemonData = async () => {
         let url = `${ baseUrl }/pokemon/list`
@@ -20,7 +20,12 @@ const PokemonData = ({ children }) => {
             const { offset, limit } = nextCallParams
             url = `${url}?offset=${offset}&limit=${limit}`
         }
-        fetch(url)
+        const accessToken = await getAccessToken(awsClientData)
+        await fetch(url, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
             .then(res => res.json())
             .then(res => {
                 const newNextCallParams = {}
@@ -37,13 +42,24 @@ const PokemonData = ({ children }) => {
             .catch(() => {})
     }
 
-    useEffect(() => {
-        fetchPokemonData()
-        fetch(`${ baseUrl }/count`)
+    const fetchPokedexCount = async () => {
+        const accessToken = await getAccessToken(awsClientData)
+        await fetch(`${ baseUrl }/count`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
             .then(res => res.json())
             .then(({ count }) => setPokedexCount(count))
             .catch(() => {})
-    }, [])
+    }
+
+    useEffect(() => {
+        if (!isEmpty(awsClientData)) {
+            fetchPokemonData()
+            fetchPokedexCount()
+        }
+    }, [awsClientData])
 
     const data = {
         fetchPokemonData,
