@@ -5,19 +5,27 @@ import { PokemonDataContext } from '../../providers/pokemon-data'
 import Loading from '../loading/loading'
 import './homepage.less'
 import {ResponseParamsInterface} from '../../interfaces'
-import {isEmpty} from "../../helpers/helpers";
+import {isEmpty} from '../../helpers/helpers'
 
 interface PokemonData {
     nextCallParams?: ResponseParamsInterface
     pokemonData?: any[]
-    fetchPokemonData?: () => void
+    fetchPokemonData?: () => void,
+    pokedexCount?: number
 }
 
 const Homepage = () => {
-    const { nextCallParams, fetchPokemonData, pokemonData }: PokemonData = useContext(PokemonDataContext)
+    const { nextCallParams, fetchPokemonData, pokemonData, pokedexCount }: PokemonData = useContext(PokemonDataContext)
 
     if (!pokemonData?.length) {
         return <Loading />
+    }
+
+    const renderPokemonCards = () => {
+        return pokemonData.map((pokemon, index) => {
+            if (pokemon.id > pokedexCount) return null
+            return <PokemonCard key={index} pokedexId={ pokemon.id } />
+        })
     }
 
     return (
@@ -28,13 +36,7 @@ const Homepage = () => {
             loader={ <Loading spinner={false} />}
         >
             <div className='pokemon-home__cards-container'>
-                { pokemonData.map((data, idx) => (
-                    <PokemonCard
-                        pokedexId={ data.id }
-                        key={ idx }
-                    />
-                )
-                ) }
+                { renderPokemonCards() }
             </div>
         </InfiniteScroll>
     )
