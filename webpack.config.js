@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
 const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const DotenvWebpack = require('dotenv-webpack')
 
 const IS_DEV = process.env.NODE_ENV === 'development'
 
@@ -20,11 +21,11 @@ const config = {
 		allowedHosts: [ '0.0.0.0', 'dev.taydenflitcroft.com' ],
 		historyApiFallback: true,
 		hot: true,
-		port: 3000
-		// setupMiddlewares: (middlewares, { app }) => {
-		//     mockRoutes(app)
-		//     return middlewares
-		// }
+		port: 3000,
+		setupMiddlewares: (middlewares, { app }) => {
+			require(path.join(__dirname, 'mocks', 'mock-routes.ts'))(app)
+			return middlewares
+		}
 	},
 	plugins: [
 		new webpack.LoaderOptionsPlugin({
@@ -37,6 +38,10 @@ const config = {
 			minify: {
 				collapseWhitespace: true
 			}
+		}),
+		new DotenvWebpack({
+			path: path.join(__dirname, `.env${ IS_DEV ? '' : '.production' }`),
+			allowEmptyValues: true
 		})
 	],
 	module: {

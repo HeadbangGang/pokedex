@@ -8,6 +8,7 @@ module.exports = {
 	'plugins': [ '@typescript-eslint' ],
 	'root': true,
 	'rules': {
+		'@typescript-eslint/no-explicit-any': 'warn',
 		'@typescript-eslint/no-var-requires': 'off',
 		'array-bracket-spacing': [ 'error', 'always' ],
 		'arrow-parens': 'error',
