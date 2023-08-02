@@ -1,83 +1,46 @@
 module.exports = {
-    env: {
-        'amd': true,
-        'browser': true,
-        'es6': true,
-        'jest': true,
-        'mocha': true,
-        'node': true
-    },
-    extends: [
-        'eslint:recommended',
-        'plugin:react/recommended',
-        'plugin:jsx-a11y/recommended'
-    ],
-    plugins: [
-        'react',
-        'jsx-a11y',
-        'react-hooks',
-        '@typescript-eslint'
-    ],
-    parser: '@typescript-eslint/parser',
-    parserOptions: {
-        ecmaFeatures: {
-            'jsx': true
-        },
-        ecmaVersion: 2020,
-        sourceType: 'module'
-    },
-    rules: {
-        'react/prop-types': 0,
-        'no-empty': 0,
-        'no-dupe-args': 2,
-        'no-dupe-keys': 2,
-        'no-duplicate-case': 2,
-        'eqeqeq': [2, 'smart'],
-        quotes: [
-            'error',
-            'single'
-        ],
-        semi: [
-            'error',
-            'never'
-        ],
-        'no-nested-ternary': 2,
-        'jsx-a11y/href-no-hash': 0,
-        'jsx-a11y/img-has-alt': 0,
-        'jsx-a11y/img-redundant-alt': [2, { components: ['Image'], words: ['.*[pP]hone', 'picture', '.*photo', '.*image', 'picture of', 'image of'] }],
-        'jsx-a11y/onclick-has-focus': 0,
-        'jsx-a11y/onclick-has-role': 0,
-        'jsx-a11y/label-has-for': 0,
-        'jsx-a11y/anchor-is-valid': 0,
-        'indent': 1,
-        'jsx-a11y/no-noninteractive-element-interactions': 1,
-        'react/no-typos': 2,
-        'max-len': [2, {
-            code: 180,
-            tabWidth: 4,
-            ignoreTemplateLiterals: true,
-            ignoreUrls: true,
-            ignoreComments: true, // cannot have variable declarations split up onto multiple lines, p tags also cannot be split
-            ignorePattern: '.*<p .*</p>|[\\s\\w\\d]*|[\\s\\w\\d]*|\\w*: \\w*|const [\\W\\s\\w\\d]* = [\\S\\W\\s\\w\\d\\(\\)]*|const [\\W\\s\\w\\d]* = [\\w\\W\\d\\D\\s\\S]*\\([\\S\\W\\s\\w\\d]*\\)'
-        }],
-        'no-unused-vars': 'off',
-        '@typescript-eslint/no-unused-vars': 'error'
-    },
-    overrides: [
-        {
-            files: ['*test.js'],
-            rules: {
-                'no-import-assign': 'off',
-                'max-len': 'off'
-            }
-        }, {
-            files: ['*.ts, *.tsx'],
-            plugins: ['@typescript-eslint/eslint-plugin ']
-        }
-    ],
-    settings: {
-        react: {
-            version: 'detect'
-        }
-    }
+	'env': {
+		'browser': true,
+		'node': true
+	},
+	'extends': [ 'eslint:recommended', 'plugin:@typescript-eslint/recommended' ],
+	'parser': '@typescript-eslint/parser',
+	'plugins': [ '@typescript-eslint' ],
+	'root': true,
+	'rules': {
+		'@typescript-eslint/no-var-requires': 'off',
+		'array-bracket-spacing': [ 'error', 'always' ],
+		'arrow-parens': 'error',
+		'arrow-spacing': 'error',
+		'block-spacing': 'error',
+		'camelcase': 'warn',
+		'comma-dangle': 'error',
+		'comma-spacing': 'error',
+		'comma-style': [ 'error', 'last' ],
+		'computed-property-spacing': [ 'error', 'always' ],
+		'eol-last': [ 'error', 'always' ],
+		'eqeqeq': 'error',
+		'func-call-spacing': [ 'error', 'never' ],
+		'indent': [ 'error', 'tab' ],
+		'jsx-quotes': [ 'error', 'prefer-single' ],
+		'key-spacing': [ 'error', { 'afterColon': true, 'mode': 'strict' } ],
+		'keyword-spacing': 'error',
+		'max-len': [ 'error', { 'code': 180 } ],
+		'no-console': 'warn',
+		'no-duplicate-imports': 'error',
+		'no-multi-spaces': 'error',
+		'no-multiple-empty-lines': 'error',
+		'no-script-url': 'error',
+		'no-trailing-spaces': 'error',
+		'no-unused-expressions': 'error',
+		'no-var': 'error',
+		'no-whitespace-before-property': 'error',
+		'object-curly-newline': 'error',
+		'object-curly-spacing': [ 'error', 'always', { 'arraysInObjects': true, 'objectsInObjects': true } ],
+		'quotes': [ 'error', 'single' ],
+		'semi': [ 'error', 'never' ],
+		'space-before-function-paren': 'error',
+		'space-in-parens': 'error',
+		'template-curly-spacing': [ 'error', 'always' ]
+	}
 }

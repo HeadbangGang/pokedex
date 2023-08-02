@@ -1,13 +1,9 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import ProviderWrapper from './providers/provider-wrapper'
-import LandingPage from './landing-page'
-import './index.less'
+import Homepage from './components/homepage'
 
-const root = createRoot(document.getElementById('pokedex'))
+const root = createRoot(document.getElementById('portfolio'))
 
 root.render(
-    <ProviderWrapper>
-        <LandingPage />
-    </ProviderWrapper>
+	<Homepage/>
 )

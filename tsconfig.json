@@ -2,11 +2,14 @@
   "compilerOptions": {
     "outDir": "./dist",
     "allowJs": true,
-    "target": "es5",
+    "target": "es2021",
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "esModuleInterop": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "moduleResolution": "Node",
+    "module": "ES2022"
   },
-  "include": ["./src/**/*"]
+  "exclude": ["node_modules"],
+  "include": ["**/*.ts", "**/*.tsx"]
 }
