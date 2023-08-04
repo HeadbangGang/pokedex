@@ -1,6 +1,7 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 
 export const ApiTokenContext = createContext(null)
+ApiTokenContext.displayName = 'ApiTokenContext'
 
 export const ApiTokenProvider = ({ children }): React.ReactNode => {
 	const [ token, setToken ] = useState<string>(null)
@@ -36,8 +37,12 @@ export const ApiTokenProvider = ({ children }): React.ReactNode => {
 		return null
 	}
 
+	useEffect((): void => {
+		getApiToken()
+	}, [])
+
 	return (
-		<ApiTokenContext.Provider value={{ getApiToken }}>
+		<ApiTokenContext.Provider value={{ token }}>
 			{children}
 		</ApiTokenContext.Provider>
 	)

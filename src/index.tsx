@@ -8,11 +8,11 @@ import './index.css'
 const root = createRoot(document.getElementById('pokedex'))
 
 root.render(
-	<StrictMode>
-		<ApiTokenProvider>
-			<PokemonListProvider>
+	<ApiTokenProvider>
+		<PokemonListProvider>
+			<StrictMode>
 				<Homepage />
-			</PokemonListProvider>
-		</ApiTokenProvider>
-	</StrictMode>
+			</StrictMode>
+		</PokemonListProvider>
+	</ApiTokenProvider>
 )

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { ApiTokenContext } from './api-token'
 import {
 	PokemonData,
@@ -7,16 +7,15 @@ import {
 } from '../../types/pokemon-list'
 
 export const PokemonListContext = createContext(null)
+PokemonListContext.displayName = 'PokemonListContext'
 
 const PokemonListProvider = ({ children }): React.ReactNode => {
-	const { getApiToken } = useContext(ApiTokenContext)
+	const { token } = useContext(ApiTokenContext)
 
 	const [ pokemonList, setPokemonList ] = useState<PokemonData[]>([])
 	const [ params, setParams ] = useState<PokemonListParams | null>(null)
 
 	const getPokemonList = async (): Promise<void> => {
-		const token: string = await getApiToken()
-
 		let url = process.env.API_URL + '/pokedex/pokemon/list'
 		const newParams = new URLSearchParams((params as any) ?? {})
 
@@ -38,8 +37,12 @@ const PokemonListProvider = ({ children }): React.ReactNode => {
 		setParams(json.params)
 	}
 
+	useEffect(() => {
+		if (token) getPokemonList()
+	}, [ token ])
+
 	return (
-		<PokemonListContext.Provider value={{ getPokemonList, pokemonList }}>
+		<PokemonListContext.Provider value={{ pokemonList }}>
 			{children}
 		</PokemonListContext.Provider>
 	)

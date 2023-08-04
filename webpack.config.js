@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const DotenvWebpack = require('dotenv-webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const IS_DEV = process.env.NODE_ENV === 'development'
 
@@ -41,7 +42,12 @@ const config = {
 		new MiniCssExtractPlugin({
 			filename: 'css/[name].min.css'
 		}),
-		new CssMinimizerPlugin()
+		new CssMinimizerPlugin(),
+		new CopyWebpackPlugin({
+			patterns: [
+				{ from: path.join(__dirname, 'public', 'media'), to: path.join(__dirname, 'dist', 'media') }
+			]
+		})
 	],
 	module: {
 		rules: [
