@@ -6,19 +6,19 @@ export const ApiTokenProvider = ({ children }): React.ReactNode => {
 	const [ token, setToken ] = useState<string>(null)
 	const [ expirationTime, setExpirationTime ] = useState<number>(null)
 
-	const getApiToken = async (): Promise<void> => {
+	const getApiToken = async (): Promise<void | string> => {
 		const date = new Date()
 
-		if (token && expirationTime > date.getTime()) return null
+		if (token && expirationTime > date.getTime()) return token
 
 		const response = await fetch(process.env.OAUTH_TOKEN_URL, {
 			method: 'POST',
 			headers: { 'content-type': 'application/json' },
 			body: JSON.stringify({
 				audience: process.env.API_URL,
-				'client_id': process.env.OAUTH_CLIENT_ID,
-				'client_secret': process.env.OAUTH_CLIENT_SECRET,
-				'grant_type': 'client_credentials'
+				client_id: process.env.OAUTH_CLIENT_ID,
+				client_secret: process.env.OAUTH_CLIENT_SECRET,
+				grant_type: 'client_credentials'
 			})
 		})
 
@@ -29,12 +29,16 @@ export const ApiTokenProvider = ({ children }): React.ReactNode => {
 
 			setToken(json.access_token)
 			setExpirationTime(date.getTime())
+
+			return json.access_token
 		}
+
+		return null
 	}
 
 	return (
-		<ApiTokenContext.Provider value={{ getApiToken, token }}>
-			{ children }
+		<ApiTokenContext.Provider value={{ getApiToken }}>
+			{children}
 		</ApiTokenContext.Provider>
 	)
 }

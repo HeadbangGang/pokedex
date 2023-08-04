@@ -1,9 +1,9 @@
 const path = require('path')
-const webpack = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
-const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const DotenvWebpack = require('dotenv-webpack')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 const IS_DEV = process.env.NODE_ENV === 'development'
 
@@ -12,7 +12,7 @@ const config = {
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'js/[name].min.js',
-		publicPath: '/'
+		publicPath: 'auto'
 	},
 	resolve: {
 		extensions: [ '.js', '.ts', '.tsx' ]
@@ -28,11 +28,6 @@ const config = {
 		}
 	},
 	plugins: [
-		new webpack.LoaderOptionsPlugin({
-			options: {
-				postcss: [ autoprefixer ]
-			}
-		}),
 		new HtmlWebpackPlugin({
 			template: path.join(__dirname, 'template', 'index.html'),
 			minify: {
@@ -42,7 +37,11 @@ const config = {
 		new DotenvWebpack({
 			path: path.join(__dirname, `.env${ IS_DEV ? '' : '.production' }`),
 			allowEmptyValues: true
-		})
+		}),
+		new MiniCssExtractPlugin({
+			filename: 'css/[name].min.css'
+		}),
+		new CssMinimizerPlugin()
 	],
 	module: {
 		rules: [
@@ -50,6 +49,13 @@ const config = {
 				test: /.tsx?$/,
 				use: 'babel-loader',
 				exclude: /node-modules/
+			}, {
+				test: /.css$/,
+				use: [
+					MiniCssExtractPlugin.loader,
+					{ loader: 'css-loader' },
+					{ loader: 'postcss-loader' }
+				]
 			}
 		]
 	},
