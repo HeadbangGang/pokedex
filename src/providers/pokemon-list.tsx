@@ -32,7 +32,9 @@ const PokemonListProvider = ({ children }): React.ReactNode => {
 
 		const json: PokemonListResponseBody = await response.json()
 
-		setPokemonList(json.pokemonData.sort((a, b) => a.id - b.id))
+		setPokemonList((prevState: PokemonData[]): PokemonData[] => {
+			return [ ...prevState, ...json.pokemonData.sort((a, b) => a.id - b.id) ]
+		})
 		setParams(json.params)
 	}
 
