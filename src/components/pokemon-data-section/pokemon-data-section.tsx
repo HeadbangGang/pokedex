@@ -6,7 +6,7 @@ import {
 	useTransform
 } from 'framer-motion'
 import styled from 'styled-components'
-import { PokemonData, SpeciesData, Types } from '../../../types/pokemon-list'
+import { Species } from '../../../types/pokemon-list'
 
 const PokemonLabel = styled(motion.div)`
   align-self: center;
@@ -36,53 +36,37 @@ const PokemonIdLabel = styled(motion.h2)`
 `
 
 const PokemonImageContainer = styled.div`
-  height: 100vh;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  perspective: 500px;
   position: relative;
   scroll-snap-align: center;
-  perspective: 500px;
 `
 
 const ImageWrapper = styled.div`
-  width: 600px;
   height: 600px;
-  position: relative;
   max-height: 90vh;
   overflow: hidden;
+  position: relative;
+  width: 600px;
 `
 
 const PokemonImage = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
   bottom: 0;
-  width: 100%;
   height: 100%;
-  z-index: 2;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 3;
 `
 
 const PokemonDataContainer = styled.section`
   display: flex;
   flex-direction: column;
-`
-
-const TypesContainer = styled(motion.div)`
-  align-self: center;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-evenly;
-  position: absolute;
-  width: 100%;
-  height: 85vh;
-  margin-bottom: 10vh;
-  z-index: 1;
-`
-
-const TypeImage = styled(motion.img)`
-  width: 18vw;
 `
 
 const PokemonDataSection = ({
@@ -94,8 +78,7 @@ const PokemonDataSection = ({
   id: number;
   image: string;
   name: string;
-  speciesData: SpeciesData;
-  types: Types[];
+  species: Species;
 }): React.ReactNode => {
 	const useParallax = (
 		value: MotionValue<number>,
@@ -106,21 +89,11 @@ const PokemonDataSection = ({
 	const { scrollYProgress } = useScroll({ target: ref })
 	const y = useParallax(scrollYProgress, 300)
 
-	const types: string[] = rest.types.reduce(
-		(acc: string[], item: Types) => [ ...acc, item.type.name ],
-		[]
-	)
-
 	return (
 		<PokemonDataContainer>
-			<PokemonLabel color={rest.speciesData.color.name} style={{ y }}>
+			<PokemonLabel color={rest.species.color.name} style={{ y }}>
 				{name}
 			</PokemonLabel>
-			<TypesContainer style={{ y }}>
-				{types.map((type, idx) => (
-					<TypeImage key={idx} src={`/media/types/${ type }.png`} />
-				))}
-			</TypesContainer>
 			<PokemonImageContainer>
 				<ImageWrapper ref={ref}>
 					<PokemonImage src={image} alt='' />

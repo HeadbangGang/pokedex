@@ -31,7 +31,7 @@ const Home = (): React.ReactNode => {
 				(data: PokemonData): React.ReactNode => (
 					<PokemonDataSection
 						key={data.id}
-						image={data.default_image}
+						image={data.sprites.default}
 						{...data}
 					/>
 				)

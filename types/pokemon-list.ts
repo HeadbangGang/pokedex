@@ -3,13 +3,18 @@ export interface PokemonListParams {
   offset?: number;
 }
 
+export interface Sprites {
+  default: string
+  shiny: string
+}
+
 export interface PokemonData {
   default_image?: string | null;
   default_image_shiny?: string | null;
   id: number;
   name: string;
-  speciesData: SpeciesData;
-  sprites: any[];
+  species: Species;
+  sprites: Sprites;
   types: Types[];
 }
 
@@ -58,7 +63,7 @@ interface Varieties {
   is_default: boolean;
   pokemon: DefaultPokeApiDataObject;
 }
-export interface SpeciesData {
+export interface Species {
   base_happiness: number;
   capture_rate: number;
   color: DefaultPokeApiDataObject;
